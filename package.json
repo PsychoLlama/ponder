@@ -7,7 +7,26 @@
   "author": "Jesse Gibson <JesseTheGibson@gmail.com>",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "lint": "eslint packages/*/src",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint",
+      "prettier --write",
+      "git add"
+    ]
+  },
   "packages": [
     "<rootDir>/packages/*"
-  ]
+  ],
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-llama": "^3.0.0",
+    "eslint-config-prettier": "^2.9.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^7.1.2",
+    "prettier": "^1.13.2"
+  }
 }
