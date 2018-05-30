@@ -1,0 +1,18 @@
+{
+  "name": "@memiro/desktop",
+  "version": "0.1.0",
+  "description": "Desktop notes client",
+  "main": "dist/index.js",
+  "repository": "https://github.com/PsychoLlama/memiro",
+  "author": "Jesse Gibson <JesseTheGibson@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "babel src/ -d dist/"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0-beta.49",
+    "@babel/core": "^7.0.0-beta.49",
+    "@babel/preset-env": "^7.0.0-beta.49"
+  }
+}

@@ -8,6 +8,6 @@
   "license": "MIT",
   "private": true,
   "packages": [
-
+    "<rootDir>/packages/*"
   ]
 }
