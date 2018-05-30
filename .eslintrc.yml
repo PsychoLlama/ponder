@@ -17,3 +17,6 @@ parserOptions:
   sourceType: module
   ecmaFeatures:
     jsx: true
+
+rules:
+  require-jsdoc: off
