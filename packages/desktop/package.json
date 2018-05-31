@@ -8,7 +8,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "babel src/ -d dist/",
+    "build": "webpack",
     "start": "electron ."
   },
   "devDependencies": {
@@ -16,7 +16,10 @@
     "@babel/core": "^7.0.0-beta.49",
     "@babel/preset-env": "^7.0.0-beta.49",
     "@babel/preset-react": "^7.0.0-beta.49",
-    "babel-plugin-transform-class-properties": "^6.24.1"
+    "babel-loader": "^8.0.0-beta",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "webpack": "^4.10.2",
+    "webpack-cli": "^2.1.4"
   },
   "dependencies": {
     "electron": "^2.0.2",
