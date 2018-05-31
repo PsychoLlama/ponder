@@ -2,7 +2,7 @@
   "name": "@memiro/desktop",
   "version": "0.1.0",
   "description": "Desktop notes client",
-  "main": "dist/index.js",
+  "main": "main-process.js",
   "repository": "https://github.com/PsychoLlama/memiro",
   "author": "Jesse Gibson <JesseTheGibson@gmail.com>",
   "license": "MIT",
