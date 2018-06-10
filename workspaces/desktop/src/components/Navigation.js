@@ -1,12 +1,22 @@
 import styled from 'styled-components';
 import React from 'react';
 
-const Container = styled.nav`
+import StatusBar from './StatusBar';
+
+const Nav = styled.nav`
   width: 192px;
   margin-top: 4px;
+  overflow-y: auto;
+  flex-grow: 1;
 `;
 
-const NavList = styled.ol`
+const Sidebar = styled.aside`
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+`;
+
+const List = styled.ol`
   margin: 0;
   padding: 0;
 `;
@@ -39,12 +49,16 @@ const Note = styled(NavItem)`
 export class Navigation extends React.Component {
   render() {
     return (
-      <Container>
-        <NavList>
-          <Folder>Folder</Folder>
-          <Note>Note</Note>
-        </NavList>
-      </Container>
+      <Sidebar>
+        <Nav>
+          <List>
+            <Folder>Folder</Folder>
+            <Note>Note</Note>
+          </List>
+        </Nav>
+
+        <StatusBar>All</StatusBar>
+      </Sidebar>
     );
   }
 }

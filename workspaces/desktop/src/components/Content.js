@@ -1,11 +1,20 @@
 import styled from 'styled-components';
 import React from 'react';
 
-const Container = styled.article`
+import StatusBar from './StatusBar';
+
+const Container = styled.section`
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+`;
+
+const NoteContainer = styled.article`
+  display: flex;
+  flex-direction: column;
   overflow-y: auto;
+  max-height: 100%;
+  flex-grow: 1;
 `;
 
 const NoteSection = styled.div``;
@@ -19,8 +28,12 @@ export class Content extends React.Component {
   render() {
     return (
       <Container>
-        <NoteSection />
-        <BottomPadding />
+        <NoteContainer>
+          <NoteSection />
+          <BottomPadding />
+        </NoteContainer>
+
+        <StatusBar />
       </Container>
     );
   }
