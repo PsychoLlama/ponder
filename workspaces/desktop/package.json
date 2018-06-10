@@ -9,16 +9,23 @@
   "private": true,
   "scripts": {
     "build": "webpack",
-    "start": "electron ."
+    "start": "electron .",
+    "test": "jest"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.49",
     "@babel/core": "^7.0.0-beta.49",
     "@babel/preset-env": "^7.0.0-beta.49",
     "@babel/preset-react": "^7.0.0-beta.49",
+    "babel-core": "^7.0.0-0",
+    "babel-jest": "^23.0.1",
     "babel-loader": "^8.0.0-beta",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "css-loader": "^0.28.11",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "jest": "^23.1.0",
+    "jest-styled-components": "^5.0.1",
     "style-loader": "^0.21.0",
     "webpack": "^4.10.2",
     "webpack-cli": "^2.1.4"
@@ -28,5 +35,11 @@
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "styled-components": "^3.3.0"
+  },
+  "jest": {
+    "setupTestFrameworkScriptFile": "jest-styled-components",
+    "setupFiles": [
+      "<rootDir>/jest.setup.js"
+    ]
   }
 }

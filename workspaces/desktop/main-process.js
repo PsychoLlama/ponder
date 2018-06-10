@@ -3,6 +3,7 @@ const path = require('path');
 
 app.once('ready', () => {
   const browser = new BrowserWindow({
+    titleBarStyle: 'hidden',
     height: 600,
     width: 800,
   });
