@@ -5,6 +5,9 @@ import Navigation from './Navigation';
 import colors from '../config/colors';
 import Content from './Content';
 
+// Height of the transparent title bar.
+const TITLE_BAR_HEIGHT = '26px';
+
 const Container = styled.div`
   min-height: 100vh;
   font-family: 'Helvetica Neue', helvetica, sans-serif;
@@ -17,12 +20,13 @@ const Container = styled.div`
 const TitleBar = styled.div`
   -webkit-app-region: drag;
   -webkit-user-select: none;
-  height: 26px; // Height of the Mac title bar.
+  height: ${TITLE_BAR_HEIGHT};
 `;
 
 const AppContent = styled.main`
   flex-grow: 1;
   display: flex;
+  height: calc(100vh - ${TITLE_BAR_HEIGHT});
 `;
 
 export const App = () => (
