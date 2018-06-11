@@ -1,4 +1,6 @@
 {
+  // Duplicated from babel.config.js because babel v7
+  // and webpack don't play well yet.
   "presets": ["@babel/env", "@babel/preset-react"],
   "plugins": ["babel-plugin-transform-class-properties"]
 }
