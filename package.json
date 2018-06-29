@@ -9,8 +9,7 @@
   "private": true,
   "scripts": {
     "lint": "eslint workspaces/*/src",
-    "precommit": "lint-staged",
-    "test": "jest"
+    "precommit": "lint-staged"
   },
   "lint-staged": {
     "*.js": [
@@ -23,10 +22,10 @@
     "workspaces/*"
   ],
   "devDependencies": {
-    "@babel/cli": "^7.0.0-beta.51",
-    "@babel/core": "^7.0.0-beta.51",
-    "@babel/preset-env": "^7.0.0-beta.51",
-    "@babel/preset-react": "^7.0.0-beta.51",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
     "babel-eslint": "^8.2.5",
     "babel-jest": "^23.2.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
