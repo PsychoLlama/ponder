@@ -1,9 +1,9 @@
 {
-  "name": "@memiro/desktop",
+  "name": "@ponder/desktop",
   "version": "0.1.0",
   "description": "Desktop notes client",
   "main": "main-process.js",
-  "repository": "https://github.com/PsychoLlama/memiro",
+  "repository": "https://github.com/PsychoLlama/ponder",
   "author": "Jesse Gibson <JesseTheGibson@gmail.com>",
   "license": "MIT",
   "private": true,

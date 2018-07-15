@@ -1,9 +1,9 @@
 {
-  "name": "@memiro/monorepo",
+  "name": "@ponder/monorepo",
   "version": "0.1.0",
   "description": "A notes app for developers",
   "main": "index.js",
-  "repository": "https://github.com/PsychoLlama/memiro",
+  "repository": "https://github.com/PsychoLlama/ponder",
   "author": "Jesse Gibson <JesseTheGibson@gmail.com>",
   "license": "MIT",
   "private": true,
