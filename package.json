@@ -2,19 +2,23 @@
   "name": "@ponder/monorepo",
   "version": "0.1.0",
   "description": "A notes app for developers",
-  "main": "index.js",
   "repository": "https://github.com/PsychoLlama/ponder",
   "author": "Jesse Gibson <JesseTheGibson@gmail.com>",
   "license": "MIT",
   "private": true,
   "scripts": {
-    "lint": "eslint workspaces/*/src",
-    "precommit": "lint-staged"
+    "test": "freighter-scripts test",
+    "lint": "freighter-scripts lint",
+    "ci": "freighter-scripts ci"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "lint-staged": {
     "*.js": [
-      "eslint",
-      "prettier --write",
+      "freighter-scripts lint --fix",
       "git add"
     ]
   },
@@ -22,19 +26,21 @@
     "workspaces/*"
   ],
   "devDependencies": {
+    "@freighter/scripts": "0.2.7",
+    "eslint-config-freighter-repo": "0.2.6",
+    "eslint-config-prettier": "3.0.1",
+    "eslint-plugin-flowtype": "2.50.0",
+    "eslint-plugin-prettier": "2.6.2",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
-    "babel-eslint": "^8.2.5",
     "babel-jest": "^23.2.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
-    "eslint": "^4.19.1",
-    "eslint-config-llama": "^3.0.0",
-    "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-react": "^7.10.0",
+    "flow-bin": "0.80.0",
+    "flow-typed": "2.5.1",
     "husky": "^0.14.3",
-    "jest": "^23.2.0",
+    "lerna": "3.3.0",
     "lint-staged": "^7.1.2",
     "prettier": "^1.13.2"
   }
