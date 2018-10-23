@@ -5,6 +5,12 @@ env:
 plugins:
   - react
 
+extends:
+  plugin:react/recommended
+
 parserOptions:
   ecmaFeatures:
     jsx: true
+
+rules:
+  flowtype/require-valid-file-annotation: off
