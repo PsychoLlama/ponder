@@ -4,18 +4,18 @@ import produce from 'immer';
 
 import * as actions from '../actions/navigation';
 
-export type Navigation = {
+export type State = {
   selectedNoteId: string | null,
 };
 
-export const initialState: Navigation = {
+export const initialState: State = {
   selectedNoteId: null,
 };
 
 export default handleActions(
   {
     [String(actions.openNote)](
-      state: Navigation,
+      state: State,
       action: ActionType<typeof actions.openNote>
     ) {
       return produce(state, draft => {
@@ -23,7 +23,7 @@ export default handleActions(
       });
     },
 
-    [String(actions.closeNote)](state: Navigation) {
+    [String(actions.closeNote)](state: State) {
       return produce(state, draft => {
         draft.selectedNoteId = null;
       });
