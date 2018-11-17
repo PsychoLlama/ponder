@@ -1,6 +1,6 @@
+// @flow
+import React, { type Node as ReactNode } from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import React from 'react';
 
 import colors from '../config/colors';
 
@@ -12,11 +12,11 @@ const Container = styled.div`
   justify-content: space-between;
 `;
 
-export class StatusBar extends React.Component {
-  static propTypes = {
-    children: PropTypes.node,
-  };
+type Props = {
+  children?: ReactNode,
+};
 
+export class StatusBar extends React.Component<Props> {
   render() {
     return <Container>{this.props.children}</Container>;
   }

@@ -1,3 +1,4 @@
+// @flow
 import styled from 'styled-components';
 import React from 'react';
 
@@ -46,7 +47,9 @@ const Note = styled(NavItem)`
   font-weight: lighter;
 `;
 
-export class Navigation extends React.Component {
+type Props = {};
+
+export class Navigation extends React.Component<Props> {
   render() {
     return (
       <Sidebar>

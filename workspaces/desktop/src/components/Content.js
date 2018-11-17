@@ -1,3 +1,4 @@
+// @flow
 import styled from 'styled-components';
 import React from 'react';
 
@@ -24,7 +25,9 @@ const BottomPadding = styled.div`
   flex-grow: 1;
 `;
 
-export class Content extends React.Component {
+type Props = {};
+
+export class Content extends React.Component<Props> {
   render() {
     return (
       <Container>
