@@ -1,6 +1,1 @@
-extends:
-- freighter-repo
-- plugin:flowtype/recommended
-
-rules:
-  flowtype/generic-spacing: off
+extends: freighter-repo

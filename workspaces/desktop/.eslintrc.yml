@@ -3,10 +3,10 @@ env:
   node: true
 
 plugins:
-  - react
+- react
 
 extends:
-  plugin:react/recommended
+- plugin:react/recommended
 
 parserOptions:
   ecmaFeatures:
@@ -16,6 +16,3 @@ settings:
   react:
     version: 16.6.3
     flowVersion: 0.85.0
-
-rules:
-  flowtype/require-valid-file-annotation: off
