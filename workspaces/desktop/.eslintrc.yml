@@ -12,5 +12,10 @@ parserOptions:
   ecmaFeatures:
     jsx: true
 
+settings:
+  react:
+    version: 16.6.3
+    flowVersion: 0.85.0
+
 rules:
   flowtype/require-valid-file-annotation: off
