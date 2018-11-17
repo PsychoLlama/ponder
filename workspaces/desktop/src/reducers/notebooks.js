@@ -2,7 +2,7 @@
 import { handleActions, type ActionType } from 'redux-actions';
 import produce from 'immer';
 
-import * as actions from '../actions/navigation';
+import * as actions from '../actions/notebooks';
 
 export type State = {
   selectedNoteId: string | null,
@@ -14,9 +14,9 @@ export const initialState: State = {
 
 export default handleActions(
   {
-    [String(actions.openNote)](
+    [String(actions.editNote)](
       state: State,
-      action: ActionType<typeof actions.openNote>
+      action: ActionType<typeof actions.editNote>
     ) {
       return produce(state, draft => {
         draft.selectedNoteId = action.payload;

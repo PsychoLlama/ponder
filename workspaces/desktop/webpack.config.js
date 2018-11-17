@@ -1,3 +1,4 @@
+// @flow
 const path = require('path');
 
 // eslint-disable-next-line no-process-env

@@ -1,7 +1,7 @@
 // @flow
 import { createAction } from 'redux-actions';
 
-export const openNote = createAction(
+export const editNote = createAction(
   'NAVIGATION__OPEN_NOTE',
   (id: string) => id
 );
