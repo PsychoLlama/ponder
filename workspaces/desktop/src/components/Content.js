@@ -1,18 +1,18 @@
 // @flow
-import styled from 'styled-components';
+import styled from 'react-emotion';
 import React from 'react';
 
 import { translate } from '../utils/translation';
 import colors from '../config/colors';
 import StatusBar from './StatusBar';
 
-const Container = styled.section`
+const Container = styled('section')`
   flex-grow: 1;
   display: flex;
   flex-direction: column;
 `;
 
-const Center = styled.div`
+const Center = styled('div')`
   display: flex;
   flex-grow: 1;
   justify-content: center;
@@ -20,7 +20,7 @@ const Center = styled.div`
   align-items: center;
 `;
 
-const Title = styled.h1`
+const Title = styled('h1')`
   font-weight: 400;
   margin: 0;
   margin-bottom: 32px;
@@ -28,7 +28,7 @@ const Title = styled.h1`
   color: ${colors.mutedText};
 `;
 
-const PlusIcon = styled.svg.attrs({
+const PlusIcon = styled('svg', {
   version: '1.1',
   xmlns: 'http://www.w3.org/2000/svg',
 })`
@@ -38,7 +38,7 @@ const PlusIcon = styled.svg.attrs({
   stroke-width: 0.75;
 `;
 
-const CreateNote = styled.button`
+const CreateNote = styled('button')`
   border-radius: 5px;
   border: 1px dashed ${colors.mutedText};
   padding: 16px;

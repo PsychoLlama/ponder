@@ -1,10 +1,10 @@
 // @flow
 import React, { type Node as ReactNode } from 'react';
-import styled from 'styled-components';
+import styled from 'react-emotion';
 
 import colors from '../config/colors';
 
-const Container = styled.div`
+const Container = styled('div')`
   color: ${colors.mutedText};
   padding: 6px;
   font-size: 10px;

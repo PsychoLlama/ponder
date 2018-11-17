@@ -13,24 +13,26 @@
   },
   "devDependencies": {
     "babel-loader": "^7.1.4",
+    "babel-plugin-emotion": "^9.2.11",
     "css-loader": "^1.0.1",
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.7.0",
     "eslint-plugin-react": "^7.11.1",
-    "jest-styled-components": "^6.3.1",
+    "jest-emotion": "^9.2.11",
     "style-loader": "^0.23.1",
     "webpack": "^4.25.1",
     "webpack-cli": "^3.1.2"
   },
   "dependencies": {
     "electron": "^3.0.8",
+    "emotion": "^9.2.12",
     "immer": "^1.7.4",
     "prop-types": "^15.6.2",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
+    "react-emotion": "^9.2.12",
     "react-redux": "^5.1.1",
     "redux": "^4.0.1",
-    "redux-actions": "^2.6.4",
-    "styled-components": "^4.0.3"
+    "redux-actions": "^2.6.4"
   }
 }
