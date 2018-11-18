@@ -1,14 +1,16 @@
 import { configure, addDecorator } from '@storybook/react';
 import { withOptions } from '@storybook/addon-options';
+import { withKnobs } from '@storybook/addon-knobs';
 import centered from '@storybook/addon-centered';
 
 import pkg from '../package.json';
 
+addDecorator(withKnobs);
 addDecorator(centered);
 addDecorator(
   withOptions({
     url: pkg.repository,
-    name: '@ponder/ui',
+    name: pkg.name,
   })
 );
 
