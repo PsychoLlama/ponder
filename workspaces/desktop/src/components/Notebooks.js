@@ -29,7 +29,7 @@ const List = styled('ol')`
 const NavItem = styled('a', { href: '#' })`
   padding: 8px 24px;
   display: block;
-  transition-property: padding-left, padding-right, color;
+  transition-property: padding-left, padding-right;
   transition-duration: 250ms;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -37,6 +37,7 @@ const NavItem = styled('a', { href: '#' })`
   color: inherit;
   text-decoration: none;
   cursor: default;
+  user-select: none;
 
   :hover {
     padding-left: 32px;
