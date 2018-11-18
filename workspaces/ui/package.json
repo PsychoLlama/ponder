@@ -1,0 +1,25 @@
+{
+  "name": "@ponder/ui",
+  "version": "0.1.0",
+  "description": "UI component library",
+  "main": "src/index.js",
+  "repository": "http://github.com/PsychoLlama/ponder",
+  "author": "Jesse Gibson <JesseTheGibson@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@storybook/addon-options": "^4.0.7"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.6",
+    "@storybook/addon-centered": "^4.0.7",
+    "@storybook/addons": "^4.0.7",
+    "@storybook/react": "^4.0.7",
+    "babel-loader": "^8.0.4",
+    "eslint-plugin-react": "^7.11.1"
+  },
+  "scripts": {
+    "storybook": "start-storybook -p 3000",
+    "build-storybook": "build-storybook"
+  }
+}

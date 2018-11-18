@@ -1,0 +1,23 @@
+overrides:
+  - files: src/**/stories/**/*.js
+    rules:
+      react/display-name: off
+
+env:
+  browser: true
+  node: true
+
+plugins:
+- react
+
+extends:
+- plugin:react/recommended
+
+parserOptions:
+  ecmaFeatures:
+    jsx: true
+
+settings:
+  react:
+    version: 16.6.3
+    flowVersion: 0.85.0
