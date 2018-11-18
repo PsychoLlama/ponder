@@ -12,6 +12,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.1.6",
+    "@ponder/eslint-config-react": "*",
     "@ponder/jest-react": "*",
     "@storybook/addon-centered": "^4.0.7",
     "@storybook/addons": "^4.0.7",

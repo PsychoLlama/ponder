@@ -1,0 +1,17 @@
+{
+  "name": "@ponder/eslint-config-react",
+  "version": "0.1.0",
+  "description": "An ESLint config for Ponder's React codebases",
+  "main": "src/index.js",
+  "repository": "https://github.com/PsychoLlama/ponder",
+  "author": "Jesse Gibson <JesseTheGibson@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "eslint-plugin-react": "^7.11.1"
+  },
+  "peerDependencies": {
+    "flow-bin": "*",
+    "react": "*"
+  }
+}
