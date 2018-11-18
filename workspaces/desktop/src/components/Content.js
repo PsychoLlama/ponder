@@ -1,10 +1,13 @@
 // @flow
+import { connect } from 'react-redux';
 import styled from 'react-emotion';
 import React from 'react';
 
+import type { ReduxState } from '../types/redux-store';
 import { translate } from '../utils/translation';
 import colors from '../config/colors';
 import StatusBar from './StatusBar';
+import Note from './Note';
 
 const Container = styled('section')`
   flex-grow: 1;
@@ -38,7 +41,7 @@ const PlusIcon = styled('svg', {
   stroke-width: 0.75;
 `;
 
-const CreateNote = styled('button')`
+export const CreateNote = styled('button')`
   border-radius: 5px;
   border: 1px dashed ${colors.mutedText};
   padding: 16px;
@@ -55,27 +58,39 @@ const CreateNote = styled('button')`
   }
 `;
 
-type Props = {};
+type Props = {
+  isEditingNote: boolean,
+};
 
 export class Content extends React.Component<Props> {
   render() {
+    const { isEditingNote } = this.props;
+
     return (
       <Container>
-        <Center>
-          <Title>{translate('No Note Selected')}</Title>
-
-          <CreateNote aria-label={translate('Create a note')}>
-            <PlusIcon>
-              <path d="M25,0 L25,50" />
-              <path d="M0,25 L50,25" />
-            </PlusIcon>
-          </CreateNote>
-        </Center>
-
+        {isEditingNote ? <Note /> : this.renderCreateNotePrompt()}
         <StatusBar />
       </Container>
     );
   }
+
+  renderCreateNotePrompt() {
+    return (
+      <Center>
+        <Title>{translate('No Note Selected')}</Title>
+        <CreateNote aria-label={translate('Create a note')}>
+          <PlusIcon>
+            <path d="M25,0 L25,50" />
+            <path d="M0,25 L50,25" />
+          </PlusIcon>
+        </CreateNote>
+      </Center>
+    );
+  }
 }
 
-export default Content;
+export const mapStateToProps = (state: ReduxState) => ({
+  isEditingNote: Boolean(state.notebooks.selectedNoteId),
+});
+
+export default connect(mapStateToProps)(Content);
