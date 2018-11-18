@@ -9,6 +9,15 @@ describe('Notebooks reducer', () => {
     expect(state).toBe(initialState);
   });
 
+  describe('createNote', () => {
+    it('sets the note ID', () => {
+      const action = actions.createNote();
+      const state = reducer(undefined, action);
+
+      expect(state.selectedNoteId).not.toBeNull();
+    });
+  });
+
   describe('editNote', () => {
     it('sets the selected note ID', () => {
       const noteId = 'note-uuid';

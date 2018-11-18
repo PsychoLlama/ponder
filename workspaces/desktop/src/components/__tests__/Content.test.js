@@ -5,6 +5,7 @@ import { Content, CreateNote, mapStateToProps } from '../Content';
 describe('Content', () => {
   const setup = renderer(Content, {
     getDefaultProps: () => ({
+      createNote: jest.fn(),
       isEditingNote: false,
     }),
   });
@@ -19,6 +20,13 @@ describe('Content', () => {
 
     expect(withSelectedNote.find(CreateNote).exists()).toBe(false);
     expect(noSelectedNote.find(CreateNote).exists()).toBe(true);
+  });
+
+  it('creates a new note when requested', () => {
+    const { output, props } = setup();
+    output.find(CreateNote).simulate('click');
+
+    expect(props.createNote).toHaveBeenCalled();
   });
 
   describe('mapStateToProps', () => {

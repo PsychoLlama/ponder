@@ -5,6 +5,7 @@ import React from 'react';
 
 import type { ReduxState } from '../types/redux-store';
 import { translate } from '../utils/translation';
+import * as actions from '../actions/notebooks';
 import colors from '../config/colors';
 import StatusBar from './StatusBar';
 import Note from './Note';
@@ -59,6 +60,7 @@ export const CreateNote = styled('button')`
 `;
 
 type Props = {
+  createNote: typeof actions.createNote,
   isEditingNote: boolean,
 };
 
@@ -69,16 +71,23 @@ export class Content extends React.Component<Props> {
     return (
       <Container>
         {isEditingNote ? <Note /> : this.renderCreateNotePrompt()}
+
         <StatusBar />
       </Container>
     );
   }
 
   renderCreateNotePrompt() {
+    const { createNote } = this.props;
+
     return (
       <Center>
         <Title>{translate('No Note Selected')}</Title>
-        <CreateNote aria-label={translate('Create a note')}>
+
+        <CreateNote
+          aria-label={translate('Create a Note')}
+          onClick={createNote}
+        >
           <PlusIcon>
             <path d="M25,0 L25,50" />
             <path d="M0,25 L50,25" />
@@ -93,4 +102,11 @@ export const mapStateToProps = (state: ReduxState) => ({
   isEditingNote: Boolean(state.notebooks.selectedNoteId),
 });
 
-export default connect(mapStateToProps)(Content);
+const mapDispatchToProps = {
+  createNote: actions.createNote,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Content);

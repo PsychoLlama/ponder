@@ -1,12 +1,14 @@
 // @flow
 import { createAction } from 'redux-actions';
 
+export const createNote = createAction(
+  'NOTEBOOKS__CREATE_NOTE',
+  () => 'temp-note-id'
+);
+
 export const editNote = createAction(
-  'NAVIGATION__OPEN_NOTE',
+  'NOTEBOOKS__OPEN_NOTE',
   (id: string) => id
 );
 
-export const closeNote = createAction(
-  'NAVIGATION__CLOSE_NOTE',
-  () => undefined
-);
+export const closeNote = createAction('NOTEBOOKS__CLOSE_NOTE', () => undefined);

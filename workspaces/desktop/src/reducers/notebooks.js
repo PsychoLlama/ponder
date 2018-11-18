@@ -14,6 +14,15 @@ export const initialState: State = {
 
 export default handleActions(
   {
+    [String(actions.createNote)](
+      state: State,
+      action: ActionType<typeof actions.createNote>
+    ) {
+      return produce(state, draft => {
+        draft.selectedNoteId = action.payload;
+      });
+    },
+
     [String(actions.editNote)](
       state: State,
       action: ActionType<typeof actions.editNote>
