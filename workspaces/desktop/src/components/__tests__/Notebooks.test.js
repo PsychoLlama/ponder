@@ -1,12 +1,16 @@
 // @flow
 import { shallow } from 'enzyme';
+import produce from 'immer';
 import React from 'react';
 
-import { Note, Notebook, Notebooks } from '../Notebooks';
+import { Note, Notebook, Notebooks, mapStateToProps } from '../Notebooks';
+import { createReduxState } from '../../utils/testing';
+import colors from '../../config/colors';
 
 describe('Notebooks', () => {
   const setup = merge => {
     const props = {
+      selectedNoteId: 'note-1',
       notebooks: [
         { id: 'notebook-1', title: 'Notebook 1' },
         { id: 'notebook-2', title: 'Notebook 2' },
@@ -59,5 +63,57 @@ describe('Notebooks', () => {
     note.simulate('click');
 
     expect(props.editNote).toHaveBeenCalledWith(props.notes[0].id);
+  });
+
+  it('marks notes as selected', () => {
+    const { output } = setup({ selectedNoteId: 'note-2' });
+    const notes = output.find(Note);
+
+    expect(notes.at(1).prop('selected')).toBe(true);
+    expect(notes.at(2).prop('selected')).toBe(false);
+    expect(notes.at(0).prop('selected')).toBe(false);
+  });
+
+  describe('Note', () => {
+    const setup = merge => {
+      const props = {
+        selected: false,
+        ...merge,
+      };
+
+      return {
+        output: shallow(<Note {...props} />),
+        props,
+      };
+    };
+
+    it('renders', () => {
+      expect(setup).not.toThrow();
+    });
+
+    it('shows a different color while selected', () => {
+      const { output: selected } = setup({ selected: true });
+      const { output: unselected } = setup();
+
+      expect(selected).toHaveStyleRule('color', colors.primary);
+      expect(unselected).not.toHaveStyleRule('color', colors.primary);
+    });
+  });
+
+  describe('mapStateToProps', () => {
+    const select = (producer = () => {}) => {
+      const state = produce(createReduxState(), producer);
+
+      return {
+        props: mapStateToProps(state),
+        state,
+      };
+    };
+
+    it('pulls the selected note ID', () => {
+      const { props, state } = select();
+
+      expect(props.selectedNoteId).toBe(state.notebooks.selectedNoteId);
+    });
   });
 });

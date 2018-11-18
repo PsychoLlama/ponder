@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'react-emotion';
 import React from 'react';
 
+import type { ReduxState } from '../types/redux-store';
 import * as actions from '../actions/notebooks';
 import colors from '../config/colors';
 import StatusBar from './StatusBar';
@@ -28,13 +29,14 @@ const List = styled('ol')`
 const NavItem = styled('a', { href: '#' })`
   padding: 8px 24px;
   display: block;
-  transition-property: padding-left, padding-right;
+  transition-property: padding-left, padding-right, color;
   transition-duration: 250ms;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow-x: hidden;
   color: inherit;
   text-decoration: none;
+  cursor: default;
 
   :hover {
     padding-left: 32px;
@@ -47,7 +49,7 @@ export const Notebook = styled(NavItem)`
 `;
 
 export const Note = styled(NavItem)`
-  color: ${colors.mutedText};
+  color: ${props => (props.selected ? colors.primary : colors.mutedText)};
 `;
 
 type NoteCollection = {
@@ -61,6 +63,7 @@ type NoteObject = NoteCollection;
 type Props = {
   editNote: typeof actions.editNote,
   notebooks: Array<NoteCollection>,
+  selectedNoteId: string | null,
   notes: Array<NoteObject>,
 };
 
@@ -102,19 +105,29 @@ export class Notebooks extends React.Component<Props> {
   };
 
   renderNote = (note: NoteObject) => {
+    const selected = note.id === this.props.selectedNoteId;
+
     return (
-      <Note key={note.id} onClick={() => this.props.editNote(note.id)}>
+      <Note
+        onClick={() => this.props.editNote(note.id)}
+        selected={selected}
+        key={note.id}
+      >
         {note.title}
       </Note>
     );
   };
 }
 
+export const mapStateToProps = ({ notebooks }: ReduxState) => ({
+  selectedNoteId: notebooks.selectedNoteId,
+});
+
 const mapDispatchToProps = {
   editNote: actions.editNote,
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Notebooks);
