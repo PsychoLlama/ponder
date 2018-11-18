@@ -19,22 +19,20 @@ export const createReduxState = (): ReduxState => ({
 //
 // Example:
 // const setup = renderer(Component, {
-//   defaultProps: {
+//   getDefaultProps: () => ({
 //     type: 'controlled-input',
 //     id: 'default-id',
-//   },
+//   }),
 // })
 //
 // const { output, props } = setup({ id: 'overridden' })
 // output == <Component id="overridden" type="controlled-input" />
 export const renderer = <Props: Object, Cmp: ComponentType<Props>>(
   Component: Cmp,
-  config: { defaultProps?: Props }
+  config: { getDefaultProps?: () => Props }
 ) => (mergeProps?: Props) => {
-  const props = {
-    ...config.defaultProps,
-    ...mergeProps,
-  };
+  const defaultProps = config.getDefaultProps ? config.getDefaultProps() : {};
+  const props = { ...defaultProps, ...mergeProps };
 
   expect(Component).toEqual(expect.any(Function));
 

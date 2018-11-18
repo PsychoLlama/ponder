@@ -1,20 +1,11 @@
 // @flow
-import { shallow } from 'enzyme';
 import React from 'react';
 
+import { renderer } from '../../utils/testing';
 import { StatusBar } from '../StatusBar';
 
 describe('StatusBar', () => {
-  const setup = merge => {
-    const props = {
-      ...merge,
-    };
-
-    return {
-      output: shallow(<StatusBar {...props} />),
-      props,
-    };
-  };
+  const setup = renderer(StatusBar, {});
 
   it('renders', () => {
     setup();

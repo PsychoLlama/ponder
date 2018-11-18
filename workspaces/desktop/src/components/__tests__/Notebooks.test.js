@@ -1,16 +1,13 @@
 // @flow
-import { shallow } from 'enzyme';
-import produce from 'immer';
-import React from 'react';
-
 import { Note, Notebook, Notebooks, mapStateToProps } from '../Notebooks';
-import { createReduxState } from '../../utils/testing';
+import { renderer, selector } from '../../utils/testing';
 import colors from '../../config/colors';
 
 describe('Notebooks', () => {
-  const setup = merge => {
-    const props = {
+  const setup = renderer(Notebooks, {
+    getDefaultProps: () => ({
       selectedNoteId: 'note-1',
+      editNote: jest.fn(),
       notebooks: [
         { id: 'notebook-1', title: 'Notebook 1' },
         { id: 'notebook-2', title: 'Notebook 2' },
@@ -23,15 +20,8 @@ describe('Notebooks', () => {
         { id: 'note-4', title: 'Note 4' },
         { id: 'note-5', title: 'Note 5' },
       ],
-      editNote: jest.fn(),
-      ...merge,
-    };
-
-    return {
-      output: shallow(<Notebooks {...props} />),
-      props,
-    };
-  };
+    }),
+  });
 
   it('renders', () => {
     setup();
@@ -83,17 +73,11 @@ describe('Notebooks', () => {
   });
 
   describe('Note', () => {
-    const setup = merge => {
-      const props = {
+    const setup = renderer(Note, {
+      getDefaultProps: () => ({
         selected: false,
-        ...merge,
-      };
-
-      return {
-        output: shallow(<Note {...props} />),
-        props,
-      };
-    };
+      }),
+    });
 
     it('renders', () => {
       expect(setup).not.toThrow();
@@ -109,14 +93,7 @@ describe('Notebooks', () => {
   });
 
   describe('mapStateToProps', () => {
-    const select = (producer = () => {}) => {
-      const state = produce(createReduxState(), producer);
-
-      return {
-        props: mapStateToProps(state),
-        state,
-      };
-    };
+    const select = selector(mapStateToProps, {});
 
     it('pulls the selected note ID', () => {
       const { props, state } = select();

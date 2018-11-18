@@ -4,9 +4,9 @@ import { Content, CreateNote, mapStateToProps } from '../Content';
 
 describe('Content', () => {
   const setup = renderer(Content, {
-    defaultProps: {
+    getDefaultProps: () => ({
       isEditingNote: false,
-    },
+    }),
   });
 
   it('renders', () => {
