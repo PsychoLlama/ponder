@@ -1,17 +1,17 @@
 {
-  "name": "@ponder/jest-react",
+  "name": "@ponder/test-utils",
   "version": "0.1.0",
-  "description": "A shared Jest config for Ponder's React codebases",
-  "main": "jest-preset.js",
+  "description": "Just unit test utilities",
+  "main": "src/index",
   "repository": "https://github.com/PsychoLlama/ponder",
   "author": "Jesse Gibson <JesseTheGibson@gmail.com>",
   "license": "MIT",
   "private": true,
   "peerDependencies": {
-    "emotion": "^9.2.12",
-    "enzyme": "^3.7.0"
+    "emotion": "^9.2.12"
   },
   "dependencies": {
+    "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.7.0",
     "jest-emotion": "^9.2.11"
   }

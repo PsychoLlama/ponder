@@ -1,6 +1,8 @@
 // @flow
-import { selector, renderer } from '../../utils/testing';
+import { renderer } from '@ponder/test-utils';
+
 import { Content, CreateNote, mapStateToProps } from '../Content';
+import { selector } from '../../utils/testing';
 
 describe('Content', () => {
   const setup = renderer(Content, {

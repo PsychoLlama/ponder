@@ -1,7 +1,7 @@
 // @flow
+import { renderer } from '@ponder/test-utils';
 import React from 'react';
 
-import { renderer } from '../../utils/testing';
 import { StatusBar } from '../StatusBar';
 
 describe('StatusBar', () => {

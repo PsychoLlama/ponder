@@ -1,4 +1,4 @@
 // @flow
 module.exports = {
-  preset: '@ponder/jest-react',
+  preset: '@ponder/test-utils',
 };

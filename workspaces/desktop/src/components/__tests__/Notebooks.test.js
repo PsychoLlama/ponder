@@ -1,6 +1,8 @@
 // @flow
+import { renderer } from '@ponder/test-utils';
+
 import { Note, Notebook, Notebooks, mapStateToProps } from '../Notebooks';
-import { renderer, selector } from '../../utils/testing';
+import { selector } from '../../utils/testing';
 import colors from '../../config/colors';
 
 describe('Notebooks', () => {

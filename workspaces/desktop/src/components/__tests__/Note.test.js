@@ -1,5 +1,6 @@
 // @flow
-import { renderer } from '../../utils/testing';
+import { renderer } from '@ponder/test-utils';
+
 import { Note } from '../Note';
 
 describe('Note', () => {
