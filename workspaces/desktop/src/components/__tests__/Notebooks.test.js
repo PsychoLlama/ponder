@@ -59,10 +59,18 @@ describe('Notebooks', () => {
 
   it('edits the note when selected', () => {
     const { output, props } = setup();
+    const note = output.find(Note).at(1);
+    note.simulate('click');
+
+    expect(props.editNote).toHaveBeenCalledWith(props.notes[1].id);
+  });
+
+  it('ignores click events if the note is already selected', () => {
+    const { output, props } = setup({ selectedNoteId: 'note-1' });
     const note = output.find(Note).first();
     note.simulate('click');
 
-    expect(props.editNote).toHaveBeenCalledWith(props.notes[0].id);
+    expect(props.editNote).not.toHaveBeenCalled();
   });
 
   it('marks notes as selected', () => {

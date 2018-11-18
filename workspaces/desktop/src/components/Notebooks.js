@@ -106,10 +106,11 @@ export class Notebooks extends React.Component<Props> {
 
   renderNote = (note: NoteObject) => {
     const selected = note.id === this.props.selectedNoteId;
+    const selectNote = this.props.editNote.bind(null, note.id);
 
     return (
       <Note
-        onClick={() => this.props.editNote(note.id)}
+        onClick={selected ? undefined : selectNote}
         selected={selected}
         key={note.id}
       >
