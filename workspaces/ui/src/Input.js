@@ -3,14 +3,13 @@ import styled from 'react-emotion';
 import React from 'react';
 
 export const InputNode = styled('input')`
-  padding: 8px;
+  padding: 8px 4px;
   border: none;
   outline: none;
-  font-size: 14px;
+  font-size: 16px;
 
-  ::placeholder {
-    padding: 0 2px;
-  }
+  // TODO: extract to theme.
+  color: #555;
 `;
 
 type Props = {
