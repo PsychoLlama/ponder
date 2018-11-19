@@ -11,6 +11,18 @@ describe('Input', () => {
       value: 'Input value',
       onChange: jest.fn(),
     }),
+
+    configure({ output }) {
+      const input = output.find(InputNode);
+      const { innerRef } = input.props();
+      const mockInputRef = { select: jest.fn() };
+
+      if (innerRef) {
+        innerRef(mockInputRef);
+      }
+
+      return { mockInputRef };
+    },
   });
 
   const createInputEvent = text => ({
@@ -136,5 +148,14 @@ describe('Input', () => {
     input.simulate('blur');
 
     expect(output.state('value')).toBe(value);
+  });
+
+  it('selects all the text on focus', () => {
+    const { output, mockInputRef } = setup();
+    const input = output.find(InputNode);
+
+    input.simulate('focus');
+
+    expect(mockInputRef.select).toHaveBeenCalled();
   });
 });
