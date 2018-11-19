@@ -10,7 +10,9 @@
   "dependencies": {
     "@storybook/addon-knobs": "^4.0.7",
     "@storybook/addon-options": "^4.0.7",
+    "codemirror": "^5.41.0",
     "emotion": "^9.2.12",
+    "react-codemirror2": "^5.1.0",
     "react-emotion": "^9.2.12"
   },
   "devDependencies": {

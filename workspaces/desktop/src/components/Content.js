@@ -14,6 +14,7 @@ const Container = styled('section')`
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+  flex-basis: 0;
 `;
 
 const Center = styled('div')`

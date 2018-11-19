@@ -29,7 +29,7 @@ type State = {
 // Keeps track of focus & blur events to know whether the user is
 // actively editing the input, and only fires a change event after
 // they're finished.
-export class Input extends React.Component<Props, State> {
+export default class Input extends React.Component<Props, State> {
   static defaultProps = {
     processInput: (input: string) => input,
   };
@@ -101,5 +101,3 @@ export class Input extends React.Component<Props, State> {
     return this.getControlledValue();
   };
 }
-
-export default Input;
