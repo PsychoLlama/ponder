@@ -9,7 +9,7 @@ import colors from '../config/colors';
 import StatusBar from './StatusBar';
 
 const Nav = styled('nav')`
-  width: 192px;
+  max-width: 25vw;
   margin-top: 4px;
   overflow-y: auto;
   flex-grow: 1;
