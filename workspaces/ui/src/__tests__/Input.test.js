@@ -6,6 +6,7 @@ import Input, { InputNode } from '../Input';
 describe('Input', () => {
   const setup = renderer(Input, {
     getDefaultProps: () => ({
+      processInput: jest.fn(input => input),
       placeholder: 'Lorem Ipsum',
       value: 'Input value',
       onChange: jest.fn(),
@@ -101,5 +102,39 @@ describe('Input', () => {
     input.simulate('focus');
 
     expect(output.find(InputNode).prop('value')).toBe(props.value);
+  });
+
+  it('ignores change events if the text remains the same', () => {
+    const { output, props } = setup({ value: 'stuff' });
+    const input = output.find(InputNode);
+
+    input.simulate('focus');
+    input.simulate('change', createInputEvent(props.value));
+    input.simulate('blur');
+
+    expect(props.onChange).not.toHaveBeenCalled();
+  });
+
+  it('ignores input events if the validator rejects them', () => {
+    const { output, props } = setup();
+    props.processInput.mockReturnValue(props.value);
+    const input = output.find(InputNode);
+
+    input.simulate('focus');
+    input.simulate('change', createInputEvent(props.value + ' more stuff'));
+
+    expect(output.state('value')).toBe(props.value);
+  });
+
+  it('survives without an input validator', () => {
+    const { output } = setup({ processInput: undefined });
+    const input = output.find(InputNode);
+    const value = 'Content';
+
+    input.simulate('focus');
+    input.simulate('change', createInputEvent(value));
+    input.simulate('blur');
+
+    expect(output.state('value')).toBe(value);
   });
 });

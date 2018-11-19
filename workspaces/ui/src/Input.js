@@ -14,6 +14,7 @@ export const InputNode = styled('input')`
 `;
 
 type Props = {
+  processInput: (input: string) => string,
   onChange: (input: string) => mixed,
   placeholder?: string,
   value?: string,
@@ -29,6 +30,10 @@ type State = {
 // actively editing the input, and only fires a change event after
 // they're finished.
 export class Input extends React.Component<Props, State> {
+  static defaultProps = {
+    processInput: (input: string) => input,
+  };
+
   state = { value: '', isEditing: false };
 
   render() {
@@ -53,16 +58,21 @@ export class Input extends React.Component<Props, State> {
   };
 
   exitEditMode = () => {
+    const { value } = this.state;
+
     this.setState({ isEditing: false });
 
-    const { value } = this.state;
-    this.props.onChange(value);
+    if (value !== this.props.value) {
+      this.props.onChange(value);
+    }
   };
 
   updateValue = (event: SyntheticInputEvent<HTMLInputElement>) => {
-    const { value } = event.target;
+    const value = this.props.processInput(event.target.value);
 
-    this.setState({ value });
+    if (value !== this.state.value) {
+      this.setState({ value });
+    }
   };
 
   // Attempt to pull the value from props,
