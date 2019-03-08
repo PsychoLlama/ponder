@@ -16,7 +16,6 @@
     "@ponder/test-utils": "*",
     "@ponder/ui": "*",
     "babel-loader": "^8.0.5",
-    "babel-plugin-emotion": "^10.0.7",
     "css-loader": "^2.1.1",
     "electron-devtools-installer": "^2.2.4",
     "style-loader": "^0.23.1",
@@ -24,13 +23,13 @@
     "webpack-cli": "^3.2.3"
   },
   "dependencies": {
+    "@emotion/styled": "^10.0.7",
     "electron": "^4.0.7",
     "emotion": "^10.0.7",
     "immer": "^2.1.1",
     "prop-types": "^15.7.2",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
-    "react-emotion": "^10.0.0",
     "react-redux": "^6.0.1",
     "redux": "^4.0.1",
     "redux-actions": "^2.6.5"

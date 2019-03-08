@@ -1,5 +1,5 @@
 // @flow
-import styled from 'react-emotion';
+import styled from '@emotion/styled';
 import React from 'react';
 
 export const InputNode = styled('input')`

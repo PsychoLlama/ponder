@@ -1,5 +1,7 @@
 // @flow
 import { renderer } from '@ponder/test-utils';
+import { mount } from 'enzyme';
+import React from 'react';
 
 import { Note, Notebook, Notebooks, mapStateToProps } from '../Notebooks';
 import { selector } from '../../utils/testing';
@@ -75,11 +77,17 @@ describe('Notebooks', () => {
   });
 
   describe('Note', () => {
-    const setup = renderer(Note, {
-      getDefaultProps: () => ({
+    const setup = merge => {
+      const props = {
         selected: false,
-      }),
-    });
+        ...merge,
+      };
+
+      return {
+        output: mount(<Note {...props} />),
+        props,
+      };
+    };
 
     it('renders', () => {
       expect(setup).not.toThrow();

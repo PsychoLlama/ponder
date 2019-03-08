@@ -1,6 +1,6 @@
 // @flow
 import { Controlled } from 'react-codemirror2';
-import styled from 'react-emotion';
+import styled from '@emotion/styled';
 import React from 'react';
 
 import 'codemirror/mode/markdown/markdown';
