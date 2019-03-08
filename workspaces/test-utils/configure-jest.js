@@ -1,13 +1,12 @@
 /* eslint-env jest */
 // @flow
-import { createMatchers } from 'jest-emotion';
-import * as emotion from 'emotion';
+import { matchers } from 'jest-emotion';
 
 import Adapter from 'enzyme-adapter-react-16';
 import enzyme from 'enzyme';
 
 // Adds .toHaveStyleRule(...)
-expect.extend(createMatchers(emotion));
+expect.extend(matchers);
 
 enzyme.configure({
   adapter: new Adapter(),
