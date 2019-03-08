@@ -8,23 +8,23 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "@storybook/addon-knobs": "^4.0.7",
-    "@storybook/addon-options": "^4.0.7",
+    "@storybook/addon-knobs": "^5.0.0",
+    "@storybook/addon-options": "^5.0.0",
     "codemirror": "^5.41.0",
-    "emotion": "^9.2.12",
+    "emotion": "^10.0.7",
     "react-codemirror2": "^5.1.0",
-    "react-emotion": "^9.2.12"
+    "react-emotion": "^10.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.1.6",
+    "@babel/core": "^7.3.4",
     "@ponder/eslint-config-react": "*",
     "@ponder/test-utils": "*",
-    "@storybook/addon-actions": "^4.0.7",
-    "@storybook/addon-centered": "^4.0.7",
-    "@storybook/addons": "^4.0.7",
-    "@storybook/react": "^4.0.7",
-    "babel-loader": "^8.0.4",
-    "eslint-plugin-react": "^7.11.1"
+    "@storybook/addon-actions": "^5.0.0",
+    "@storybook/addon-centered": "^5.0.0",
+    "@storybook/addons": "^5.0.0",
+    "@storybook/react": "^5.0.0",
+    "babel-loader": "^8.0.5",
+    "eslint-plugin-react": "^7.12.4"
   },
   "scripts": {
     "storybook": "start-storybook -p 3000",

@@ -8,7 +8,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "eslint-plugin-react": "^7.11.1"
+    "eslint-plugin-react": "^7.12.4"
   },
   "peerDependencies": {
     "flow-bin": "*",

@@ -11,8 +11,8 @@
     "emotion": "^9.2.12"
   },
   "dependencies": {
-    "enzyme": "^3.7.0",
-    "enzyme-adapter-react-16": "^1.7.0",
-    "jest-emotion": "^9.2.11"
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.10.0",
+    "jest-emotion": "^10.0.7"
   }
 }
