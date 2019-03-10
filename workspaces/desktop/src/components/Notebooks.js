@@ -1,6 +1,6 @@
 // @flow
+import styled from 'styled-components';
 import { connect } from 'react-redux';
-import styled from '@emotion/styled';
 import React from 'react';
 
 import type { ReduxState } from '../types/redux-store';
@@ -8,25 +8,25 @@ import * as actions from '../actions/notebooks';
 import colors from '../config/colors';
 import StatusBar from './StatusBar';
 
-const Nav = styled('nav')`
+const Nav = styled.nav`
   max-width: 25vw;
   margin-top: 4px;
   overflow-y: auto;
   flex-grow: 1;
 `;
 
-const Sidebar = styled('aside')`
+const Sidebar = styled.aside`
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
 `;
 
-const List = styled('ol')`
+const List = styled.ol`
   margin: 0;
   padding: 0;
 `;
 
-const NavItem = styled('a', { href: '#' })`
+const NavItem = styled.a.attrs({ href: '#' })`
   padding: 8px 24px;
   display: block;
   transition-property: padding-left, padding-right;

@@ -1,5 +1,5 @@
 // @flow
-import styled from '@emotion/styled';
+import styled from 'styled-components';
 import React from 'react';
 
 import colors from '../config/colors';
@@ -9,7 +9,7 @@ import Content from './Content';
 // Height of the transparent title bar.
 const TITLE_BAR_HEIGHT = '26px';
 
-const Container = styled('div')`
+const Container = styled.div`
   min-height: 100vh;
   font-family: 'Helvetica Neue', helvetica, sans-serif;
   display: flex;
@@ -18,13 +18,13 @@ const Container = styled('div')`
   font-size: 14px;
 `;
 
-const TitleBar = styled('div')`
+const TitleBar = styled.div`
   -webkit-app-region: drag;
   -webkit-user-select: none;
   height: ${TITLE_BAR_HEIGHT};
 `;
 
-const AppContent = styled('main')`
+const AppContent = styled.main`
   flex-grow: 1;
   display: flex;
   height: calc(100vh - ${TITLE_BAR_HEIGHT});

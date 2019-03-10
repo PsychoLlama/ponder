@@ -1,11 +1,11 @@
 // @flow
 import { Input, MarkdownEditor } from '@ponder/ui';
-import styled from '@emotion/styled';
+import styled from 'styled-components';
 import React from 'react';
 
 import { translate } from '../utils/translation';
 
-const Container = styled('article')`
+const Container = styled.article`
   flex-grow: 1;
   display: flex;
   flex-direction: column;

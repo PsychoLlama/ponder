@@ -1,8 +1,8 @@
 // @flow
-import styled from '@emotion/styled';
+import styled from 'styled-components';
 import React from 'react';
 
-export const InputNode = styled('input')`
+export const InputNode = styled.input`
   padding: 8px 4px;
   border: none;
   outline: none;
