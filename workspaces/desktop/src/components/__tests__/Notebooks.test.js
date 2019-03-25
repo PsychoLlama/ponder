@@ -110,5 +110,27 @@ describe('Notebooks', () => {
 
       expect(props.selectedNoteId).toBe(state.notebooks.selectedNoteId);
     });
+
+    it('pulls the list of notes', () => {
+      const note = { type: 'note', id: '1', title: '' };
+      const { props } = select(state => {
+        state.navigation.items = [note];
+      });
+
+      expect(props.notebooks).toHaveLength(0);
+      expect(props.notes).toHaveLength(1);
+      expect(props.notes[0]).toBe(note);
+    });
+
+    it('pulls the list of notebooks', () => {
+      const notebook = { type: 'notebook', id: '2', title: '' };
+      const { props } = select(state => {
+        state.navigation.items = [notebook];
+      });
+
+      expect(props.notes).toHaveLength(0);
+      expect(props.notebooks).toHaveLength(1);
+      expect(props.notebooks[0]).toBe(notebook);
+    });
   });
 });

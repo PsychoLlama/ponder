@@ -1,4 +1,5 @@
 // @flow
+import { createSelector } from 'reselect';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import React from 'react';
@@ -9,7 +10,7 @@ import colors from '../config/colors';
 import StatusBar from './StatusBar';
 
 const Nav = styled.nav`
-  max-width: 25vw;
+  width: 25vw;
   margin-top: 4px;
   overflow-y: auto;
   flex-grow: 1;
@@ -69,21 +70,6 @@ type Props = {
 };
 
 export class Notebooks extends React.Component<Props> {
-  // TODO: wire this up to real data.
-  static defaultProps = {
-    notebooks: [
-      { id: 'notebook-1', title: 'Ideas' },
-      { id: 'notebook-2', title: 'Projects' },
-    ],
-    notes: [
-      { id: 'note-1', title: 'CRDT presentation' },
-      { id: 'note-2', title: 'Car appointment details' },
-      { id: 'note-3', title: 'Useful vim mappings' },
-      { id: 'note-4', title: 'To do list' },
-      { id: 'note-5', title: 'Furniture analysis' },
-    ],
-  };
-
   render() {
     const { notes, notebooks } = this.props;
 
@@ -121,8 +107,23 @@ export class Notebooks extends React.Component<Props> {
   };
 }
 
-export const mapStateToProps = ({ notebooks }: ReduxState) => ({
+const identity = value => value;
+const isType = type => item => item.type === type;
+
+const selectNotes = createSelector(
+  identity,
+  items => items.filter(isType('note'))
+);
+
+const selectNotebooks = createSelector(
+  identity,
+  items => items.filter(isType('notebook'))
+);
+
+export const mapStateToProps = ({ notebooks, navigation }: ReduxState) => ({
+  notebooks: selectNotebooks(navigation.items),
   selectedNoteId: notebooks.selectedNoteId,
+  notes: selectNotes(navigation.items),
 });
 
 const mapDispatchToProps = {
