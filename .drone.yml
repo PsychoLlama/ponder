@@ -1,6 +1,0 @@
-pipeline:
-  build:
-    image: node:carbon
-    commands:
-      - node -p 'process.cwd()'
-      - node -p 'process.exit(7)'
