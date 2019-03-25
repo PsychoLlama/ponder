@@ -41,7 +41,12 @@ describe('Navigation reducer', () => {
       payload = { title: '', id: '2', notebook: 'id' }
     ) => ({
       type: String(notebookActions.createNote),
-      payload,
+      payload: {
+        notebook: 'id',
+        title: '',
+        id: '2',
+        ...payload,
+      },
     });
 
     it('prepends a new note', () => {
@@ -51,6 +56,33 @@ describe('Navigation reducer', () => {
 
       expect(state.items).toHaveLength(2);
       expect(state.items[0].id).toBe('2');
+    });
+  });
+
+  describe('renameNote', () => {
+    const createAction = payload => ({
+      type: String(notebookActions.renameNote),
+      payload: {
+        title: 'New title',
+        id: '1',
+        ...payload,
+      },
+    });
+
+    it('updates the corresponding note', () => {
+      const items = [{ id: '1', title: 'Old title' }];
+      const withItems = { ...initialState, items };
+      const state = reducer(withItems, createAction());
+
+      expect(state.items[0]).toMatchObject({
+        title: 'New title',
+      });
+    });
+
+    it('fails if the note does not exist', () => {
+      const fail = () => reducer(undefined, createAction());
+
+      expect(fail).toThrow(/note/);
     });
   });
 });

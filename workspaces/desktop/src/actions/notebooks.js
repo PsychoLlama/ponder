@@ -1,5 +1,5 @@
 // @flow
-import { createNote as persistNote } from '@ponder/sdk';
+import * as sdk from '@ponder/sdk';
 import { createAction } from 'redux-actions';
 import uuid from 'uuid/v4';
 
@@ -9,7 +9,7 @@ export const createNote = createAction(
     const id = uuid();
 
     // Optimistic only. Drop the promise.
-    persistNote({
+    sdk.createNote({
       title: '',
       notebook,
       id,
@@ -20,6 +20,16 @@ export const createNote = createAction(
       notebook,
       id,
     };
+  }
+);
+
+export const renameNote = createAction(
+  'notebooks/rename-note',
+  (update: { id: string, title: string }) => {
+    // Optimistic only. Drop the promise.
+    sdk.renameNote(update);
+
+    return update;
   }
 );
 

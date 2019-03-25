@@ -44,6 +44,22 @@ export default handleActions(
         });
       });
     },
+
+    [String(notebookActions.renameNote)](
+      state: State,
+      action: ActionType<typeof notebookActions.renameNote>
+    ) {
+      return produce(state, draft => {
+        const { id, title } = action.payload;
+        const note = draft.items.find(note => note.id === id);
+
+        if (!note) {
+          throw new Error(`Can't rename note. It doesn't exists (${id}).`);
+        }
+
+        note.title = title;
+      });
+    },
   },
   initialState
 );

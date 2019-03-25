@@ -1,5 +1,5 @@
 // @flow
-import { createNote, NOTEBOOK_ROOT } from '@ponder/sdk';
+import { createNote, renameNote, NOTEBOOK_ROOT } from '@ponder/sdk';
 import * as actions from '../notebooks';
 
 jest.mock('@ponder/sdk');
@@ -28,6 +28,25 @@ describe('Notebook actions', () => {
         id: expect.any(String),
         title: '',
       });
+    });
+  });
+
+  describe('renameNote', () => {
+    it('renames the note', () => {
+      const config = { id: '1', title: 'No' };
+      actions.renameNote(config);
+
+      expect(renameNote).toHaveBeenCalledWith({
+        title: config.title,
+        id: config.id,
+      });
+    });
+
+    it('returns the ID and new title', () => {
+      const config = { id: '1', title: 'No' };
+      const { payload } = actions.renameNote(config);
+
+      expect(payload).toEqual(config);
     });
   });
 });
