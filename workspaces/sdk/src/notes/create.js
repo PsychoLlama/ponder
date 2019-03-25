@@ -2,16 +2,16 @@
 import uuid from 'uuid/v4';
 import fs from 'fs-extra';
 
-import { toDirectoryPath, toNotePath, readAsJson, serialize } from '../utils';
+import { toNotebookPath, toNotePath, readAsJson, serialize } from '../utils';
 
 const createNote = async ({
   title,
-  directory,
+  notebook,
 }: {
   title: string,
-  directory: string,
+  notebook: string,
 }) => {
-  const dirPath = toDirectoryPath(directory);
+  const dirPath = toNotebookPath(notebook);
   const dir = await readAsJson(dirPath);
 
   const id = uuid();

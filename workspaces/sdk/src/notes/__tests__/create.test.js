@@ -12,26 +12,29 @@ describe('Create note', () => {
 
     fs.readFile.mockImplementation(path => {
       if (!/index/.test(path)) {
-        throw new Error('Mock: no such directory');
+        throw new Error('Mock: no such notebook');
       }
 
       return serialize({
-        title: 'Root directory',
-        directories: [],
+        title: 'Root Notebook',
+        notebooks: [],
         notes: [],
       });
     });
   });
 
-  it('fails if the directory does not exist', async () => {
-    const promise = createNote({ title: 'Title', directory: 'no-such-dir' });
+  it('fails if the notebook does not exist', async () => {
+    const promise = createNote({
+      notebook: 'no-such-notebook',
+      title: 'Title',
+    });
 
     await expect(promise).rejects.toBeDefined();
     expect(fs.writeFile).not.toHaveBeenCalled();
   });
 
   it('writes the new note', async () => {
-    const id = await createNote({ title: 'Title', directory: 'index' });
+    const id = await createNote({ title: 'Title', notebook: 'index' });
 
     expect(fs.writeFile).toHaveBeenCalledTimes(2);
     expect(id).toEqual(expect.any(String));

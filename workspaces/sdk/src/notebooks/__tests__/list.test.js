@@ -6,29 +6,29 @@ import list, { TYPES } from '../list';
 
 jest.mock('fs-extra');
 
-describe('Directory listing', () => {
+describe('Notebook listing', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     fs.exists.mockResolvedValue(true);
 
     const dirs = {
       'index.json': {
-        directories: ['dir1'],
+        notebooks: ['dir1'],
         notes: [],
       },
       'dir1.json': {
         title: 'First',
-        directories: ['dir2', 'dir3'],
+        notebooks: ['dir2', 'dir3'],
         notes: ['note1'],
       },
       'dir2.json': {
         title: 'Second',
-        directories: [],
+        notebooks: [],
         notes: [],
       },
       'dir3.json': {
         title: 'Third',
-        directories: [],
+        notebooks: [],
         notes: [],
       },
     };
@@ -51,7 +51,7 @@ describe('Directory listing', () => {
     });
   });
 
-  it('fails if the directory does not exist', async () => {
+  it('fails if the notebook does not exist', async () => {
     fs.exists.mockResolvedValue(false);
     const id = 'non-existent-file';
 
@@ -60,19 +60,19 @@ describe('Directory listing', () => {
     });
   });
 
-  it('lists all the directories', async () => {
+  it('lists all the notebooks', async () => {
     const results = await list('index');
 
     expect(results).toEqual([
       {
-        type: TYPES.DIRECTORY,
+        type: TYPES.NOTEBOOK,
         title: 'First',
         id: 'dir1',
       },
     ]);
   });
 
-  it('includes notes in the directory lookup', async () => {
+  it('includes notes in the notebook lookup', async () => {
     const results = await list('dir1');
 
     expect(results).toEqual([

@@ -2,7 +2,7 @@
 import fs from 'fs-extra';
 import path from 'path';
 
-import { DIRECTORIES, NOTES } from './vars';
+import { NOTEBOOKS, NOTES } from './vars';
 
 type JsonValue =
   | string
@@ -16,8 +16,8 @@ export const serialize = (json: JsonValue) =>
   JSON.stringify(json, null, 2) + '\n';
 
 export const toNotePath = (id: string) => path.join(NOTES, `${id}.json`);
-export const toDirectoryPath = (id: string) =>
-  path.join(DIRECTORIES, `${id}.json`);
+export const toNotebookPath = (id: string) =>
+  path.join(NOTEBOOKS, `${id}.json`);
 
 export const readAsJson = async (filePath: string) => {
   const fileContents = await fs.readFile(filePath, 'utf8');

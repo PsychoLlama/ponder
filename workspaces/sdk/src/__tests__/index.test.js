@@ -2,7 +2,7 @@
 import initializeSdk from '../initialize';
 import SDK from '../index';
 
-jest.mock('../directories/list');
+jest.mock('../notebooks/list');
 jest.mock('../initialize');
 
 describe('SDK', () => {
