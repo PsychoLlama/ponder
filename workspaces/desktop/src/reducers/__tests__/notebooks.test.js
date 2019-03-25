@@ -2,6 +2,8 @@
 import reducer, { initialState } from '../notebooks';
 import * as actions from '../../actions/notebooks';
 
+jest.mock('@ponder/sdk');
+
 describe('Notebooks reducer', () => {
   it('returns state for unknown actions', () => {
     const state = reducer(undefined, { type: '@@init' });
@@ -11,10 +13,10 @@ describe('Notebooks reducer', () => {
 
   describe('createNote', () => {
     it('sets the note ID', () => {
-      const action = actions.createNote();
+      const action = actions.createNote({ notebook: 'a' });
       const state = reducer(undefined, action);
 
-      expect(state.selectedNoteId).not.toBeNull();
+      expect(state.selectedNoteId).toEqual(expect.any(String));
     });
   });
 

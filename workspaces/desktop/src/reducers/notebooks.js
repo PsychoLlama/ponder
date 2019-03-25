@@ -19,7 +19,8 @@ export default handleActions(
       action: ActionType<typeof actions.createNote>
     ) {
       return produce(state, draft => {
-        draft.selectedNoteId = action.payload;
+        const { id } = action.payload;
+        draft.selectedNoteId = id;
       });
     },
 
