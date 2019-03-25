@@ -1,7 +1,9 @@
 // @flow
+import readDirectory from '../directories/list';
 import initializeSdk from '../initialize';
 import SDK from '../index';
 
+jest.mock('../directories/list');
 jest.mock('../initialize');
 
 describe('SDK', () => {
@@ -15,6 +17,16 @@ describe('SDK', () => {
 
       expect(initializeSdk).toHaveBeenCalled();
       expect(sdk).toEqual(expect.any(SDK));
+    });
+  });
+
+  describe('readDirectory', () => {
+    it('calls through to the implementation', async () => {
+      const sdk = new SDK();
+
+      await sdk.readDirectory('id');
+
+      expect(readDirectory).toHaveBeenCalledWith('id');
     });
   });
 });
