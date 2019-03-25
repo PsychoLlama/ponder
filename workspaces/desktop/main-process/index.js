@@ -1,6 +1,6 @@
 // @flow
-const { app, BrowserWindow } = require('electron');
-const path = require('path');
+import { app, BrowserWindow } from 'electron';
+import path from 'path';
 
 app.once('ready', async () => {
   const browser = new BrowserWindow({
@@ -9,7 +9,7 @@ app.once('ready', async () => {
     width: 800,
   });
 
-  const mainPage = path.resolve(__dirname, './index.html');
+  const mainPage = path.resolve(__dirname, '../index.html');
   browser.loadFile(mainPage);
 
   if (process.env.NODE_ENV !== 'production') {
@@ -17,7 +17,7 @@ app.once('ready', async () => {
       default: installExtension,
       REACT_DEVELOPER_TOOLS,
       REDUX_DEVTOOLS,
-    } = require('electron-devtools-installer');
+    } = await import('electron-devtools-installer');
 
     await Promise.all([
       installExtension(REACT_DEVELOPER_TOOLS),

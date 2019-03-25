@@ -2,7 +2,7 @@
   "name": "@ponder/desktop",
   "version": "0.1.0",
   "description": "Desktop notes client",
-  "main": "main-process.js",
+  "main": "dist/main-process.bundle.js",
   "repository": "https://github.com/PsychoLlama/ponder",
   "author": "Jesse Gibson <JesseTheGibson@gmail.com>",
   "license": "MIT",

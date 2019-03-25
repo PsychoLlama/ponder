@@ -10,6 +10,7 @@ module.exports = function(api) {
     ],
     plugins: [
       require('@babel/plugin-proposal-class-properties'),
+      require('@babel/plugin-syntax-dynamic-import'),
       require('babel-plugin-styled-components'),
     ],
   };
