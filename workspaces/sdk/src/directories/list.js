@@ -1,9 +1,8 @@
 // @flow
 import assert from 'minimalistic-assert';
 import fs from 'fs-extra';
-import path from 'path';
 
-import { DIRECTORIES, NOTES } from '../initialize';
+import { toNotePath, toDirectoryPath } from '../utils';
 
 type Directory = {
   type: 'directory',
@@ -33,9 +32,6 @@ const getTitle = async filePath => {
 
   return title;
 };
-
-const toDirectoryPath = id => path.join(DIRECTORIES, `${id}.json`);
-const toNotePath = id => path.join(NOTES, `${id}.json`);
 
 const formatAsDirectory = async (id): Promise<Directory> => ({
   title: await getTitle(toDirectoryPath(id)),

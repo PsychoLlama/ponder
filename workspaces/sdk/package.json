@@ -2,13 +2,14 @@
   "name": "@ponder/sdk",
   "version": "0.1.0",
   "description": "Programmatic API",
-  "main": "dist/index.js",
+  "main": "src/index.js",
   "repository": "https://github.com/PsychoLlama/ponder",
   "author": "Jesse Gibson <JesseTheGibson@gmail.com>",
   "license": "MIT",
   "private": true,
   "dependencies": {
     "fs-extra": "^7.0.1",
-    "minimalistic-assert": "^1.0.1"
+    "minimalistic-assert": "^1.0.1",
+    "uuid": "^3.3.2"
   }
 }

@@ -1,15 +1,9 @@
 // @flow
 import fs from 'fs-extra';
 import path from 'path';
-import os from 'os';
 
-export const HOME = path.join(os.homedir(), '.ponder');
-export const CONFIG_FILE = path.join(HOME, 'config.json');
-export const DIRECTORIES = path.join(HOME, 'directories');
-export const NOTES = path.join(HOME, 'notes');
-
-// Pretty-print the JSON with a trailing newline.
-const serialize = json => JSON.stringify(json, null, 2) + '\n';
+import { HOME, DIRECTORIES, CONFIG_FILE, NOTES } from './vars';
+import { serialize } from './utils';
 
 export default async () => {
   if (await fs.exists(HOME)) return;

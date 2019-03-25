@@ -1,7 +1,8 @@
 // @flow
 import fs from 'fs-extra';
 
-import initialize, { HOME, CONFIG_FILE } from '../initialize';
+import { HOME, CONFIG_FILE } from '../vars';
+import initialize from '../initialize';
 
 jest.mock('fs-extra');
 
