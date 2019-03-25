@@ -34,7 +34,7 @@ export default class Input extends React.Component<Props, State> {
   };
 
   state = { value: '', isEditing: false };
-  inputRef: HTMLInputElement;
+  inputRef: HTMLInputElement | null;
 
   render() {
     const { placeholder } = this.props;
@@ -43,20 +43,21 @@ export default class Input extends React.Component<Props, State> {
       <InputNode
         value={this.getCurrentValue()}
         onFocus={this.enterEditMode}
-        innerRef={this.setInputRef}
         onChange={this.updateValue}
         onBlur={this.exitEditMode}
         placeholder={placeholder}
+        ref={this.setInputRef}
       />
     );
   }
 
-  setInputRef = (ref: HTMLInputElement) => {
+  setInputRef = (ref: HTMLInputElement | null) => {
     this.inputRef = ref;
   };
 
   enterEditMode = () => {
-    this.inputRef.select();
+    const inputRef: HTMLInputElement = (this.inputRef: any);
+    inputRef.select();
 
     this.setState({
       value: this.getControlledValue(),

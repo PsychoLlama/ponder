@@ -14,11 +14,11 @@ describe('Input', () => {
 
     configure({ output }) {
       const input = output.find(InputNode);
-      const { innerRef } = input.props();
+      const { ref } = input.getElement();
       const mockInputRef = { select: jest.fn() };
 
-      if (innerRef) {
-        innerRef(mockInputRef);
+      if (ref) {
+        ref(mockInputRef);
       }
 
       return { mockInputRef };
