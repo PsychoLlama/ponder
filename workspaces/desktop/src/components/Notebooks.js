@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import React from 'react';
 
 import type { ReduxState } from '../types/redux-store';
+import { translate } from '../utils/translation';
 import * as actions from '../actions/notebooks';
 import colors from '../config/colors';
 import StatusBar from './StatusBar';
@@ -88,7 +89,11 @@ export class Notebooks extends React.Component<Props> {
   }
 
   renderNotebook = (notebook: NoteCollection) => {
-    return <Notebook key={notebook.id}>{notebook.title}</Notebook>;
+    return (
+      <Notebook key={notebook.id}>
+        {notebook.title || translate('Untitled Notebook')}
+      </Notebook>
+    );
   };
 
   renderNote = (note: NoteObject) => {
@@ -101,7 +106,7 @@ export class Notebooks extends React.Component<Props> {
         selected={selected}
         key={note.id}
       >
-        {note.title}
+        {note.title || translate('Untitled Note')}
       </Note>
     );
   };

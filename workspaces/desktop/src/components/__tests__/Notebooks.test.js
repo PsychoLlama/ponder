@@ -76,6 +76,26 @@ describe('Notebooks', () => {
     expect(notes.at(0).prop('selected')).toBe(false);
   });
 
+  it('shows when a note is untitled', () => {
+    const { output } = setup({
+      notes: [{ title: '', id: '1' }],
+    });
+
+    const note = output.find(Note);
+
+    expect(note.prop('children')).toMatch(/untitled/i);
+  });
+
+  it('shows when a notebook is untitled', () => {
+    const { output } = setup({
+      notebooks: [{ title: '', id: '1' }],
+    });
+
+    const note = output.find(Notebook);
+
+    expect(note.prop('children')).toMatch(/untitled/i);
+  });
+
   describe('Note', () => {
     const setup = merge => {
       const props = {
