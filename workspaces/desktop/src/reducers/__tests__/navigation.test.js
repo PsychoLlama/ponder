@@ -1,4 +1,5 @@
 // @flow
+import * as notebookActions from '../../actions/notebooks';
 import reducer, { initialState } from '../navigation';
 import * as actions from '../../actions/navigation';
 
@@ -32,6 +33,24 @@ describe('Navigation reducer', () => {
       const state = reducer(undefined, action);
 
       expect(state.items).toEqual(items);
+    });
+  });
+
+  describe('createNote', () => {
+    const createAction = (
+      payload = { title: '', id: '2', notebook: 'id' }
+    ) => ({
+      type: String(notebookActions.createNote),
+      payload,
+    });
+
+    it('prepends a new note', () => {
+      const items = [{ type: 'note', title: 'Title', id: '1' }];
+      const withItems = { ...initialState, items };
+      const state = reducer(withItems, createAction());
+
+      expect(state.items).toHaveLength(2);
+      expect(state.items[0].id).toBe('2');
     });
   });
 });

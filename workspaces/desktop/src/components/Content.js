@@ -1,4 +1,5 @@
 // @flow
+import { NOTEBOOK_ROOT } from '@ponder/sdk';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import React from 'react';
@@ -62,10 +63,15 @@ export const CreateNote = styled.button`
 
 type Props = {
   createNote: typeof actions.createNote,
+  selectedNotebook: string,
   isEditingNote: boolean,
 };
 
 export class Content extends React.Component<Props> {
+  static defaultProps = {
+    selectedNotebook: NOTEBOOK_ROOT,
+  };
+
   render() {
     const { isEditingNote } = this.props;
 
@@ -79,15 +85,13 @@ export class Content extends React.Component<Props> {
   }
 
   renderCreateNotePrompt() {
-    const { createNote } = this.props;
-
     return (
       <Center>
         <Title>{translate('No Note Selected')}</Title>
 
         <CreateNote
           aria-label={translate('Create a Note')}
-          onClick={createNote}
+          onClick={this.createNote}
         >
           <PlusIcon>
             <path d="M25,0 L25,50" />
@@ -97,10 +101,16 @@ export class Content extends React.Component<Props> {
       </Center>
     );
   }
+
+  createNote = () => {
+    const { selectedNotebook } = this.props;
+    this.props.createNote({ notebook: selectedNotebook });
+  };
 }
 
-export const mapStateToProps = (state: ReduxState) => ({
-  isEditingNote: Boolean(state.notebooks.selectedNoteId),
+export const mapStateToProps = ({ notebooks, navigation }: ReduxState) => ({
+  selectedNotebook: navigation.path[navigation.path.length - 1],
+  isEditingNote: Boolean(notebooks.selectedNoteId),
 });
 
 const mapDispatchToProps = {

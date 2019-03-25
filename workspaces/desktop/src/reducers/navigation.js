@@ -3,6 +3,7 @@ import { handleActions, type ActionType } from 'redux-actions';
 import type { NotebookContents } from '@ponder/sdk';
 import produce from 'immer';
 
+import * as notebookActions from '../actions/notebooks';
 import * as actions from '../actions/navigation';
 
 export type State = {
@@ -26,6 +27,21 @@ export default handleActions(
       return produce(state, draft => {
         draft.items = action.payload;
         draft.path = [];
+      });
+    },
+
+    [String(notebookActions.createNote)](
+      state: State,
+      action: ActionType<typeof notebookActions.createNote>
+    ) {
+      return produce(state, draft => {
+        const { title, id } = action.payload;
+
+        draft.items.unshift({
+          type: 'note',
+          title,
+          id,
+        });
       });
     },
   },

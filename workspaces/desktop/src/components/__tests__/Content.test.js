@@ -1,5 +1,6 @@
 // @flow
 import { renderer } from '@ponder/test-utils';
+import { NOTEBOOK_ROOT } from '@ponder/sdk';
 
 import { Content, CreateNote, mapStateToProps } from '../Content';
 import { selector } from '../../utils/testing';
@@ -7,6 +8,7 @@ import { selector } from '../../utils/testing';
 describe('Content', () => {
   const setup = renderer(Content, {
     getDefaultProps: () => ({
+      selectedNotebook: 'selected-notebook-id',
       createNote: jest.fn(),
       isEditingNote: false,
     }),
@@ -28,7 +30,18 @@ describe('Content', () => {
     const { output, props } = setup();
     output.find(CreateNote).simulate('click');
 
-    expect(props.createNote).toHaveBeenCalled();
+    expect(props.createNote).toHaveBeenCalledWith({
+      notebook: props.selectedNotebook,
+    });
+  });
+
+  it('defaults to the root notebook', () => {
+    const { output, props } = setup({ selectedNotebook: undefined });
+    output.find(CreateNote).simulate('click');
+
+    expect(props.createNote).toHaveBeenCalledWith({
+      notebook: NOTEBOOK_ROOT,
+    });
   });
 
   describe('mapStateToProps', () => {
@@ -40,6 +53,14 @@ describe('Content', () => {
       });
 
       expect(props.isEditingNote).toBe(true);
+    });
+
+    it('shows the currently selected notebook', () => {
+      const { props } = select(state => {
+        state.navigation.path = ['first', 'second', 'third'];
+      });
+
+      expect(props.selectedNotebook).toBe('third');
     });
   });
 });
