@@ -6,5 +6,8 @@
   "repository": "https://github.com/PsychoLlama/ponder",
   "author": "Jesse Gibson <JesseTheGibson@gmail.com>",
   "license": "MIT",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "fs-extra": "^7.0.1"
+  }
 }
