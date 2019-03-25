@@ -3,9 +3,8 @@ import uuid from 'uuid/v4';
 import fs from 'fs-extra';
 import path from 'path';
 
-import { serialize, toDirectoryPath } from '../utils';
+import { serialize, toDirectoryPath, readAsJson } from '../utils';
 import { DIRECTORIES } from '../vars';
-import readDirectory from './read';
 
 const createDirectory = async ({
   under,
@@ -14,7 +13,7 @@ const createDirectory = async ({
   under: string,
   title: string,
 }) => {
-  const dir = await readDirectory(under);
+  const dir = await readAsJson(toDirectoryPath(under));
   const id = uuid();
 
   const newDirPath = path.join(DIRECTORIES, `${id}.json`);

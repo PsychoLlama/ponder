@@ -2,7 +2,7 @@
 import fs from 'fs-extra';
 import path from 'path';
 
-import { HOME, DIRECTORIES, CONFIG_FILE, NOTES } from './vars';
+import { HOME, DIRECTORIES, CONFIG_FILE, NOTES, ROOT_DIR } from './vars';
 import { serialize } from './utils';
 
 export default async () => {
@@ -12,7 +12,7 @@ export default async () => {
   });
 
   const dirIndex = serialize({
-    title: 'Index',
+    title: 'Directory Root',
     directories: [],
     notes: [],
   });
@@ -21,5 +21,5 @@ export default async () => {
   await fs.writeFile(CONFIG_FILE, config);
   await fs.mkdir(DIRECTORIES);
   await fs.mkdir(NOTES);
-  await fs.writeFile(path.join(DIRECTORIES, 'index.json'), dirIndex);
+  await fs.writeFile(path.join(DIRECTORIES, `${ROOT_DIR}.json`), dirIndex);
 };

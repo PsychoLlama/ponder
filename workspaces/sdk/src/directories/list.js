@@ -2,7 +2,7 @@
 import assert from 'minimalistic-assert';
 import fs from 'fs-extra';
 
-import { toNotePath, toDirectoryPath } from '../utils';
+import { toNotePath, toDirectoryPath, readAsJson } from '../utils';
 
 type Directory = {
   type: 'directory',
@@ -21,14 +21,8 @@ export const TYPES = Object.freeze({
   NOTE: 'note',
 });
 
-const readFile = async filePath => {
-  const fileContents = await fs.readFile(filePath, 'utf8');
-
-  return JSON.parse(fileContents);
-};
-
 const getTitle = async filePath => {
-  const { title } = await readFile(filePath);
+  const { title } = await readAsJson(filePath);
 
   return title;
 };
@@ -49,7 +43,7 @@ const listDirectory = async (id: string): Promise<Array<Directory | Note>> => {
   const dirPath = toDirectoryPath(id);
   assert(await fs.exists(dirPath), `Directory "${id}" doesn't exist.`);
 
-  const { directories, notes } = await readFile(dirPath);
+  const { directories, notes } = await readAsJson(dirPath);
 
   const lookups = [
     ...directories.map(formatAsDirectory),
