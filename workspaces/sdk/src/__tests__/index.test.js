@@ -1,5 +1,4 @@
 // @flow
-import readDirectory from '../directories/list';
 import initializeSdk from '../initialize';
 import SDK from '../index';
 
@@ -17,16 +16,6 @@ describe('SDK', () => {
 
       expect(initializeSdk).toHaveBeenCalled();
       expect(sdk).toEqual(expect.any(SDK));
-    });
-  });
-
-  describe('readDirectory', () => {
-    it('calls through to the implementation', async () => {
-      const sdk = new SDK();
-
-      await sdk.readDirectory('id');
-
-      expect(readDirectory).toHaveBeenCalledWith('id');
     });
   });
 });

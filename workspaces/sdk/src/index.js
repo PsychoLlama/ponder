@@ -1,6 +1,8 @@
 // @flow
+import createDirectory from './directories/create';
 import readDirectory from './directories/list';
 import initialize from './initialize';
+import readNote from './notes/read';
 
 export default class SDK {
   static async initialize() {
@@ -9,7 +11,7 @@ export default class SDK {
     return new SDK();
   }
 
-  readDirectory(id: string) {
-    return readDirectory(id);
-  }
+  createDirectory = createDirectory;
+  readDirectory = readDirectory;
+  readNote = readNote;
 }
