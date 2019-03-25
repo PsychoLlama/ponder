@@ -7,6 +7,9 @@ app.once('ready', async () => {
     titleBarStyle: 'hidden',
     height: 600,
     width: 800,
+    webPreferences: {
+      nodeIntegration: true,
+    },
   });
 
   const mainPage = path.resolve(__dirname, '../index.html');

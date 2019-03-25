@@ -1,9 +1,8 @@
 // @flow
 const path = require('path');
 
-// eslint-disable-next-line no-process-env
-const { NODE_ENV } = process.env;
-const mode = NODE_ENV === 'production' ? 'production' : 'development';
+const isProduction = process.env.NODE_ENV === 'production';
+const mode = isProduction ? 'production' : 'development';
 
 const babelLoader = {
   test: /\.js$/,
@@ -24,6 +23,7 @@ const cssLoader = {
 module.exports = [
   {
     mode,
+    devtool: isProduction ? undefined : 'inline-cheap-module-source-map',
     entry: path.join(__dirname, 'src/index.js'),
     output: {
       path: path.resolve(__dirname, 'dist'),
