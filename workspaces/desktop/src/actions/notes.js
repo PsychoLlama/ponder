@@ -2,6 +2,6 @@
 import { createAction } from 'redux-actions';
 
 export const setTitle = createAction(
-  'NOTE__SET_TITLE',
+  'notes/set-title',
   (title: string) => title
 );
