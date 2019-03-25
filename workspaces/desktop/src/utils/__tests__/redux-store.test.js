@@ -1,25 +1,44 @@
 // @flow
+import { compose } from 'redux';
+
 import createStore, { DEVTOOLS_KEY } from '../redux-store';
+import { readNotebook } from '@ponder/sdk';
+
+jest.mock('@ponder/sdk');
 
 describe('Redux store', () => {
   beforeEach(() => {
     delete window[DEVTOOLS_KEY];
+    (readNotebook: Function).mockResolvedValue([
+      {
+        title: 'Note title',
+        type: 'note',
+        id: 'id',
+      },
+    ]);
   });
 
-  it('constructs without exploding', () => {
-    expect(createStore).not.toThrow();
+  it('constructs without exploding', async () => {
+    await expect(createStore()).resolves.toBeDefined();
   });
 
-  it('returns a redux store', () => {
-    const store = createStore();
+  it('returns a redux store', async () => {
+    const store = await createStore();
 
     expect(store.getState()).toBeDefined();
   });
 
-  it('uses the global compose hook if defined', () => {
-    window[DEVTOOLS_KEY] = jest.fn();
-    createStore();
+  it('uses the global compose hook if defined', async () => {
+    window[DEVTOOLS_KEY] = jest.fn((compose: any));
+    await createStore();
 
     expect(window[DEVTOOLS_KEY]).toHaveBeenCalled();
+  });
+
+  it('loads the initial directory', async () => {
+    const store = await createStore();
+    const { navigation } = store.getState();
+
+    expect(navigation.items).toHaveLength(1);
   });
 });

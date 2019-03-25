@@ -16,6 +16,8 @@ type Note = {
   id: string,
 };
 
+export type NotebookContents = Array<Note | Notebook>;
+
 export const TYPES = Object.freeze({
   NOTEBOOK: 'notebook',
   NOTE: 'note',
@@ -39,7 +41,7 @@ const formatAsNote = async (id): Promise<Note> => ({
   id,
 });
 
-const listNotebook = async (id: string): Promise<Array<Notebook | Note>> => {
+const listNotebook = async (id: string): Promise<NotebookContents> => {
   const dirPath = toNotebookPath(id);
   assert(await fs.exists(dirPath), `Notebook "${id}" doesn't exist.`);
 

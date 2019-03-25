@@ -2,12 +2,14 @@
 // @flow
 import produce from 'immer';
 
+import { initialState as navigation } from '../reducers/navigation';
 import { initialState as notebooks } from '../reducers/notebooks';
 import type { ReduxState } from '../types/redux-store';
 
 const noop = () => {};
 
 export const createReduxState = (): ReduxState => ({
+  navigation,
   notebooks,
 });
 

@@ -9,9 +9,14 @@ import App from './components/App';
 import './global.css';
 
 const container: HTMLDivElement = (document.getElementById('app-root'): any);
-DOM.render(
-  <Provider store={createStore()}>
-    <App />
-  </Provider>,
-  container
-);
+
+(async () => {
+  const store = await createStore();
+
+  DOM.render(
+    <Provider store={store}>
+      <App />
+    </Provider>,
+    container
+  );
+})();
