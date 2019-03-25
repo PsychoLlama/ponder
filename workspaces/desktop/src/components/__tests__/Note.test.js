@@ -8,7 +8,9 @@ import { selector } from '../../utils/testing';
 describe('Note', () => {
   const setup = renderer(Note, {
     getDefaultProps: () => ({
+      renameNote: jest.fn(),
       title: 'Note title',
+      noteId: 'note-id',
     }),
   });
 
@@ -29,8 +31,30 @@ describe('Note', () => {
     expect(note.prop('value')).toBe(props.title);
   });
 
+  it('renames the note when the title changes', () => {
+    const { output, props } = setup();
+    const title = 'New title';
+
+    output.find(Input).simulate('change', title);
+
+    expect(props.renameNote).toHaveBeenCalledWith({
+      id: props.noteId,
+      title,
+    });
+  });
+
   describe('mapStateToProps', () => {
     const select = selector(mapStateToProps, {});
+
+    it('grabs the selected note ID', () => {
+      const { props, state } = select(state => {
+        const note = { type: 'note', id: 'note', title: 'Title' };
+        state.notebooks.selectedNoteId = note.id;
+        state.navigation.items = [note];
+      });
+
+      expect(props.noteId).toBe(state.notebooks.selectedNoteId);
+    });
 
     it('grabs the note title', () => {
       const { props } = select(state => {

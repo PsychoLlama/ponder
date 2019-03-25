@@ -6,6 +6,7 @@ import React from 'react';
 
 import type { ReduxState } from '../types/redux-store';
 import { translate } from '../utils/translation';
+import * as actions from '../actions/notebooks';
 
 const Container = styled.article`
   flex-grow: 1;
@@ -13,9 +14,9 @@ const Container = styled.article`
   flex-direction: column;
 `;
 
-const noop = () => {};
-
 type Props = {
+  renameNote: typeof actions.renameNote,
+  noteId: string,
   title: string,
 };
 
@@ -27,7 +28,7 @@ export class Note extends React.Component<Props> {
       <Container>
         <Input
           placeholder={translate('Untitled Note')}
-          onChange={noop}
+          onChange={this.renameNote}
           value={title}
         />
 
@@ -35,6 +36,13 @@ export class Note extends React.Component<Props> {
       </Container>
     );
   }
+
+  renameNote = (newTitle: string) => {
+    this.props.renameNote({
+      id: this.props.noteId,
+      title: newTitle,
+    });
+  };
 }
 
 export const mapStateToProps = ({ navigation, notebooks }: ReduxState) => {
@@ -46,8 +54,16 @@ export const mapStateToProps = ({ navigation, notebooks }: ReduxState) => {
   }
 
   return {
+    noteId: selectedNoteId,
     title: note.title,
   };
 };
 
-export default connect(mapStateToProps)(Note);
+const mapDispatchToProps = {
+  renameNote: actions.renameNote,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Note);
