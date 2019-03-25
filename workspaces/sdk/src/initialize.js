@@ -17,8 +17,15 @@ export default async () => {
     // TODO: define config file structure.
   });
 
+  const dirIndex = serialize({
+    title: 'Index',
+    directories: [],
+    notes: [],
+  });
+
   await fs.mkdir(HOME);
   await fs.writeFile(CONFIG_FILE, config);
   await fs.mkdir(DIRECTORIES);
   await fs.mkdir(NOTES);
+  await fs.writeFile(path.join(DIRECTORIES, 'index.json'), dirIndex);
 };
