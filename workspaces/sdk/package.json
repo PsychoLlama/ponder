@@ -9,7 +9,6 @@
   "private": true,
   "dependencies": {
     "fs-extra": "^7.0.1",
-    "minimalistic-assert": "^1.0.1",
-    "uuid": "^3.3.2"
+    "minimalistic-assert": "^1.0.1"
   }
 }

@@ -27,6 +27,7 @@ describe('Create note', () => {
     const promise = createNote({
       notebook: 'no-such-notebook',
       title: 'Title',
+      id: 'id',
     });
 
     await expect(promise).rejects.toBeDefined();
@@ -34,7 +35,11 @@ describe('Create note', () => {
   });
 
   it('writes the new note', async () => {
-    const id = await createNote({ title: 'Title', notebook: 'index' });
+    const id = await createNote({
+      notebook: 'index',
+      title: 'Title',
+      id: 'id',
+    });
 
     expect(fs.writeFile).toHaveBeenCalledTimes(2);
     expect(id).toEqual(expect.any(String));

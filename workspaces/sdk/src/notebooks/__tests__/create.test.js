@@ -17,7 +17,7 @@ describe('Create notebook', () => {
   });
 
   it('writes a new notebook', async () => {
-    await createNotebook({ under: 'index', title: 'no' });
+    await createNotebook({ notebook: 'index', title: 'no', id: 'id' });
 
     expect(fs.writeFile).toHaveBeenCalledTimes(2);
   });
@@ -28,8 +28,9 @@ describe('Create notebook', () => {
     );
 
     const promise = createNotebook({
-      under: 'no-such-notebook',
+      notebook: 'no-such-notebook',
       title: 'something',
+      id: 'id',
     });
 
     await expect(promise).rejects.toBeDefined();
@@ -37,8 +38,9 @@ describe('Create notebook', () => {
 
   it('returns the new notebook ID', async () => {
     const id = await createNotebook({
-      under: 'index',
       title: 'New Notebook',
+      notebook: 'index',
+      id: 'id',
     });
 
     expect(id).toEqual(expect.any(String));

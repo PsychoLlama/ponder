@@ -1,5 +1,4 @@
 // @flow
-import uuid from 'uuid/v4';
 import fs from 'fs-extra';
 import path from 'path';
 
@@ -7,14 +6,15 @@ import { serialize, toNotebookPath, readAsJson } from '../utils';
 import { NOTEBOOKS } from '../vars';
 
 const createNotebook = async ({
-  under,
+  notebook,
   title,
+  id,
 }: {
-  under: string,
+  notebook: string,
   title: string,
+  id: string,
 }) => {
-  const dir = await readAsJson(toNotebookPath(under));
-  const id = uuid();
+  const dir = await readAsJson(toNotebookPath(notebook));
 
   const newDirPath = path.join(NOTEBOOKS, `${id}.json`);
   const newDir = serialize({
@@ -23,14 +23,16 @@ const createNotebook = async ({
     notes: [],
   });
 
-  await fs.writeFile(newDirPath, newDir);
-  await fs.writeFile(
-    toNotebookPath(under),
-    serialize({
-      ...dir,
-      notebooks: [...dir.notebooks, id],
-    })
-  );
+  await Promise.all([
+    fs.writeFile(newDirPath, newDir),
+    fs.writeFile(
+      toNotebookPath(notebook),
+      serialize({
+        ...dir,
+        notebooks: [...dir.notebooks, id],
+      })
+    ),
+  ]);
 
   return id;
 };
