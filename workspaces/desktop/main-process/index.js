@@ -1,8 +1,11 @@
 // @flow
 import { app, BrowserWindow } from 'electron';
+import { initialize } from '@ponder/sdk';
 import path from 'path';
 
 app.once('ready', async () => {
+  await initialize();
+
   const browser = new BrowserWindow({
     titleBarStyle: 'hidden',
     height: 600,

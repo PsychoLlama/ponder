@@ -1,19 +1,6 @@
 // @flow
-import createNotebook from './notebooks/create';
-import readNotebook from './notebooks/list';
-import createNote from './notes/create';
-import initialize from './initialize';
-import readNote from './notes/read';
-
-export default class SDK {
-  static async initialize() {
-    await initialize();
-
-    return new SDK();
-  }
-
-  createNotebook = createNotebook;
-  readNotebook = readNotebook;
-  createNote = createNote;
-  readNote = readNote;
-}
+export { default as createNotebook } from './notebooks/create';
+export { default as readNotebook } from './notebooks/list';
+export { default as createNote } from './notes/create';
+export { default as initialize } from './initialize';
+export { default as readNote } from './notes/read';
