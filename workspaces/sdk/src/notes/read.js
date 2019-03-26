@@ -1,5 +1,6 @@
 // @flow
-import { toNotePath, readAsJson } from '../utils';
+import { toNotePath } from '../utils';
+import { readAsJson } from '../fs';
 
 const readNote = (id: string) => {
   const notePath = toNotePath(id);

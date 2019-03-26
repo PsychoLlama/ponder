@@ -1,18 +1,13 @@
 // @flow
-import fs from 'fs-extra';
-
-import { readAsJson, toNotePath, serialize } from '../utils';
+import { toNotePath } from '../utils';
+import { updateAsJson } from '../fs';
 
 const renameNote = async ({ id, title }: { id: string, title: string }) => {
   const notePath = toNotePath(id);
-  const note = await readAsJson(notePath);
 
-  const newNote = serialize({
-    ...note,
-    title,
+  await updateAsJson(notePath, note => {
+    note.title = title;
   });
-
-  await fs.writeFile(notePath, newNote);
 };
 
 export default renameNote;

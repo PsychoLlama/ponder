@@ -2,7 +2,8 @@
 import assert from 'minimalistic-assert';
 import fs from 'fs-extra';
 
-import { toNotePath, toNotebookPath, readAsJson } from '../utils';
+import { toNotePath, toNotebookPath } from '../utils';
+import { readAsJson } from '../fs';
 
 type Notebook = {
   type: 'notebook',

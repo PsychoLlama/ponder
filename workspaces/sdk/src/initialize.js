@@ -1,25 +1,24 @@
 // @flow
 import fs from 'fs-extra';
-import path from 'path';
 
 import { HOME, NOTEBOOKS, CONFIG_FILE, NOTES, NOTEBOOK_ROOT } from './vars';
-import { serialize } from './utils';
+import { toNotebookPath } from './utils';
+import { writeAsJson } from './fs';
 
 export default async () => {
   if (await fs.exists(HOME)) return;
-  const config = serialize({
+
+  await fs.mkdir(HOME);
+  await fs.mkdir(NOTEBOOKS);
+  await fs.mkdir(NOTES);
+
+  await writeAsJson(CONFIG_FILE, {
     // TODO: define config file structure.
   });
 
-  const dirIndex = serialize({
+  await writeAsJson(toNotebookPath(NOTEBOOK_ROOT), {
     title: 'Notebook',
     notebooks: [],
     notes: [],
   });
-
-  await fs.mkdir(HOME);
-  await fs.writeFile(CONFIG_FILE, config);
-  await fs.mkdir(NOTEBOOKS);
-  await fs.mkdir(NOTES);
-  await fs.writeFile(path.join(NOTEBOOKS, `${NOTEBOOK_ROOT}.json`), dirIndex);
 };

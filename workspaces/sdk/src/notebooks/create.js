@@ -1,9 +1,6 @@
 // @flow
-import fs from 'fs-extra';
-import path from 'path';
-
-import { serialize, toNotebookPath, readAsJson } from '../utils';
-import { NOTEBOOKS } from '../vars';
+import { updateAsJson, writeAsJson } from '../fs';
+import { toNotebookPath } from '../utils';
 
 const createNotebook = async ({
   notebook,
@@ -14,25 +11,15 @@ const createNotebook = async ({
   title: string,
   id: string,
 }) => {
-  const dir = await readAsJson(toNotebookPath(notebook));
+  await updateAsJson(toNotebookPath(notebook), notebook => {
+    notebook.notebooks.push(id);
+  });
 
-  const newDirPath = path.join(NOTEBOOKS, `${id}.json`);
-  const newDir = serialize({
+  await writeAsJson(toNotebookPath(id), {
     title,
     notebooks: [],
     notes: [],
   });
-
-  await Promise.all([
-    fs.writeFile(newDirPath, newDir),
-    fs.writeFile(
-      toNotebookPath(notebook),
-      serialize({
-        ...dir,
-        notebooks: [...dir.notebooks, id],
-      })
-    ),
-  ]);
 
   return id;
 };

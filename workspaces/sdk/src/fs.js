@@ -4,7 +4,7 @@ import fs from 'fs-extra';
 
 import { serialize } from './utils';
 
-type JsonValue =
+export type JsonValue =
   | string
   | number
   | boolean
