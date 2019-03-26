@@ -3,7 +3,7 @@ import { renderer } from '@ponder/test-utils';
 import { mount } from 'enzyme';
 import React from 'react';
 
-import { Note, Notebook, Notebooks, mapStateToProps } from '../Notebooks';
+import { Note, Nav, Notebook, Notebooks, mapStateToProps } from '../Notebooks';
 import { selector } from '../../utils/testing';
 import colors from '../../config/colors';
 
@@ -11,6 +11,7 @@ describe('Notebooks', () => {
   const setup = renderer(Notebooks, {
     getDefaultProps: () => ({
       selectedNoteId: 'note-1',
+      closeNote: jest.fn(),
       editNote: jest.fn(),
       notebooks: [
         { id: 'notebook-1', title: 'Notebook 1' },
@@ -25,6 +26,22 @@ describe('Notebooks', () => {
         { id: 'note-5', title: 'Note 5' },
       ],
     }),
+
+    configure({ output }) {
+      const nav = output.find(Nav).getElement();
+      const mockNavRef = { mock: 'nav dom ref' };
+
+      if (nav.ref) {
+        nav.ref(mockNavRef);
+      }
+
+      return {
+        mockNavRef,
+        createClickEvent: (target = mockNavRef) => ({
+          target,
+        }),
+      };
+    },
   });
 
   it('renders', () => {
@@ -94,6 +111,22 @@ describe('Notebooks', () => {
     const note = output.find(Notebook);
 
     expect(note.prop('children')).toMatch(/untitled/i);
+  });
+
+  it('closes the note when clicking an empty part of the navbar', () => {
+    const { output, props, createClickEvent } = setup();
+    const event = createClickEvent();
+    output.find(Nav).simulate('click', event);
+
+    expect(props.closeNote).toHaveBeenCalled();
+  });
+
+  it('ignores clicks on non-empty parts of the navbar', () => {
+    const { output, props, createClickEvent } = setup();
+    const event = createClickEvent({ mock: 'not nav' });
+    output.find(Nav).simulate('click', event);
+
+    expect(props.closeNote).not.toHaveBeenCalled();
   });
 
   describe('Note', () => {

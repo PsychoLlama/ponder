@@ -10,7 +10,7 @@ import * as actions from '../actions/notebooks';
 import colors from '../config/colors';
 import StatusBar from './StatusBar';
 
-const Nav = styled.nav`
+export const Nav = styled.nav`
   width: 25vw;
   margin-top: 4px;
   overflow-y: auto;
@@ -64,6 +64,7 @@ type NoteCollection = {
 type NoteObject = NoteCollection;
 
 type Props = {
+  closeNote: typeof actions.closeNote,
   editNote: typeof actions.editNote,
   notebooks: Array<NoteCollection>,
   selectedNoteId: string | null,
@@ -71,12 +72,14 @@ type Props = {
 };
 
 export class Notebooks extends React.Component<Props> {
+  nav: HTMLElement | null;
+
   render() {
     const { notes, notebooks } = this.props;
 
     return (
       <Sidebar>
-        <Nav>
+        <Nav onClick={this.closeNote} ref={this.setNavRef}>
           <List>
             {notebooks.map(this.renderNotebook)}
             {notes.map(this.renderNote)}
@@ -87,6 +90,16 @@ export class Notebooks extends React.Component<Props> {
       </Sidebar>
     );
   }
+
+  setNavRef = (ref: HTMLElement | null) => {
+    this.nav = ref;
+  };
+
+  // Clicking on an empty part of the navbar should dismiss the note.
+  closeNote = (event: SyntheticMouseEvent<HTMLElement>) => {
+    if (event.target !== this.nav) return;
+    this.props.closeNote();
+  };
 
   renderNotebook = (notebook: NoteCollection) => {
     return (
@@ -132,6 +145,7 @@ export const mapStateToProps = ({ notebooks, navigation }: ReduxState) => ({
 });
 
 const mapDispatchToProps = {
+  closeNote: actions.closeNote,
   editNote: actions.editNote,
 };
 
