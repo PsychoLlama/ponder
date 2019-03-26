@@ -8,7 +8,7 @@ import {
   combineReducers,
 } from 'redux';
 
-import { openRootNotebook } from '../actions/navigation';
+import { openRootNotebook } from '../actions/notebook';
 
 import type { ReduxState } from '../types/redux-store';
 import * as reducers from '../reducers';

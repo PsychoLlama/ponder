@@ -49,18 +49,18 @@ describe('Note', () => {
     it('grabs the selected note ID', () => {
       const { props, state } = select(state => {
         const note = { type: 'note', id: 'note', title: 'Title' };
-        state.notebooks.selectedNoteId = note.id;
-        state.navigation.items = [note];
+        state.notebook.selectedNoteId = note.id;
+        state.notebook.contents.notes[note.id] = note;
       });
 
-      expect(props.noteId).toBe(state.notebooks.selectedNoteId);
+      expect(props.noteId).toBe(state.notebook.selectedNoteId);
     });
 
     it('grabs the note title', () => {
       const { props } = select(state => {
         const note = { type: 'note', id: 'note', title: 'Title' };
-        state.notebooks.selectedNoteId = note.id;
-        state.navigation.items = [note];
+        state.notebook.selectedNoteId = note.id;
+        state.notebook.contents.notes[note.id] = note;
       });
 
       expect(props.title).toBe('Title');
@@ -69,7 +69,7 @@ describe('Note', () => {
     it('throws an error if there is no selected note', () => {
       const fail = () =>
         select(state => {
-          state.notebooks.selectedNoteId = null;
+          state.notebook.selectedNoteId = null;
         });
 
       expect(fail).toThrow(/selected/i);

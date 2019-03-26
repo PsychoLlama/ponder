@@ -6,7 +6,7 @@ import React from 'react';
 
 import type { ReduxState } from '../types/redux-store';
 import { translate } from '../utils/translation';
-import * as actions from '../actions/notebooks';
+import * as actions from '../actions/notebook';
 
 const Container = styled.article`
   flex-grow: 1;
@@ -45,9 +45,9 @@ export class Note extends React.Component<Props> {
   };
 }
 
-export const mapStateToProps = ({ navigation, notebooks }: ReduxState) => {
-  const { selectedNoteId } = notebooks;
-  const note = navigation.items.find(note => note.id === selectedNoteId);
+export const mapStateToProps = ({ notebook }: ReduxState) => {
+  const { selectedNoteId } = notebook;
+  const note = notebook.contents.notes[(selectedNoteId: any)];
 
   if (!note) {
     throw new Error(`No note has been selected.`);

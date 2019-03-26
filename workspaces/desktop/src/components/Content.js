@@ -6,7 +6,7 @@ import React from 'react';
 
 import type { ReduxState } from '../types/redux-store';
 import { translate } from '../utils/translation';
-import * as actions from '../actions/notebooks';
+import * as actions from '../actions/notebook';
 import colors from '../config/colors';
 import StatusBar from './StatusBar';
 import Note from './Note';
@@ -108,9 +108,9 @@ export class Content extends React.Component<Props> {
   };
 }
 
-export const mapStateToProps = ({ notebooks, navigation }: ReduxState) => ({
-  selectedNotebook: navigation.path[navigation.path.length - 1],
-  isEditingNote: Boolean(notebooks.selectedNoteId),
+export const mapStateToProps = ({ notebook }: ReduxState) => ({
+  selectedNotebook: notebook.path[notebook.path.length - 1],
+  isEditingNote: Boolean(notebook.selectedNoteId),
 });
 
 const mapDispatchToProps = {

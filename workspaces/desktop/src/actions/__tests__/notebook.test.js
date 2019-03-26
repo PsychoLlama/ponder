@@ -1,6 +1,11 @@
 // @flow
-import { createNote, renameNote, NOTEBOOK_ROOT } from '@ponder/sdk';
-import * as actions from '../notebooks';
+import {
+  createNote,
+  readNotebook,
+  renameNote,
+  NOTEBOOK_ROOT,
+} from '@ponder/sdk';
+import * as actions from '../notebook';
 
 jest.mock('@ponder/sdk');
 
@@ -47,6 +52,29 @@ describe('Notebook actions', () => {
       const { payload } = actions.renameNote(config);
 
       expect(payload).toEqual(config);
+    });
+  });
+
+  describe('openRootNotebook', () => {
+    beforeEach(() => {
+      (readNotebook: Function).mockResolvedValue([
+        {
+          type: 'notebook',
+          id: 'notebook1',
+          title: 'Ideas',
+        },
+        {
+          title: 'Recipes',
+          type: 'note',
+          id: 'note1',
+        },
+      ]);
+    });
+
+    it('returns the notebook listing', async () => {
+      const { payload } = actions.openRootNotebook();
+
+      await expect(payload).resolves.toHaveLength(2);
     });
   });
 });

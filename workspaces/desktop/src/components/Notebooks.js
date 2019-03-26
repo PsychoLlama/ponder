@@ -6,7 +6,7 @@ import React from 'react';
 
 import type { ReduxState } from '../types/redux-store';
 import { translate } from '../utils/translation';
-import * as actions from '../actions/notebooks';
+import * as actions from '../actions/notebook';
 import colors from '../config/colors';
 import StatusBar from './StatusBar';
 
@@ -125,23 +125,15 @@ export class Notebooks extends React.Component<Props> {
   };
 }
 
-const identity = value => value;
-const isType = type => item => item.type === type;
-
-const selectNotes = createSelector(
-  identity,
-  items => items.filter(isType('note'))
+const intoArray = createSelector(
+  value => value,
+  map => Object.values(map)
 );
 
-const selectNotebooks = createSelector(
-  identity,
-  items => items.filter(isType('notebook'))
-);
-
-export const mapStateToProps = ({ notebooks, navigation }: ReduxState) => ({
-  notebooks: selectNotebooks(navigation.items),
-  selectedNoteId: notebooks.selectedNoteId,
-  notes: selectNotes(navigation.items),
+export const mapStateToProps = ({ notebook }: ReduxState) => ({
+  notebooks: intoArray(notebook.contents.notebooks),
+  notes: intoArray(notebook.contents.notes),
+  selectedNoteId: notebook.selectedNoteId,
 });
 
 const mapDispatchToProps = {

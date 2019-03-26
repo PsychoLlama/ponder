@@ -37,8 +37,11 @@ describe('Redux store', () => {
 
   it('loads the initial directory', async () => {
     const store = await createStore();
-    const { navigation } = store.getState();
+    const { notebook } = store.getState();
 
-    expect(navigation.items).toHaveLength(1);
+    expect(notebook.contents).toEqual({
+      notes: { id: expect.any(Object) },
+      notebooks: {},
+    });
   });
 });

@@ -3,8 +3,13 @@ import * as sdk from '@ponder/sdk';
 import { createAction } from 'redux-actions';
 import uuid from 'uuid/v4';
 
+export const openRootNotebook = createAction(
+  'notebook/open-root-notebook',
+  () => sdk.readNotebook(sdk.NOTEBOOK_ROOT)
+);
+
 export const createNote = createAction(
-  'notebooks/create-note',
+  'notebook/create-note',
   ({ notebook }: { notebook: string }) => {
     const id = uuid();
 
@@ -24,7 +29,7 @@ export const createNote = createAction(
 );
 
 export const renameNote = createAction(
-  'notebooks/rename-note',
+  'notebook/rename-note',
   (update: { id: string, title: string }) => {
     // Optimistic only. Drop the promise.
     sdk.renameNote(update);
@@ -33,5 +38,5 @@ export const renameNote = createAction(
   }
 );
 
-export const editNote = createAction('notebooks/open-note', (id: string) => id);
-export const closeNote = createAction('notebooks/close-note', () => undefined);
+export const editNote = createAction('notebook/open-note', (id: string) => id);
+export const closeNote = createAction('notebook/close-note', () => undefined);

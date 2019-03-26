@@ -161,13 +161,13 @@ describe('Notebooks', () => {
     it('pulls the selected note ID', () => {
       const { props, state } = select();
 
-      expect(props.selectedNoteId).toBe(state.notebooks.selectedNoteId);
+      expect(props.selectedNoteId).toBe(state.notebook.selectedNoteId);
     });
 
     it('pulls the list of notes', () => {
       const note = { type: 'note', id: '1', title: '' };
       const { props } = select(state => {
-        state.navigation.items = [note];
+        state.notebook.contents.notes[note.id] = note;
       });
 
       expect(props.notebooks).toHaveLength(0);
@@ -178,7 +178,7 @@ describe('Notebooks', () => {
     it('pulls the list of notebooks', () => {
       const notebook = { type: 'notebook', id: '2', title: '' };
       const { props } = select(state => {
-        state.navigation.items = [notebook];
+        state.notebook.contents.notebooks[notebook.id] = notebook;
       });
 
       expect(props.notes).toHaveLength(0);

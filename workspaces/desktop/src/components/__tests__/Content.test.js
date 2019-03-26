@@ -49,7 +49,7 @@ describe('Content', () => {
 
     it('indicates if a note has been selected', () => {
       const { props } = select(state => {
-        state.notebooks.selectedNoteId = 'note-id';
+        state.notebook.selectedNoteId = 'note-id';
       });
 
       expect(props.isEditingNote).toBe(true);
@@ -57,7 +57,7 @@ describe('Content', () => {
 
     it('shows the currently selected notebook', () => {
       const { props } = select(state => {
-        state.navigation.path = ['first', 'second', 'third'];
+        state.notebook.path = ['first', 'second', 'third'];
       });
 
       expect(props.selectedNotebook).toBe('third');
