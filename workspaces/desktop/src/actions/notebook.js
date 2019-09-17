@@ -12,16 +12,17 @@ export const createNote = createAction(
   'notebook/create-note',
   ({ notebook }: { notebook: string }) => {
     const id = uuid();
+    const title = '';
 
     // Optimistic only. Drop the promise.
     sdk.createNote({
-      title: '',
+      title,
       notebook,
       id,
     });
 
     return {
-      title: '',
+      title,
       notebook,
       id,
     };

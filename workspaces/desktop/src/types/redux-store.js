@@ -1,6 +1,8 @@
 // @flow
-import type { State as Notebook } from '../reducers/notebook';
+import type { Notebooks, Navigation, Notes } from '../reducers/state';
 
 export type ReduxState = {
-  notebook: Notebook,
+  navigation: Navigation,
+  notebooks: Notebooks,
+  notes: Notes,
 };

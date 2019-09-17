@@ -1,5 +1,6 @@
 // @flow
 import { compose } from 'redux';
+import { NOTEBOOK_ROOT } from '@ponder/sdk';
 
 import createStore, { DEVTOOLS_KEY } from '../redux-store';
 import { readNotebook } from '@ponder/sdk';
@@ -37,11 +38,13 @@ describe('Redux store', () => {
 
   it('loads the initial directory', async () => {
     const store = await createStore();
-    const { notebook } = store.getState();
+    const { notebooks } = store.getState();
 
-    expect(notebook.contents).toEqual({
-      notes: { id: expect.any(Object) },
-      notebooks: {},
+    expect(notebooks).toEqual({
+      [NOTEBOOK_ROOT]: {
+        notes: { id: expect.any(String) },
+        notebooks: {},
+      },
     });
   });
 });

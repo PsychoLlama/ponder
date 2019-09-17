@@ -2,13 +2,15 @@
 // @flow
 import produce from 'immer';
 
-import { initialState as notebook } from '../reducers/notebook';
+import { notebooks, navigation, notes } from '../reducers/state';
 import type { ReduxState } from '../types/redux-store';
 
 const noop = () => {};
 
 export const createReduxState = (): ReduxState => ({
-  notebook,
+  notebooks,
+  navigation,
+  notes,
 });
 
 type ImmerProducer = (state: ReduxState) => void;
