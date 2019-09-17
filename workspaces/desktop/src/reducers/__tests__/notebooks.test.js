@@ -22,12 +22,7 @@ describe('Notebooks reducer', () => {
 
       expect(state).toEqual({
         [NOTEBOOK_ROOT]: {
-          notebooks: {
-            [1]: 'Notebook title',
-          },
-          notes: {
-            [2]: 'Note title',
-          },
+          contents: [{ type: 'notebook', id: 1 }, { type: 'note', id: 2 }],
         },
       });
     });
@@ -46,21 +41,15 @@ describe('Notebooks reducer', () => {
 
     it('adds the note to the corresponding notebook', () => {
       const withNotebook = {
-        steve: {
-          notebooks: {},
-          notes: {},
-        },
+        steve: { contents: [] },
       };
 
-      const action = createAction();
+      const action = createAction({ notebook: 'steve' });
       const state = reducer(withNotebook, action);
 
-      expect(state).toEqual({
-        steve: {
-          notebooks: {},
-          notes: {},
-        },
-      });
+      expect(state.steve.contents).toEqual([
+        { type: 'note', id: action.payload.id },
+      ]);
     });
   });
 });

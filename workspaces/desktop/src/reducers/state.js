@@ -1,4 +1,7 @@
 // @flow
+type Notebook = { type: 'notebook', id: string };
+type Note = { type: 'note', id: string };
+
 export type Navigation = {
   path: string[],
   note: null | string,
@@ -11,8 +14,7 @@ export const navigation: Navigation = {
 
 export type Notebooks = {
   [notebookId: string]: {
-    notebooks: { [id: string]: string },
-    notes: { [id: string]: string },
+    contents: Array<Notebook | Note>,
   },
 };
 

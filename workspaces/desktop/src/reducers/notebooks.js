@@ -13,19 +13,22 @@ export default handleActions(
         state: Notebooks,
         action: ActionType<typeof actions.openRootNotebook>
       ) => {
-        const notebooks = {};
-        const notes = {};
-
-        action.payload.forEach(item => {
-          const map = item.type === 'note' ? notes : notebooks;
-
-          map[item.id] = item.title;
-        });
-
         state[NOTEBOOK_ROOT] = {
-          notebooks,
-          notes,
+          contents: action.payload.map(item => ({
+            type: item.type,
+            id: item.id,
+          })),
         };
+      }
+    ),
+
+    [String(actions.createNote)]: produce(
+      (state: Notebooks, action: ActionType<typeof actions.createNote>) => {
+        const notebook = state[action.payload.notebook];
+        notebook.contents.push({
+          type: 'note',
+          id: action.payload.id,
+        });
       }
     ),
   },
