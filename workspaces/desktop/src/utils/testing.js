@@ -7,11 +7,17 @@ import type { ReduxState } from '../types/redux-store';
 
 const noop = () => {};
 
-export const createReduxState = (): ReduxState => ({
-  notebooks,
-  navigation,
-  notes,
-});
+export const createReduxState = (
+  update?: ImmerProducer = () => {}
+): ReduxState =>
+  produce(
+    {
+      notebooks,
+      navigation,
+      notes,
+    },
+    update
+  );
 
 type ImmerProducer = (state: ReduxState) => void;
 

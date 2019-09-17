@@ -1,9 +1,9 @@
 // @flow
-import { createSelector } from 'reselect';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import React from 'react';
 
+import { getNotebookId } from '../selectors/notebooks';
 import type { ReduxState } from '../types/redux-store';
 import { translate } from '../utils/translation';
 import * as actions from '../actions/notebook';
@@ -55,27 +55,25 @@ export const Note = styled(NavItem)`
   color: ${props => (props.selected ? colors.primary : colors.mutedText)};
 `;
 
-type NoteCollection = {
-  title: string,
+type NotebookEntry = {
+  type: 'note' | 'notebook',
   id: string,
 };
-
-// For now, they're identical.
-type NoteObject = NoteCollection;
 
 type Props = {
   closeNote: typeof actions.closeNote,
   editNote: typeof actions.editNote,
-  notebooks: Array<NoteCollection>,
+  entries: Array<NotebookEntry>,
   selectedNoteId: string | null,
-  notes: Array<NoteObject>,
 };
 
 export class Notebooks extends React.Component<Props> {
   nav: HTMLElement | null;
 
   render() {
-    const { notes, notebooks } = this.props;
+    const { entries } = this.props;
+    const notebooks = entries.filter(entry => entry.type === 'notebook');
+    const notes = entries.filter(entry => entry.type === 'note');
 
     return (
       <Sidebar>
@@ -101,7 +99,7 @@ export class Notebooks extends React.Component<Props> {
     this.props.closeNote();
   };
 
-  renderNotebook = (notebook: NoteCollection) => {
+  renderNotebook = (notebook: NotebookEntry) => {
     return (
       <Notebook key={notebook.id}>
         {notebook.title || translate('Untitled Notebook')}
@@ -109,7 +107,7 @@ export class Notebooks extends React.Component<Props> {
     );
   };
 
-  renderNote = (note: NoteObject) => {
+  renderNote = (note: NotebookEntry) => {
     const selected = note.id === this.props.selectedNoteId;
     const selectNote = this.props.editNote.bind(null, note.id);
 
@@ -125,16 +123,16 @@ export class Notebooks extends React.Component<Props> {
   };
 }
 
-const intoArray = createSelector(
-  value => value,
-  map => Object.values(map)
-);
+export const mapStateToProps = (state: ReduxState) => {
+  const notebookId = getNotebookId(state);
+  const notebook = state.notebooks[notebookId];
+  const entries = notebook ? notebook.contents : undefined;
 
-export const mapStateToProps = ({ notebook }: ReduxState) => ({
-  notebooks: intoArray(notebook.contents.notebooks),
-  notes: intoArray(notebook.contents.notes),
-  selectedNoteId: notebook.selectedNoteId,
-});
+  return {
+    selectedNoteId: state.navigation.note,
+    entries,
+  };
+};
 
 const mapDispatchToProps = {
   closeNote: actions.closeNote,

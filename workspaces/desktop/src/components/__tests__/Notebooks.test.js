@@ -1,4 +1,5 @@
 // @flow
+import { NOTEBOOK_ROOT } from '@ponder/sdk';
 import { renderer } from '@ponder/test-utils';
 import { mount } from 'enzyme';
 import React from 'react';
@@ -13,17 +14,15 @@ describe('Notebooks', () => {
       selectedNoteId: 'note-1',
       closeNote: jest.fn(),
       editNote: jest.fn(),
-      notebooks: [
-        { id: 'notebook-1', title: 'Notebook 1' },
-        { id: 'notebook-2', title: 'Notebook 2' },
-        { id: 'notebook-3', title: 'Notebook 3' },
-      ],
-      notes: [
-        { id: 'note-1', title: 'Note 1' },
-        { id: 'note-2', title: 'Note 2' },
-        { id: 'note-3', title: 'Note 3' },
-        { id: 'note-4', title: 'Note 4' },
-        { id: 'note-5', title: 'Note 5' },
+      entries: [
+        { id: 'notebook-1', type: 'notebook' },
+        { id: 'notebook-2', type: 'notebook' },
+        { id: 'notebook-3', type: 'notebook' },
+        { id: 'note-1', type: 'note' },
+        { id: 'note-2', type: 'note' },
+        { id: 'note-3', type: 'note' },
+        { id: 'note-4', type: 'note' },
+        { id: 'note-5', type: 'note' },
       ],
     }),
 
@@ -103,16 +102,6 @@ describe('Notebooks', () => {
     expect(note.prop('children')).toMatch(/untitled/i);
   });
 
-  it('shows when a notebook is untitled', () => {
-    const { output } = setup({
-      notebooks: [{ title: '', id: '1' }],
-    });
-
-    const note = output.find(Notebook);
-
-    expect(note.prop('children')).toMatch(/untitled/i);
-  });
-
   it('closes the note when clicking an empty part of the navbar', () => {
     const { output, props, createClickEvent } = setup();
     const event = createClickEvent();
@@ -159,31 +148,28 @@ describe('Notebooks', () => {
     const select = selector(mapStateToProps, {});
 
     it('pulls the selected note ID', () => {
-      const { props, state } = select();
-
-      expect(props.selectedNoteId).toBe(state.notebook.selectedNoteId);
-    });
-
-    it('pulls the list of notes', () => {
-      const note = { type: 'note', id: '1', title: '' };
-      const { props } = select(state => {
-        state.notebook.contents.notes[note.id] = note;
+      const { props, state } = select(state => {
+        state.notebooks[NOTEBOOK_ROOT] = { contents: [] };
       });
 
-      expect(props.notebooks).toHaveLength(0);
-      expect(props.notes).toHaveLength(1);
-      expect(props.notes[0]).toBe(note);
+      expect(props.selectedNoteId).toBe(state.navigation.note);
     });
 
-    it('pulls the list of notebooks', () => {
-      const notebook = { type: 'notebook', id: '2', title: '' };
-      const { props } = select(state => {
-        state.notebook.contents.notebooks[notebook.id] = notebook;
+    it('pulls the list of notebook entries', () => {
+      const notebook = { type: 'notebook', id: '2' };
+      const note = { type: 'note', id: '1' };
+      const { props, state } = select(state => {
+        state.navigation.path = [];
+        state.notebooks[NOTEBOOK_ROOT] = { contents: [notebook, note] };
       });
 
-      expect(props.notes).toHaveLength(0);
-      expect(props.notebooks).toHaveLength(1);
-      expect(props.notebooks[0]).toBe(notebook);
+      expect(props.entries).toBe(state.notebooks[NOTEBOOK_ROOT].contents);
+    });
+
+    it('survives if the notebook has not been loaded yet', () => {
+      const { props } = select();
+
+      expect(props.entries).toBeUndefined();
     });
   });
 });
