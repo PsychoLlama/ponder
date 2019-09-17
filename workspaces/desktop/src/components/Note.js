@@ -1,6 +1,7 @@
 // @flow
 import { Input, MarkdownEditor } from '@ponder/ui';
 import styled from 'styled-components';
+import assert from 'minimalistic-assert';
 import { connect } from 'react-redux';
 import React from 'react';
 
@@ -45,16 +46,12 @@ export class Note extends React.Component<Props> {
   };
 }
 
-export const mapStateToProps = ({ notebook }: ReduxState) => {
-  const { selectedNoteId } = notebook;
-  const note = notebook.contents.notes[(selectedNoteId: any)];
-
-  if (!note) {
-    throw new Error(`No note has been selected.`);
-  }
+export const mapStateToProps = ({ notes, navigation }: ReduxState) => {
+  const note = notes[(navigation.note: any)];
+  assert(note, 'No note has been selected.');
 
   return {
-    noteId: selectedNoteId,
+    noteId: navigation.note,
     title: note.title,
   };
 };
