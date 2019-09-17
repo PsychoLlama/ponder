@@ -57,4 +57,36 @@ describe('Notes reducer', () => {
       });
     });
   });
+
+  describe('openRootNotebook', () => {
+    const createAction = patch => ({
+      type: String(actions.openRootNotebook),
+      payload: patch || [
+        { type: 'note', id: 1, title: 'Note #1' },
+        { type: 'note', id: 2, title: 'Note #2' },
+        { type: 'note', id: 3, title: 'Note #3' },
+      ],
+    });
+
+    it('indexes all the notes', () => {
+      const action = createAction();
+      const state = reducer(undefined, action);
+
+      expect(state).toEqual({
+        [1]: { title: 'Note #1', sections: [] },
+        [2]: { title: 'Note #2', sections: [] },
+        [3]: { title: 'Note #3', sections: [] },
+      });
+    });
+
+    it('ignores notebooks', () => {
+      const action = createAction([
+        { type: 'notebook', id: 1, title: 'Notebook' },
+      ]);
+
+      const state = reducer(undefined, action);
+
+      expect(state).toEqual({});
+    });
+  });
 });

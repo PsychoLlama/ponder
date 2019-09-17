@@ -21,6 +21,19 @@ export default handleActions(
         state[id].title = title;
       }
     ),
+
+    [String(actions.openRootNotebook)]: produce(
+      (state: Notes, action: ActionType<typeof actions.openRootNotebook>) => {
+        const notes = action.payload.filter(entry => entry.type === 'note');
+
+        notes.forEach(({ id, title }) => {
+          state[id] = {
+            sections: [],
+            title,
+          };
+        });
+      }
+    ),
   },
   notes
 );
