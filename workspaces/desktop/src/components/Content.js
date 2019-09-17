@@ -1,9 +1,9 @@
 // @flow
-import { NOTEBOOK_ROOT } from '@ponder/sdk';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import React from 'react';
 
+import { getNotebookId } from '../selectors/notebooks';
 import type { ReduxState } from '../types/redux-store';
 import { translate } from '../utils/translation';
 import * as actions from '../actions/notebook';
@@ -68,10 +68,6 @@ type Props = {
 };
 
 export class Content extends React.Component<Props> {
-  static defaultProps = {
-    selectedNotebook: NOTEBOOK_ROOT,
-  };
-
   render() {
     const { isEditingNote } = this.props;
 
@@ -108,9 +104,9 @@ export class Content extends React.Component<Props> {
   };
 }
 
-export const mapStateToProps = ({ notebook }: ReduxState) => ({
-  selectedNotebook: notebook.path[notebook.path.length - 1],
-  isEditingNote: Boolean(notebook.selectedNoteId),
+export const mapStateToProps = (state: ReduxState) => ({
+  selectedNotebook: getNotebookId(state),
+  isEditingNote: state.navigation.note !== null,
 });
 
 const mapDispatchToProps = {
