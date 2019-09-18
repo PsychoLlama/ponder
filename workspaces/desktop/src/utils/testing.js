@@ -44,5 +44,5 @@ export const selector = <OwnProps: Object, Selection: Object>(
 
   expect(props).toEqual(expect.any(Object));
 
-  return { props, state };
+  return { ownProps, props, state };
 };

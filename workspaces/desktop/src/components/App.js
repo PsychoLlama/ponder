@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import React from 'react';
 
 import colors from '../config/colors';
-import Notebooks from './Notebooks';
+import Navigation from './navigation/Navigation';
 import Content from './Content';
 
 // Height of the transparent title bar.
@@ -35,7 +35,7 @@ export const App = () => (
     <TitleBar />
 
     <AppContent>
-      <Notebooks />
+      <Navigation />
       <Content />
     </AppContent>
   </Container>

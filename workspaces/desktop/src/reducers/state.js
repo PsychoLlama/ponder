@@ -14,6 +14,7 @@ export const navigation: Navigation = {
 
 export type Notebooks = {
   [notebookId: string]: {
+    title: string,
     contents: Array<Notebook | Note>,
   },
 };

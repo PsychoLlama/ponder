@@ -3,12 +3,11 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import React from 'react';
 
-import { getNotebookId } from '../selectors/notebooks';
-import type { ReduxState } from '../types/redux-store';
-import { translate } from '../utils/translation';
-import * as actions from '../actions/notebook';
-import colors from '../config/colors';
-import StatusBar from './StatusBar';
+import { getNotebookId } from '../../selectors/notebooks';
+import type { ReduxState } from '../../types/redux-store';
+import * as actions from '../../actions/notebook';
+import StatusBar from '../StatusBar';
+import NavItem from './NavItem';
 
 export const Nav = styled.nav`
   width: 25vw;
@@ -28,33 +27,6 @@ const List = styled.ol`
   padding: 0;
 `;
 
-const NavItem = styled.a.attrs({ href: '#' })`
-  padding: 8px 24px;
-  display: block;
-  transition-property: padding-left, padding-right;
-  transition-duration: 250ms;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow-x: hidden;
-  color: inherit;
-  text-decoration: none;
-  cursor: default;
-  user-select: none;
-
-  :hover {
-    padding-left: 32px;
-    padding-right: 16px;
-  }
-`;
-
-export const Notebook = styled(NavItem)`
-  font-size: 16px;
-`;
-
-export const Note = styled(NavItem)`
-  color: ${props => (props.selected ? colors.primary : colors.mutedText)};
-`;
-
 type NotebookEntry = {
   type: 'note' | 'notebook',
   id: string,
@@ -67,8 +39,12 @@ type Props = {
   selectedNoteId: string | null,
 };
 
-export class Notebooks extends React.Component<Props> {
+export class Navigation extends React.Component<Props> {
   nav: HTMLElement | null;
+
+  static defaultProps = {
+    entries: [],
+  };
 
   render() {
     const { entries } = this.props;
@@ -100,26 +76,11 @@ export class Notebooks extends React.Component<Props> {
   };
 
   renderNotebook = (notebook: NotebookEntry) => {
-    return (
-      <Notebook key={notebook.id}>
-        {notebook.title || translate('Untitled Notebook')}
-      </Notebook>
-    );
+    return <NavItem type="notebook" id={notebook.id} key={notebook.id} />;
   };
 
   renderNote = (note: NotebookEntry) => {
-    const selected = note.id === this.props.selectedNoteId;
-    const selectNote = this.props.editNote.bind(null, note.id);
-
-    return (
-      <Note
-        onClick={selected ? undefined : selectNote}
-        selected={selected}
-        key={note.id}
-      >
-        {note.title || translate('Untitled Note')}
-      </Note>
-    );
+    return <NavItem type="note" key={note.id} id={note.id} />;
   };
 }
 
@@ -142,4 +103,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Notebooks);
+)(Navigation);
