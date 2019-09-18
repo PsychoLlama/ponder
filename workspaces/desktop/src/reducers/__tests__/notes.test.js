@@ -89,4 +89,28 @@ describe('Notes reducer', () => {
       expect(state).toEqual({});
     });
   });
+
+  describe('editNote', () => {
+    const createAction = patch => ({
+      type: String(actions.editNote),
+      payload: {
+        sections: [],
+        id: 'mock-note-id',
+        ...patch,
+      },
+    });
+
+    it('loads the note sections', () => {
+      const section = { id: '1', type: 'markdown', content: '# Title' };
+      const action = createAction({ sections: [section] });
+      const withNote = {
+        [action.payload.id]: { title: 'title', sections: [] },
+      };
+      const state = reducer(withNote, action);
+
+      expect(state[action.payload.id]).toMatchObject({
+        sections: [section.id],
+      });
+    });
+  });
 });

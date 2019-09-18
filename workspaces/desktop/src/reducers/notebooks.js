@@ -6,7 +6,7 @@ import { produce } from 'immer';
 import * as actions from '../actions/notebook';
 import { notebooks, type Notebooks } from './state';
 
-export default handleActions(
+export default handleActions<Notebooks, *>(
   {
     [String(actions.openRootNotebook)]: produce(
       (

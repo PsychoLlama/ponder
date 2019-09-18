@@ -7,11 +7,6 @@ export type Navigation = {
   note: null | string,
 };
 
-export const navigation: Navigation = {
-  note: null,
-  path: [],
-};
-
 export type Notebooks = {
   [notebookId: string]: {
     title: string,
@@ -19,13 +14,25 @@ export type Notebooks = {
   },
 };
 
-export const notebooks: Notebooks = {};
-
 export type Notes = {
-  [id: string]: {
+  [noteId: string]: {
     sections: Array<string>,
     title: string,
   },
 };
 
+export type Sections = {
+  [sectionId: string]: {
+    type: 'markdown',
+    content: string,
+    id: string,
+  },
+};
+
+export const notebooks: Notebooks = {};
 export const notes: Notes = {};
+export const sections: Sections = {};
+export const navigation: Navigation = {
+  note: null,
+  path: [],
+};

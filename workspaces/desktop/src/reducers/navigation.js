@@ -5,7 +5,7 @@ import produce from 'immer';
 import * as actions from '../actions/notebook';
 import { navigation, type Navigation } from './state';
 
-export default handleActions(
+export default handleActions<Navigation, *>(
   {
     [String(actions.openRootNotebook)]: produce((state: Navigation) => {
       state.path = [];
@@ -19,7 +19,7 @@ export default handleActions(
 
     [String(actions.editNote)]: produce(
       (state: Navigation, action: ActionType<typeof actions.editNote>) => {
-        state.note = action.payload;
+        state.note = action.payload.id;
       }
     ),
 

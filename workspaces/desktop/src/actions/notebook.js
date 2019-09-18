@@ -39,5 +39,13 @@ export const renameNote = createAction(
   }
 );
 
-export const editNote = createAction('notebook/open-note', (id: string) => id);
+export const editNote = createAction(
+  'notebook/edit-note',
+  async (id: string) => {
+    const { sections } = await sdk.readNote(id);
+
+    return { id, sections };
+  }
+);
+
 export const closeNote = createAction('notebook/close-note', () => undefined);

@@ -40,9 +40,14 @@ describe('Notebooks reducer', () => {
   });
 
   describe('editNote', () => {
+    const createAction = id => ({
+      type: String(actions.editNote),
+      payload: { id, sections: [] },
+    });
+
     it('sets the selected note ID', () => {
       const noteId = 'note-uuid';
-      const action = actions.editNote(noteId);
+      const action = createAction(noteId);
       const state = reducer(undefined, action);
 
       expect(state.note).toBe(noteId);
@@ -50,8 +55,13 @@ describe('Notebooks reducer', () => {
   });
 
   describe('closeNote', () => {
+    const createEditNoteAction = id => ({
+      type: String(actions.closeNote),
+      payload: id,
+    });
+
     it('unsets the selected note ID', () => {
-      const open = actions.editNote('note-uuid');
+      const open = createEditNoteAction('note-uuid');
       const close = actions.closeNote();
       const state = reducer(reducer(undefined, open), close);
 

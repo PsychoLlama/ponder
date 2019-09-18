@@ -3,6 +3,7 @@ import {
   createNote,
   readNotebook,
   renameNote,
+  readNote,
   NOTEBOOK_ROOT,
 } from '@ponder/sdk';
 import * as actions from '../notebook';
@@ -75,6 +76,26 @@ describe('Notebook actions', () => {
       const { payload } = actions.openRootNotebook();
 
       await expect(payload).resolves.toHaveLength(2);
+    });
+  });
+
+  describe('editNote', () => {
+    beforeEach(() => {
+      readNote.mockImplementation(id => ({
+        sections: [{ mock: 'section' }],
+        title: 'title',
+        id,
+      }));
+    });
+
+    it('reads the given note', async () => {
+      const id = 'note-id';
+      const action = actions.editNote(id);
+
+      await expect(action.payload).resolves.toMatchObject({
+        sections: [{ mock: 'section' }],
+        id,
+      });
     });
   });
 });

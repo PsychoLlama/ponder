@@ -5,7 +5,7 @@ import { produce } from 'immer';
 import * as actions from '../actions/notebook';
 import { notes, type Notes } from './state';
 
-export default handleActions(
+export default handleActions<Notes, *>(
   {
     [String(actions.createNote)]: produce(
       (state: Notes, action: ActionType<typeof actions.createNote>) => {
@@ -32,6 +32,13 @@ export default handleActions(
             title,
           };
         });
+      }
+    ),
+
+    [String(actions.editNote)]: produce(
+      (state: Notes, action: ActionType<typeof actions.editNote>) => {
+        const { id, sections } = action.payload;
+        state[id].sections = sections.map(section => section.id);
       }
     ),
   },
