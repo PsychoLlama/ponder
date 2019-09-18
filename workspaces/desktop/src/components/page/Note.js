@@ -5,9 +5,9 @@ import assert from 'minimalistic-assert';
 import { connect } from 'react-redux';
 import React from 'react';
 
-import type { ReduxState } from '../types/redux-store';
-import { translate } from '../utils/translation';
-import * as actions from '../actions/notebook';
+import type { ReduxState } from '../../types/redux-store';
+import { translate } from '../../utils/translation';
+import * as actions from '../../actions/notebook';
 
 const Container = styled.article`
   flex-grow: 1;

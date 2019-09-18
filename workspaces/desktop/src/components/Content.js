@@ -9,7 +9,7 @@ import { translate } from '../utils/translation';
 import * as actions from '../actions/notebook';
 import colors from '../config/colors';
 import StatusBar from './StatusBar';
-import Note from './Note';
+import Note from './page/Note';
 
 const Container = styled.section`
   flex-grow: 1;

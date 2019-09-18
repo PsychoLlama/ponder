@@ -3,7 +3,7 @@ import { renderer } from '@ponder/test-utils';
 import { Input } from '@ponder/ui';
 
 import { Note, mapStateToProps } from '../Note';
-import { selector } from '../../utils/testing';
+import { selector } from '../../../utils/testing';
 
 describe('Note', () => {
   const setup = renderer(Note, {
