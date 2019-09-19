@@ -13,18 +13,29 @@ export const createNote = createAction(
   ({ notebook }: { notebook: string }) => {
     const id = uuid();
     const title = '';
+    const section = {
+      type: 'markdown',
+      content: '',
+      id: uuid(),
+    };
 
-    // Optimistic only. Drop the promise.
-    sdk.createNote({
-      title,
-      notebook,
-      id,
-    });
+    // TODO: add support for richer action dispatching. This action is
+    // optimistic only, which requires dropping the promise reference.
+    (async () => {
+      await sdk.createNote({
+        title,
+        notebook,
+        id,
+      });
+
+      await sdk.insertSection(id, 0, section);
+    })();
 
     return {
       title,
       notebook,
       id,
+      sections: [section],
     };
   }
 );

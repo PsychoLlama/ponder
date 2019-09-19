@@ -37,4 +37,34 @@ describe('Sections reducer', () => {
       });
     });
   });
+
+  describe('createNote', () => {
+    const createAction = patch => ({
+      type: String(actions.createNote),
+      payload: {
+        id: 'mock-note-id',
+        title: '',
+        sections: [],
+        ...patch,
+      },
+    });
+
+    it('adds sections', () => {
+      const section = {
+        id: 'mock-section-id',
+        type: 'markdown',
+        content: '',
+      };
+
+      const action = createAction({ sections: [section] });
+      const state = reducer(undefined, action);
+
+      expect(state).toEqual({
+        [section.id]: {
+          type: section.type,
+          content: section.content,
+        },
+      });
+    });
+  });
 });

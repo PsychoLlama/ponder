@@ -1,5 +1,6 @@
 // @flow
 import {
+  insertSection,
   createNote,
   readNotebook,
   renameNote,
@@ -16,13 +17,21 @@ describe('Notebook actions', () => {
   });
 
   describe('createNote', () => {
-    it('writes a new note', () => {
+    it('writes a new note', async () => {
       actions.createNote({ notebook: NOTEBOOK_ROOT });
 
       expect(createNote).toHaveBeenCalledWith({
         notebook: NOTEBOOK_ROOT,
         id: expect.any(String),
         title: '',
+      });
+
+      await Promise.resolve();
+
+      expect(insertSection).toHaveBeenCalledWith(expect.any(String), 0, {
+        type: 'markdown',
+        content: '',
+        id: expect.any(String),
       });
     });
 
@@ -33,6 +42,13 @@ describe('Notebook actions', () => {
         notebook: NOTEBOOK_ROOT,
         id: expect.any(String),
         title: '',
+        sections: [
+          {
+            type: 'markdown',
+            content: '',
+            id: expect.any(String),
+          },
+        ],
       });
     });
   });

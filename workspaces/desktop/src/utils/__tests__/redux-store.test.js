@@ -42,8 +42,8 @@ describe('Redux store', () => {
 
     expect(notebooks).toEqual({
       [NOTEBOOK_ROOT]: {
-        notes: { id: expect.any(String) },
-        notebooks: {},
+        contents: [{ type: 'note', id: 'id' }],
+        title: '',
       },
     });
   });
