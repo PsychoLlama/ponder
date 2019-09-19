@@ -4,6 +4,7 @@ import { Input } from '@ponder/ui';
 
 import { Note, mapStateToProps } from '../Note';
 import { selector } from '../../../utils/testing';
+import Section from '../Section';
 
 describe('Note', () => {
   const setup = renderer(Note, {
@@ -11,6 +12,7 @@ describe('Note', () => {
       renameNote: jest.fn(),
       title: 'Note title',
       noteId: 'note-id',
+      sections: ['section-1', 'section-2'],
     }),
   });
 
@@ -41,6 +43,14 @@ describe('Note', () => {
       id: props.noteId,
       title,
     });
+  });
+
+  it('renders each section', () => {
+    const { output, props } = setup();
+
+    const sections = output.find(Section);
+
+    expect(sections.length).toBe(props.sections.length);
   });
 
   describe('mapStateToProps', () => {
@@ -79,6 +89,19 @@ describe('Note', () => {
         });
 
       expect(fail).toThrow(/selected/i);
+    });
+
+    it('grabs the list of sections', () => {
+      const sections = [];
+      const { props } = select(state => {
+        state.navigation.note = 'id';
+        state.notes['id'] = {
+          title: 'Title',
+          sections,
+        };
+      });
+
+      expect(props.sections).toBe(sections);
     });
   });
 });

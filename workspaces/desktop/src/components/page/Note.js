@@ -1,5 +1,5 @@
 // @flow
-import { Input, MarkdownEditor } from '@ponder/ui';
+import { Input } from '@ponder/ui';
 import styled from 'styled-components';
 import assert from 'minimalistic-assert';
 import { connect } from 'react-redux';
@@ -8,6 +8,7 @@ import React from 'react';
 import type { ReduxState } from '../../types/redux-store';
 import { translate } from '../../utils/translation';
 import * as actions from '../../actions/notebook';
+import Section from './Section';
 
 const Container = styled.article`
   flex-grow: 1;
@@ -19,11 +20,12 @@ type Props = {
   renameNote: typeof actions.renameNote,
   noteId: string,
   title: string,
+  sections: Array<string>,
 };
 
 export class Note extends React.Component<Props> {
   render() {
-    const { title } = this.props;
+    const { title, sections } = this.props;
 
     return (
       <Container>
@@ -33,10 +35,14 @@ export class Note extends React.Component<Props> {
           value={title}
         />
 
-        <MarkdownEditor />
+        {sections.map(this.renderSection)}
       </Container>
     );
   }
+
+  renderSection = (sectionId: string) => {
+    return <Section key={sectionId} id={sectionId} />;
+  };
 
   renameNote = (newTitle: string) => {
     this.props.renameNote({
@@ -53,6 +59,7 @@ export const mapStateToProps = ({ notes, navigation }: ReduxState) => {
   return {
     noteId: navigation.note,
     title: note.title,
+    sections: note.sections,
   };
 };
 

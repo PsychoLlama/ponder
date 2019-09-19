@@ -25,7 +25,6 @@ export type Sections = {
   [sectionId: string]: {
     type: 'markdown',
     content: string,
-    id: string,
   },
 };
 
