@@ -32,6 +32,7 @@ const editorOptions = {
 
 type Props = {
   initialValue: string,
+  onChange: string => mixed,
 };
 
 type State = {
@@ -57,5 +58,6 @@ export default class MarkdownEditor extends React.Component<Props, State> {
 
   updateText = (editor: *, data: *, value: string) => {
     this.setState({ value });
+    this.props.onChange(value);
   };
 }

@@ -40,8 +40,17 @@ export class Note extends React.Component<Props> {
     );
   }
 
-  renderSection = (sectionId: string) => {
-    return <Section key={sectionId} id={sectionId} />;
+  renderSection = (sectionId: string, index: number) => {
+    const { noteId } = this.props;
+
+    return (
+      <Section
+        noteId={noteId}
+        key={sectionId}
+        id={sectionId}
+        sectionIndex={index}
+      />
+    );
   };
 
   renameNote = (newTitle: string) => {

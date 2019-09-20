@@ -5,6 +5,7 @@ import {
   readNotebook,
   renameNote,
   readNote,
+  updateSection,
   NOTEBOOK_ROOT,
 } from '@ponder/sdk';
 import * as actions from '../notebook';
@@ -112,6 +113,27 @@ describe('Notebook actions', () => {
         sections: [{ mock: 'section' }],
         id,
       });
+    });
+  });
+
+  describe('updateNoteSection', () => {
+    beforeEach(() => {
+      (updateSection: any).mockImplementation((note, index, update) => {
+        return update({ mock: 'section', content: '' });
+      });
+    });
+
+    it('updates the section', async () => {
+      const config = { noteId: 'note-id', sectionIndex: 1 };
+      const action = actions.updateNoteSection(config);
+
+      await expect(action.payload).resolves.toBe(config);
+
+      expect(updateSection).toHaveBeenCalledWith(
+        config.noteId,
+        config.sectionIndex,
+        expect.any(Function)
+      );
     });
   });
 });

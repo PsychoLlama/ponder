@@ -10,11 +10,11 @@ describe('Section', () => {
     getDefaultProps: () => ({
       type: 'markdown',
       content: '# Title',
+      sectionIndex: 1,
+      id: '<section-uuid>',
+      noteId: '<note-id>',
+      updateNoteSection: jest.fn(),
     }),
-  });
-
-  it('renders', () => {
-    expect(setup).not.toThrow();
   });
 
   it('passes the initial markdown content', () => {
@@ -25,9 +25,22 @@ describe('Section', () => {
     expect(editor.prop('initialValue')).toBe(props.content);
   });
 
+  it('saves the markdown content after a time of debounce', () => {
+    const { output, props } = setup();
+
+    const content = '# Title\n-----';
+    output.find(MarkdownEditor).simulate('change', content);
+
+    expect(props.updateNoteSection).toHaveBeenCalledWith({
+      noteId: props.noteId,
+      sectionIndex: props.sectionIndex,
+      content,
+    });
+  });
+
   describe('mapStateToProps', () => {
     const select = selector(mapStateToProps, {
-      defaultProps: { id: 'section-id' },
+      defaultProps: { id: 'section-id', sectionIndex: 1 },
     });
 
     it('grabs the section type and content', () => {

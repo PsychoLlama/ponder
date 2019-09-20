@@ -7,11 +7,8 @@ describe('MarkdownEditor', () => {
   const setup = renderer(MarkdownEditor, {
     getDefaultProps: () => ({
       initialValue: '# Title',
+      onChange: jest.fn(),
     }),
-  });
-
-  it('renders', () => {
-    expect(setup).not.toThrow();
   });
 
   it('syncs the value ', () => {
@@ -27,5 +24,14 @@ describe('MarkdownEditor', () => {
     const editor = output.find(Editor);
 
     expect(editor.prop('value')).toBe(props.initialValue);
+  });
+
+  it('passes the text value every time the content changes', () => {
+    const { output, props } = setup();
+
+    const value = 'new content';
+    output.find(Editor).simulate('beforeChange', null, null, value);
+
+    expect(props.onChange).toHaveBeenCalledWith(value);
   });
 });
