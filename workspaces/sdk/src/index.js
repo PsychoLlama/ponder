@@ -1,5 +1,7 @@
 // @flow
-export { default as readNotebook, NotebookContents } from './notebooks/list';
+export type { NotebookContents } from './notebooks/list';
+
+export { default as readNotebook } from './notebooks/list';
 export { default as createNotebook } from './notebooks/create';
 export { default as insertSection } from './sections/insert';
 export { default as updateSection } from './sections/update';
