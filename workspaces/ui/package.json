@@ -22,7 +22,7 @@
     "@storybook/addon-centered": "^5.0.0",
     "@storybook/addons": "^5.0.0",
     "@storybook/react": "^5.0.0",
-    "babel-loader": "^8.0.5",
+    "babel-loader": "^8.0.6",
     "eslint-plugin-react": "^7.12.4"
   },
   "scripts": {
