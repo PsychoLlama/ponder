@@ -26,13 +26,13 @@
     "workspaces/*"
   ],
   "devDependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.3.4",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/preset-react": "^7.0.0",
     "@freighter/scripts": "0.3.4",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
-    "babel-plugin-styled-components": "^1.10.0",
+    "babel-plugin-styled-components": "^1.10.6",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "eslint-config-freighter-repo": "0.3.0",
     "eslint-config-prettier": "4.1.0",
