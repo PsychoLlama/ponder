@@ -1,1 +1,5 @@
 extends: freighter-repo
+globals:
+  SyntheticMouseEvent: readonly
+  SyntheticInputEvent: readonly
+  $Call: readonly
