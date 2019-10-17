@@ -3,3 +3,6 @@ globals:
   SyntheticMouseEvent: readonly
   SyntheticInputEvent: readonly
   $Call: readonly
+
+rules:
+  no-prototype-builtins: off
