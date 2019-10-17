@@ -45,6 +45,7 @@ const PlusIcon = styled.svg.attrs({
 `;
 
 export const CreateNote = styled.button`
+  background-color: transparent;
   border-radius: 5px;
   border: 1px dashed ${colors.mutedText};
   padding: 16px;
