@@ -1,4 +1,3 @@
-/* eslint-disable flowtype/require-valid-file-annotation */
 /* eslint-env node */
 module.exports = function(api) {
   api.cache(true);
@@ -7,6 +6,7 @@ module.exports = function(api) {
     presets: [
       require('@freighter/scripts/babel-preset'),
       require('@babel/preset-react'),
+      require('@babel/preset-flow'),
     ],
     plugins: [
       require('@babel/plugin-proposal-class-properties'),
