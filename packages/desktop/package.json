@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.5.5",
-    "electron": "^2.0.18",
+    "electron": "^7.1.1",
     "immer": "^5.0.0",
     "prop-types": "^15.7.2",
     "react": "^16.10.2",
