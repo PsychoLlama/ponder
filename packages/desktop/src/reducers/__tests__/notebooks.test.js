@@ -23,7 +23,10 @@ describe('Notebooks reducer', () => {
       expect(state).toEqual({
         [NOTEBOOK_ROOT]: {
           title: '',
-          contents: [{ type: 'notebook', id: 1 }, { type: 'note', id: 2 }],
+          contents: [
+            { type: 'notebook', id: 1 },
+            { type: 'note', id: 2 },
+          ],
         },
       });
     });

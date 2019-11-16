@@ -76,7 +76,4 @@ const mapDispatchToProps = {
   renameNote: actions.renameNote,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Note);
+export default connect(mapStateToProps, mapDispatchToProps)(Note);

@@ -114,7 +114,4 @@ const mapDispatchToProps = {
   createNote: actions.createNote,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Content);
+export default connect(mapStateToProps, mapDispatchToProps)(Content);

@@ -49,7 +49,4 @@ const mapDispatchToProps = {
   updateNoteSection: actions.updateNoteSection,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Section);
+export default connect(mapStateToProps, mapDispatchToProps)(Section);

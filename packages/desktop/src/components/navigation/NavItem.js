@@ -89,7 +89,4 @@ const mapDispatchToProps = {
   editNote: actions.editNote,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(NavItem);
+export default connect(mapStateToProps, mapDispatchToProps)(NavItem);
