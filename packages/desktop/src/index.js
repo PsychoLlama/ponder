@@ -1,4 +1,5 @@
 // @flow
+import { createGlobalStyle } from 'styled-components';
 import { Provider } from 'react-redux';
 import DOM from 'react-dom';
 import React from 'react';
@@ -6,7 +7,12 @@ import React from 'react';
 import createStore from './utils/redux-store';
 import App from './components/App';
 
-import './global.css';
+const GlobalStyle = createGlobalStyle`
+  body {
+    background-color: white;
+    margin: 0;
+  }
+`;
 
 const container: HTMLDivElement = (document.getElementById('app-root'): any);
 
@@ -15,7 +21,10 @@ const container: HTMLDivElement = (document.getElementById('app-root'): any);
 
   DOM.render(
     <Provider store={store}>
-      <App />
+      <>
+        <GlobalStyle />
+        <App />
+      </>
     </Provider>,
     container
   );
