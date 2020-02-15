@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.5.5",
-    "electron": "^7.1.2",
+    "electron": "^8.0.1",
     "immer": "^5.0.0",
     "prop-types": "^15.7.2",
     "react": "^16.10.2",
@@ -35,7 +35,7 @@
     "redux-actions": "^2.6.5",
     "redux-promise": "^0.6.0",
     "reselect": "^4.0.0",
-    "styled-components": "^4.4.0",
+    "styled-components": "^5.0.1",
     "uuid": "^3.3.3"
   }
 }
