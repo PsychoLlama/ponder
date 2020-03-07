@@ -9,7 +9,7 @@
   "private": true,
   "dependencies": {
     "@storybook/addon-knobs": "^5.2.1",
-    "@storybook/addon-options": "^5.2.1",
+    "@storybook/theming": "^5.3.14",
     "codemirror": "^5.49.0",
     "react-codemirror2": "^6.0.0",
     "styled-components": "^5.0.1"

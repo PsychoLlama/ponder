@@ -2094,15 +2094,6 @@
     react-lifecycles-compat "^3.0.4"
     react-select "^3.0.8"
 
-"@storybook/addon-options@^5.2.1":
-  version "5.3.14"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-options/-/addon-options-5.3.14.tgz#c04bcb38fd13054a77a87fd6fcd39e27b74a4d76"
-  integrity sha512-D9ubEVrJpOlWuus4KQpNPX7rqg2nWKFGZfB0Z0Xkf33jZpCarlE5QSLfL5V/7yWOBagCLyPnTtOd6AQ1Jw1Plw==
-  dependencies:
-    "@storybook/addons" "5.3.14"
-    core-js "^3.0.1"
-    util-deprecate "^1.0.2"
-
 "@storybook/addons@5.3.13":
   version "5.3.13"
   resolved "https://registry.yarnpkg.com/@storybook/addons/-/addons-5.3.13.tgz#8c16fbab1142e2cd4bdfb93ffcb35a883dac2866"
@@ -2457,7 +2448,7 @@
     resolve-from "^5.0.0"
     ts-dedent "^1.1.0"
 
-"@storybook/theming@5.3.14":
+"@storybook/theming@5.3.14", "@storybook/theming@^5.3.14":
   version "5.3.14"
   resolved "https://registry.yarnpkg.com/@storybook/theming/-/theming-5.3.14.tgz#4923739ad0d7d673b7844f27da8a3c6cf118790f"
   integrity sha512-raqXC3yJycEt1CrCAfnBYUA6pyJI80E9M26EeQl3UfytJOL6euprOi+D17QvxqBn7jmmf9ZDw5XRkvJhQ17Y7Q==
