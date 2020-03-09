@@ -9,7 +9,7 @@
   "private": true,
   "dependencies": {
     "fs-extra": "^8.1.0",
-    "immer": "^5.0.0",
+    "immer": "^6.0.1",
     "minimalistic-assert": "^1.0.1"
   }
 }
