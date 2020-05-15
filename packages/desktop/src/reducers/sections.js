@@ -12,7 +12,7 @@ const addSectionsFromAction = produce(
       | ActionType<typeof actions.editNote>
       | ActionType<typeof actions.createNote>
   ) => {
-    action.payload.sections.forEach(section => {
+    action.payload.sections.forEach((section) => {
       state[section.id] = {
         type: section.type,
         content: section.content,

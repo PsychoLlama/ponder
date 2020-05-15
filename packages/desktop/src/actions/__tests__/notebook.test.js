@@ -98,7 +98,7 @@ describe('Notebook actions', () => {
 
   describe('editNote', () => {
     beforeEach(() => {
-      readNote.mockImplementation(id => ({
+      readNote.mockImplementation((id) => ({
         sections: [{ mock: 'section' }],
         title: 'title',
         id,

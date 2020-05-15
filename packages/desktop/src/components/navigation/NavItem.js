@@ -32,7 +32,7 @@ export const Notebook = styled(Link)`
 `;
 
 export const Note = styled(Link)`
-  color: ${props => (props.selected ? colors.primary : colors.mutedText)};
+  color: ${(props) => (props.selected ? colors.primary : colors.mutedText)};
 `;
 
 type OwnProps = {

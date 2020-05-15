@@ -57,7 +57,7 @@ describe('Note', () => {
     const select = selector(mapStateToProps, {});
 
     it('grabs the selected note ID', () => {
-      const { props, state } = select(state => {
+      const { props, state } = select((state) => {
         const note = { type: 'note', id: 'note', title: 'Title' };
         state.navigation.note = note.id;
         state.notes[note.id] = {
@@ -70,7 +70,7 @@ describe('Note', () => {
     });
 
     it('grabs the note title', () => {
-      const { props } = select(state => {
+      const { props } = select((state) => {
         const note = { type: 'note', id: 'note', title: 'Title' };
         state.navigation.note = note.id;
         state.notes[note.id] = {
@@ -84,7 +84,7 @@ describe('Note', () => {
 
     it('throws an error if there is no selected note', () => {
       const fail = () =>
-        select(state => {
+        select((state) => {
           state.navigation.note = 'note';
         });
 
@@ -93,7 +93,7 @@ describe('Note', () => {
 
     it('grabs the list of sections', () => {
       const sections = [];
-      const { props } = select(state => {
+      const { props } = select((state) => {
         state.navigation.note = 'id';
         state.notes['id'] = {
           title: 'Title',

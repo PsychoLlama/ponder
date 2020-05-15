@@ -10,7 +10,7 @@ describe('Create note', () => {
   beforeEach(() => {
     jest.clearAllMocks();
 
-    fs.readFile.mockImplementation(path => {
+    fs.readFile.mockImplementation((path) => {
       if (!/index/.test(path)) {
         throw new Error('Mock: no such notebook');
       }

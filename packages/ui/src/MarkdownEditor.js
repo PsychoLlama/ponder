@@ -32,7 +32,7 @@ const editorOptions = {
 
 type Props = {
   initialValue: string,
-  onChange: string => mixed,
+  onChange: (string) => mixed,
 };
 
 type State = {

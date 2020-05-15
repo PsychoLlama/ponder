@@ -11,7 +11,7 @@ const createNotebook = async ({
   title: string,
   id: string,
 }) => {
-  await updateAsJson(toNotebookPath(notebook), notebook => {
+  await updateAsJson(toNotebookPath(notebook), (notebook) => {
     notebook.notebooks.push(id);
   });
 

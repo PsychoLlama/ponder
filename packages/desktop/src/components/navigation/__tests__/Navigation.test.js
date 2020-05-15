@@ -33,8 +33,8 @@ describe('Navigation', () => {
 
       return {
         mockNavRef,
-        filterByType: type => {
-          return props.entries.filter(entry => entry.type === type);
+        filterByType: (type) => {
+          return props.entries.filter((entry) => entry.type === type);
         },
         createClickEvent: (target = mockNavRef) => ({
           target,
@@ -87,7 +87,7 @@ describe('Navigation', () => {
     const select = selector(mapStateToProps, {});
 
     it('pulls the selected note ID', () => {
-      const { props, state } = select(state => {
+      const { props, state } = select((state) => {
         state.notebooks[NOTEBOOK_ROOT] = { title: '', contents: [] };
       });
 
@@ -97,7 +97,7 @@ describe('Navigation', () => {
     it('pulls the list of notebook entries', () => {
       const notebook = { type: 'notebook', id: '2' };
       const note = { type: 'note', id: '1' };
-      const { props, state } = select(state => {
+      const { props, state } = select((state) => {
         state.navigation.path = [];
         state.notebooks[NOTEBOOK_ROOT] = {
           title: '',

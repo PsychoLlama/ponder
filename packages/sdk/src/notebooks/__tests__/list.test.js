@@ -39,7 +39,7 @@ describe('Notebook listing', () => {
       },
     };
 
-    fs.readFile.mockImplementation(async filePath => {
+    fs.readFile.mockImplementation(async (filePath) => {
       const filename = path.basename(filePath);
 
       const map = /notes/.test(filePath) ? notes : dirs;

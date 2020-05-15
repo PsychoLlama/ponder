@@ -11,7 +11,7 @@ describe('Notes reducer', () => {
   });
 
   describe('createNote', () => {
-    const createAction = patch => ({
+    const createAction = (patch) => ({
       type: String(actions.createNote),
       payload: {
         title: 'New note',
@@ -35,7 +35,7 @@ describe('Notes reducer', () => {
   });
 
   describe('renameNote', () => {
-    const createAction = patch => ({
+    const createAction = (patch) => ({
       type: String(actions.renameNote),
       payload: {
         id: 'note-id',
@@ -59,7 +59,7 @@ describe('Notes reducer', () => {
   });
 
   describe('openRootNotebook', () => {
-    const createAction = patch => ({
+    const createAction = (patch) => ({
       type: String(actions.openRootNotebook),
       payload: patch || [
         { type: 'note', id: 1, title: 'Note #1' },
@@ -91,7 +91,7 @@ describe('Notes reducer', () => {
   });
 
   describe('editNote', () => {
-    const createAction = patch => ({
+    const createAction = (patch) => ({
       type: String(actions.editNote),
       payload: {
         sections: [],

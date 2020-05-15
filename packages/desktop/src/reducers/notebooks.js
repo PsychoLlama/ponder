@@ -15,7 +15,7 @@ export default handleActions<Notebooks, *>(
       ) => {
         state[NOTEBOOK_ROOT] = {
           title: '',
-          contents: action.payload.map(item => ({
+          contents: action.payload.map((item) => ({
             type: item.type,
             id: item.id,
           })),

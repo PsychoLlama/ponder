@@ -40,7 +40,7 @@ describe('Notebooks reducer', () => {
   });
 
   describe('editNote', () => {
-    const createAction = id => ({
+    const createAction = (id) => ({
       type: String(actions.editNote),
       payload: { id, sections: [] },
     });
@@ -55,7 +55,7 @@ describe('Notebooks reducer', () => {
   });
 
   describe('closeNote', () => {
-    const createEditNoteAction = id => ({
+    const createEditNoteAction = (id) => ({
       type: String(actions.closeNote),
       payload: id,
     });

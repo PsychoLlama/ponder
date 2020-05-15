@@ -61,7 +61,7 @@ describe('NavItem', () => {
   });
 
   describe('Note', () => {
-    const setup = merge => {
+    const setup = (merge) => {
       const props = {
         selected: false,
         ...merge,
@@ -96,7 +96,7 @@ describe('NavItem', () => {
 
     it('grabs the title for notes', () => {
       const title = 'Note title';
-      const { props } = select(state => {
+      const { props } = select((state) => {
         state.notes['mock-id'] = { title, sections: [] };
       });
 
@@ -106,7 +106,7 @@ describe('NavItem', () => {
     it('grabs the title for notebooks', () => {
       const title = 'Notebook title';
       const { props } = select(
-        state => {
+        (state) => {
           state.notebooks['mock-id'] = { title, contents: [] };
         },
         { type: 'notebook' }
@@ -118,7 +118,7 @@ describe('NavItem', () => {
     it('indicates if the note is selected', () => {
       const noteId = 'mock-note-id';
       const { props } = select(
-        state => {
+        (state) => {
           state.notes[noteId] = { title: '', sections: [] };
           state.navigation.note = noteId;
         },

@@ -48,8 +48,8 @@ export class Navigation extends React.Component<Props> {
 
   render() {
     const { entries } = this.props;
-    const notebooks = entries.filter(entry => entry.type === 'notebook');
-    const notes = entries.filter(entry => entry.type === 'note');
+    const notebooks = entries.filter((entry) => entry.type === 'notebook');
+    const notes = entries.filter((entry) => entry.type === 'note');
 
     return (
       <Sidebar>

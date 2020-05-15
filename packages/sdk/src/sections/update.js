@@ -6,7 +6,7 @@ const updateSection = <Update: Function>(
   sectionIndex: number,
   update: Update
 ) => {
-  return updateNote(noteId, note => {
+  return updateNote(noteId, (note) => {
     return update(note.sections[sectionIndex]);
   });
 };

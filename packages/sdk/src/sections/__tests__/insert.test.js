@@ -13,7 +13,11 @@ describe('Section insert', () => {
   });
 
   it('inserts a new section', async () => {
-    const createSection = merge => ({ type: 'text', body: 'first', ...merge });
+    const createSection = (merge) => ({
+      type: 'text',
+      body: 'first',
+      ...merge,
+    });
     const section = createSection({ body: 'second' });
     const note = {
       sections: [createSection(), createSection({ body: 'third' })],

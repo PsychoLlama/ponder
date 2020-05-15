@@ -12,7 +12,7 @@ describe('Section update', () => {
   });
 
   it('tries to update the note', async () => {
-    await updateSection('note', 0, section => {
+    await updateSection('note', 0, (section) => {
       section.body = 'enabled';
     });
 

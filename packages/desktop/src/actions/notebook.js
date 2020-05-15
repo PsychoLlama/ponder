@@ -64,7 +64,7 @@ export const closeNote = createAction('notebook/close-note', () => undefined);
 export const updateNoteSection = createAction(
   'notebook/update-section',
   async (config: { noteId: string, sectionIndex: number, content: string }) => {
-    await sdk.updateSection(config.noteId, config.sectionIndex, section => {
+    await sdk.updateSection(config.noteId, config.sectionIndex, (section) => {
       section.content = config.content;
     });
 

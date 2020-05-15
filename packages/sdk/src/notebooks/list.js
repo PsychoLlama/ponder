@@ -24,7 +24,7 @@ export const TYPES = Object.freeze({
   NOTE: 'note',
 });
 
-const getTitle = async filePath => {
+const getTitle = async (filePath) => {
   const { title } = await readAsJson(filePath);
 
   return title;

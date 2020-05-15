@@ -33,7 +33,7 @@ describe('Notebooks reducer', () => {
   });
 
   describe('createNote', () => {
-    const createAction = patch => ({
+    const createAction = (patch) => ({
       type: String(actions.createNote),
       payload: {
         title: 'New note',

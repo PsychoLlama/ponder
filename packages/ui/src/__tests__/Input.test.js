@@ -6,7 +6,7 @@ import Input, { InputNode } from '../Input';
 describe('Input', () => {
   const setup = renderer(Input, {
     getDefaultProps: () => ({
-      processInput: jest.fn(input => input),
+      processInput: jest.fn((input) => input),
       placeholder: 'Lorem Ipsum',
       value: 'Input value',
       onChange: jest.fn(),
@@ -25,7 +25,7 @@ describe('Input', () => {
     },
   });
 
-  const createInputEvent = text => ({
+  const createInputEvent = (text) => ({
     target: { value: text },
   });
 

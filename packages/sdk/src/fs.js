@@ -26,7 +26,7 @@ export const writeAsJson = async (filePath: string, data: JsonValue) => {
 
 export const updateAsJson = async <State>(
   filePath: string,
-  producer: State => void | typeof nothing
+  producer: (State) => void | typeof nothing
 ) => {
   const data = await readAsJson(filePath);
   const changes = produce(data, producer);

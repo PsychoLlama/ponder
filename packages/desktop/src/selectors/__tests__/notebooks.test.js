@@ -7,7 +7,7 @@ import { getNotebookId } from '../notebooks';
 describe('Notebook selectors', () => {
   describe('getNotebookId', () => {
     it('pulls the selected notebook ID', () => {
-      const state = createReduxState(state => {
+      const state = createReduxState((state) => {
         state.navigation.path = ['a', 'b', 'c'];
       });
 
@@ -17,7 +17,7 @@ describe('Notebook selectors', () => {
     });
 
     it('uses the notebook root if the path is empty', () => {
-      const state = createReduxState(state => {
+      const state = createReduxState((state) => {
         state.navigation.path = [];
       });
 

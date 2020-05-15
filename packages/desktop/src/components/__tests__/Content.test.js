@@ -38,7 +38,7 @@ describe('Content', () => {
     const select = selector(mapStateToProps, {});
 
     it('indicates if a note has been selected', () => {
-      const { props } = select(state => {
+      const { props } = select((state) => {
         state.navigation.note = 'note-id';
       });
 
@@ -46,7 +46,7 @@ describe('Content', () => {
     });
 
     it('shows the currently selected notebook', () => {
-      const { props } = select(state => {
+      const { props } = select((state) => {
         state.navigation.path = ['first', 'second', 'third'];
       });
 

@@ -24,7 +24,7 @@ export default handleActions<Notes, *>(
 
     [String(actions.openRootNotebook)]: produce(
       (state: Notes, action: ActionType<typeof actions.openRootNotebook>) => {
-        const notes = action.payload.filter(entry => entry.type === 'note');
+        const notes = action.payload.filter((entry) => entry.type === 'note');
 
         notes.forEach(({ id, title }) => {
           state[id] = {
@@ -38,7 +38,7 @@ export default handleActions<Notes, *>(
     [String(actions.editNote)]: produce(
       (state: Notes, action: ActionType<typeof actions.editNote>) => {
         const { id, sections } = action.payload;
-        state[id].sections = sections.map(section => section.id);
+        state[id].sections = sections.map((section) => section.id);
       }
     ),
   },
