@@ -8,7 +8,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "fs-extra": "^8.1.0",
+    "fs-extra": "^9.0.0",
     "immer": "^6.0.5",
     "minimalistic-assert": "^1.0.1"
   }
