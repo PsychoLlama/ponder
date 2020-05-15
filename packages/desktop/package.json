@@ -16,7 +16,7 @@
     "@ponder/sdk": "*",
     "@ponder/test-utils": "*",
     "@ponder/ui": "*",
-    "babel-loader": "^8.0.6",
+    "babel-loader": "^8.1.0",
     "css-loader": "^3.2.0",
     "electron-devtools-installer": "^2.2.4",
     "style-loader": "^1.0.0",
@@ -24,7 +24,7 @@
     "webpack-cli": "^3.3.9"
   },
   "dependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
     "electron": "^8.0.1",
     "immer": "^5.0.0",
     "prop-types": "^15.7.2",
