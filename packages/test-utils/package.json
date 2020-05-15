@@ -10,6 +10,6 @@
   "dependencies": {
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
-    "jest-styled-components": "^7.0.0"
+    "jest-styled-components": "^7.0.2"
   }
 }
