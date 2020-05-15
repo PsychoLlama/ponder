@@ -8,8 +8,8 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "@storybook/addon-knobs": "^5.2.1",
-    "@storybook/theming": "^5.3.14",
+    "@storybook/addon-knobs": "^5.3.18",
+    "@storybook/theming": "^5.3.18",
     "codemirror": "^5.49.0",
     "react-codemirror2": "^6.0.0",
     "styled-components": "^5.0.1"
@@ -18,10 +18,10 @@
     "@babel/core": "^7.9.6",
     "@ponder/eslint-config-react": "*",
     "@ponder/test-utils": "*",
-    "@storybook/addon-actions": "^5.2.1",
-    "@storybook/addon-centered": "^5.2.1",
-    "@storybook/addons": "^5.2.1",
-    "@storybook/react": "^5.2.1",
+    "@storybook/addon-actions": "^5.3.18",
+    "@storybook/addon-centered": "^5.3.18",
+    "@storybook/addons": "^5.3.18",
+    "@storybook/react": "^5.3.18",
     "babel-loader": "^8.1.0",
     "eslint-plugin-react": "^7.20.0"
   },
