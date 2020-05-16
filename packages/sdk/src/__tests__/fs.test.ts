@@ -1,5 +1,5 @@
 // @flow
-import fs from 'fs-extra';
+import * as fs from 'fs-extra';
 
 import { serialize } from '../utils';
 import { readAsJson, writeAsJson, updateAsJson } from '../fs';
@@ -13,7 +13,7 @@ describe('File system', () => {
 
   describe('readAsJson', () => {
     beforeEach(() => {
-      fs.readFile.mockResolvedValue(
+      (fs as any).readFile.mockResolvedValue(
         serialize({
           mock: 'file',
         })
@@ -22,11 +22,11 @@ describe('File system', () => {
 
     it('rejects if the file does not exist', async () => {
       const error = new Error('Mock: file not found.');
-      fs.readFile.mockRejectedValue(error);
+      (fs as any).readFile.mockRejectedValue(error);
       const filePath = 'file-path';
 
       await expect(readAsJson(filePath)).rejects.toMatchObject(error);
-      expect(fs.readFile).toHaveBeenCalledWith(filePath);
+      expect(fs.readFile).toHaveBeenCalledWith(filePath, 'utf8');
     });
 
     it('resolves with the JSON data', async () => {
@@ -38,12 +38,12 @@ describe('File system', () => {
 
   describe('writeAsJson', () => {
     beforeEach(() => {
-      fs.writeFile.mockResolvedValue();
+      (fs as any).writeFile.mockResolvedValue();
     });
 
     it('rejects if the file does not exist', async () => {
       const error = new Error('Mock: file not found.');
-      fs.writeFile.mockRejectedValue(error);
+      (fs as any).writeFile.mockRejectedValue(error);
       const promise = writeAsJson('file', { data: true });
 
       await expect(promise).rejects.toMatchObject(error);
@@ -63,17 +63,17 @@ describe('File system', () => {
 
   describe('updateAsJson', () => {
     beforeEach(() => {
-      (fs.writeFile: Function).mockResolvedValue();
-      (fs.readFile: Function).mockResolvedValue(serialize({ mock: 'file' }));
+      (fs as any).writeFile.mockResolvedValue();
+      (fs as any).readFile.mockResolvedValue(serialize({ mock: 'file' }));
     });
 
     it('aborts if the file does not exist', async () => {
       const error = new Error('Mock: file not found.');
-      fs.readFile.mockRejectedValue(error);
+      (fs as any).readFile.mockRejectedValue(error);
       const promise = updateAsJson('file', () => {});
 
       await expect(promise).rejects.toMatchObject(error);
-      expect(fs.readFile).toHaveBeenCalledWith('file');
+      expect(fs.readFile).toHaveBeenCalledWith('file', 'utf8');
       expect(fs.writeFile).not.toHaveBeenCalled();
     });
 
