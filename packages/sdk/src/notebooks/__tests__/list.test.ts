@@ -3,16 +3,18 @@ import * as fs from 'fs-extra';
 import { basename } from 'path';
 
 import list, { Types } from '../list';
+import { Notebook, Note } from '../../types';
 
 jest.mock('fs-extra');
 
 describe('Notebook listing', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    fs.pathExists.mockResolvedValue(true);
+    (fs as any).pathExists.mockResolvedValue(true);
 
-    const dirs = {
+    const dirs: { [filePath: string]: Notebook } = {
       'index.json': {
+        title: 'Zeroeth',
         notebooks: ['dir1'],
         notes: [],
       },
@@ -33,13 +35,14 @@ describe('Notebook listing', () => {
       },
     };
 
-    const notes = {
+    const notes: { [filePath: string]: Note } = {
       'note1.json': {
         title: 'Note',
+        sections: [],
       },
     };
 
-    fs.readFile.mockImplementation(async filePath => {
+    (fs as any).readFile.mockImplementation(async (filePath: string) => {
       const filename = basename(filePath);
 
       const map = /notes/.test(filePath) ? notes : dirs;
@@ -52,7 +55,7 @@ describe('Notebook listing', () => {
   });
 
   it('fails if the notebook does not exist', async () => {
-    fs.pathExists.mockResolvedValue(false);
+    (fs as any).pathExists.mockResolvedValue(false);
     const id = 'non-existent-file';
 
     await expect(list(id)).rejects.toMatchObject({

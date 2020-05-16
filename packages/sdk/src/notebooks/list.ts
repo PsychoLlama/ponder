@@ -4,9 +4,20 @@ import fs from 'fs-extra';
 
 import { toNotePath, toNotebookPath } from '../utils';
 import { readAsJson } from '../fs';
-import { Notebook, Note } from '../types';
 
 export type NotebookContents = Array<Note | Notebook>;
+
+export interface Notebook {
+  type: 'notebook';
+  title: string;
+  id: string;
+}
+
+export interface Note {
+  type: 'note';
+  title: string;
+  id: string;
+}
 
 export enum Types {
   Notebook = 'notebook',

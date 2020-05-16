@@ -1,5 +1,5 @@
 // @flow
-import fs from 'fs-extra';
+import * as fs from 'fs-extra';
 
 import createNotebook from '../create';
 
@@ -7,7 +7,7 @@ jest.mock('fs-extra');
 
 describe('Create notebook', () => {
   beforeEach(() => {
-    fs.readFile.mockResolvedValue(
+    (fs as any).readFile.mockResolvedValue(
       JSON.stringify({
         title: 'index',
         notebooks: [],
@@ -23,7 +23,7 @@ describe('Create notebook', () => {
   });
 
   it('skips all writes if the containing notebook is invalid', async () => {
-    (fs.readFile: Function).mockRejectedValue(
+    (fs.readFile as any).mockRejectedValue(
       new Error('Mock: no such notebook error')
     );
 
