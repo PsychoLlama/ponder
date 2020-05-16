@@ -90,6 +90,7 @@ describe('Notebook listing', () => {
         type: EntityType.Note,
         title: 'Note',
         id: 'note1',
+        sections: [],
       },
     ]);
   });

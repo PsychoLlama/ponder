@@ -8,23 +8,25 @@ import { EntityType, Note, Notebook } from '../public-types';
 
 export type NotebookContents = Array<Note | Notebook>;
 
-const getTitle = async (filePath: string) => {
-  const { title } = await readAsJson(filePath);
+const formatAsNotebook = async (id: string): Promise<Notebook> => {
+  const { title } = await readAsJson(toNotebookPath(id));
 
-  return title;
+  return {
+    title,
+    type: EntityType.Notebook,
+    id,
+  };
 };
 
-const formatAsNotebook = async (id: string): Promise<Notebook> => ({
-  title: await getTitle(toNotebookPath(id)),
-  type: EntityType.Notebook,
-  id,
-});
-
-const formatAsNote = async (id: string): Promise<Note> => ({
-  title: await getTitle(toNotePath(id)),
-  type: EntityType.Note,
-  id,
-});
+const formatAsNote = async (id: string): Promise<Note> => {
+  const { title, sections } = await readAsJson(toNotePath(id));
+  return {
+    type: EntityType.Note,
+    title,
+    sections,
+    id,
+  };
+};
 
 const listNotebook = async (id: string): Promise<NotebookContents> => {
   const dirPath = toNotebookPath(id);
