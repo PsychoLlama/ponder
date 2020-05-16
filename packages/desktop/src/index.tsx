@@ -14,8 +14,6 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const container: HTMLDivElement = (document.getElementById('app-root'): any);
-
 (async () => {
   const store = await createStore();
 
@@ -26,6 +24,6 @@ const container: HTMLDivElement = (document.getElementById('app-root'): any);
         <App />
       </>
     </Provider>,
-    container
+    document.getElementById('app-root')
   );
 })();
