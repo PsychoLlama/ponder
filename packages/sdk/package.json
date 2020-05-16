@@ -7,9 +7,16 @@
   "author": "Jesse Gibson <JesseTheGibson@gmail.com>",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "build": "tsc"
+  },
   "dependencies": {
     "fs-extra": "^9.0.0",
     "immer": "^6.0.5",
     "minimalistic-assert": "^1.0.1"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.0",
+    "typescript": "^3.9.2"
   }
 }
