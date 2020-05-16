@@ -15,7 +15,7 @@ export interface Note {
 
 export interface Section {
   type: SectionType;
-  body: string;
+  content: string;
   id: string;
 }
 

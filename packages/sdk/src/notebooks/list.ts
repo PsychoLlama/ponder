@@ -4,25 +4,9 @@ import fs from 'fs-extra';
 
 import { toNotePath, toNotebookPath } from '../utils';
 import { readAsJson } from '../fs';
+import { EntityType, Note, Notebook } from '../public-types';
 
 export type NotebookContents = Array<Note | Notebook>;
-
-export interface Notebook {
-  type: 'notebook';
-  title: string;
-  id: string;
-}
-
-export interface Note {
-  type: 'note';
-  title: string;
-  id: string;
-}
-
-export enum Types {
-  Notebook = 'notebook',
-  Note = 'note',
-}
 
 const getTitle = async (filePath: string) => {
   const { title } = await readAsJson(filePath);
@@ -32,13 +16,13 @@ const getTitle = async (filePath: string) => {
 
 const formatAsNotebook = async (id: string): Promise<Notebook> => ({
   title: await getTitle(toNotebookPath(id)),
-  type: Types.Notebook,
+  type: EntityType.Notebook,
   id,
 });
 
 const formatAsNote = async (id: string): Promise<Note> => ({
   title: await getTitle(toNotePath(id)),
-  type: Types.Note,
+  type: EntityType.Note,
   id,
 });
 

@@ -2,8 +2,9 @@
 import * as fs from 'fs-extra';
 import { basename } from 'path';
 
-import list, { Types } from '../list';
+import list from '../list';
 import { Notebook, Note } from '../../types';
+import { EntityType } from '../../public-types';
 
 jest.mock('fs-extra');
 
@@ -68,7 +69,7 @@ describe('Notebook listing', () => {
 
     expect(results).toEqual([
       {
-        type: Types.Notebook,
+        type: EntityType.Notebook,
         title: 'First',
         id: 'dir1',
       },
@@ -86,7 +87,7 @@ describe('Notebook listing', () => {
         title: 'Third',
       }),
       {
-        type: Types.Note,
+        type: EntityType.Note,
         title: 'Note',
         id: 'note1',
       },

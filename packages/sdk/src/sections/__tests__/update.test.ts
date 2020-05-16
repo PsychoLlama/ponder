@@ -14,7 +14,7 @@ describe('Section update', () => {
 
   it('tries to update the note', async () => {
     await updateSection('note', 0, (section: Section) => {
-      section.body = 'enabled';
+      section.content = 'enabled';
     });
 
     expect(updateNote).toHaveBeenCalledWith('note', expect.any(Function));

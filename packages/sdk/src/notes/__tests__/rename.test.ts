@@ -1,10 +1,12 @@
 // @flow
-import * as fs from 'fs-extra';
+import * as fsModule from 'fs-extra';
 
 import { serialize } from '../../utils';
 import renameNote from '../rename';
 
 jest.mock('fs-extra');
+
+const fs = fsModule as jest.Mocked<typeof fsModule>;
 
 describe('Note rename', () => {
   beforeEach(() => {
