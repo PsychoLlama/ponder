@@ -1,16 +1,10 @@
 // @flow
-import {
-  insertSection,
-  createNote,
-  readNotebook,
-  renameNote,
-  readNote,
-  updateSection,
-  NOTEBOOK_ROOT,
-} from '@ponder/sdk';
+import * as mockedSdk from '@ponder/sdk';
 import * as actions from '../notebook';
 
 jest.mock('@ponder/sdk');
+
+const sdk = mockedSdk as jest.Mocked<typeof mockedSdk>;
 
 describe('Notebook actions', () => {
   beforeEach(() => {
@@ -19,17 +13,17 @@ describe('Notebook actions', () => {
 
   describe('createNote', () => {
     it('writes a new note', async () => {
-      actions.createNote({ notebook: NOTEBOOK_ROOT });
+      actions.createNote({ notebook: sdk.NOTEBOOK_ROOT });
 
-      expect(createNote).toHaveBeenCalledWith({
-        notebook: NOTEBOOK_ROOT,
+      expect(sdk.createNote).toHaveBeenCalledWith({
+        notebook: sdk.NOTEBOOK_ROOT,
         id: expect.any(String),
         title: '',
       });
 
       await Promise.resolve();
 
-      expect(insertSection).toHaveBeenCalledWith(expect.any(String), 0, {
+      expect(sdk.insertSection).toHaveBeenCalledWith(expect.any(String), 0, {
         type: 'markdown',
         content: '',
         id: expect.any(String),
@@ -37,10 +31,10 @@ describe('Notebook actions', () => {
     });
 
     it('returns the new note', () => {
-      const { payload } = actions.createNote({ notebook: NOTEBOOK_ROOT });
+      const { payload } = actions.createNote({ notebook: sdk.NOTEBOOK_ROOT });
 
       expect(payload).toMatchObject({
-        notebook: NOTEBOOK_ROOT,
+        notebook: sdk.NOTEBOOK_ROOT,
         id: expect.any(String),
         title: '',
         sections: [
@@ -59,7 +53,7 @@ describe('Notebook actions', () => {
       const config = { id: '1', title: 'No' };
       actions.renameNote(config);
 
-      expect(renameNote).toHaveBeenCalledWith({
+      expect(sdk.renameNote).toHaveBeenCalledWith({
         title: config.title,
         id: config.id,
       });
@@ -75,15 +69,15 @@ describe('Notebook actions', () => {
 
   describe('openRootNotebook', () => {
     beforeEach(() => {
-      (readNotebook: Function).mockResolvedValue([
+      sdk.readNotebook.mockResolvedValue([
         {
-          type: 'notebook',
+          type: sdk.EntityType.Notebook,
           id: 'notebook1',
           title: 'Ideas',
         },
         {
           title: 'Recipes',
-          type: 'note',
+          type: sdk.EntityType.Note,
           id: 'note1',
         },
       ]);
@@ -98,8 +92,9 @@ describe('Notebook actions', () => {
 
   describe('editNote', () => {
     beforeEach(() => {
-      readNote.mockImplementation((id) => ({
-        sections: [{ mock: 'section' }],
+      sdk.readNote.mockImplementation(async (id: string) => ({
+        type: sdk.EntityType.Note,
+        sections: [{ mock: 'section' } as any],
         title: 'title',
         id,
       }));
@@ -118,9 +113,15 @@ describe('Notebook actions', () => {
 
   describe('updateNoteSection', () => {
     beforeEach(() => {
-      (updateSection: any).mockImplementation((note, index, update) => {
-        return update({ mock: 'section', content: '' });
-      });
+      sdk.updateSection.mockImplementation(
+        <Update extends Function>(
+          _note: string,
+          _index: number,
+          update: Update
+        ) => {
+          return update({ mock: 'section', content: '' });
+        }
+      );
     });
 
     it('updates the section', async () => {
@@ -129,7 +130,7 @@ describe('Notebook actions', () => {
 
       await expect(action.payload).resolves.toBe(config);
 
-      expect(updateSection).toHaveBeenCalledWith(
+      expect(sdk.updateSection).toHaveBeenCalledWith(
         config.noteId,
         config.sectionIndex,
         expect.any(Function)

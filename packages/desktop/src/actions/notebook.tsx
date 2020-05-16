@@ -13,8 +13,8 @@ export const createNote = createAction(
   ({ notebook }: { notebook: string }) => {
     const id = uuid();
     const title = '';
-    const section = {
-      type: 'markdown',
+    const section: sdk.Section = {
+      type: sdk.SectionType.Markdown,
       content: '',
       id: uuid(),
     };
@@ -42,7 +42,7 @@ export const createNote = createAction(
 
 export const renameNote = createAction(
   'notebook/rename-note',
-  (update: { id: string, title: string }) => {
+  (update: { id: string; title: string }) => {
     // Optimistic only. Drop the promise.
     sdk.renameNote(update);
 
@@ -63,10 +63,14 @@ export const closeNote = createAction('notebook/close-note', () => undefined);
 
 export const updateNoteSection = createAction(
   'notebook/update-section',
-  async (config: { noteId: string, sectionIndex: number, content: string }) => {
-    await sdk.updateSection(config.noteId, config.sectionIndex, (section) => {
-      section.content = config.content;
-    });
+  async (config: { noteId: string; sectionIndex: number; content: string }) => {
+    await sdk.updateSection(
+      config.noteId,
+      config.sectionIndex,
+      (section: sdk.Section) => {
+        section.content = config.content;
+      }
+    );
 
     return config;
   }

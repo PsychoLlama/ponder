@@ -1,7 +1,7 @@
 // @flow
 import { app, BrowserWindow } from 'electron';
 import { initialize } from '@ponder/sdk';
-import path from 'path';
+import * as path from 'path';
 
 app.once('ready', async () => {
   await initialize();
