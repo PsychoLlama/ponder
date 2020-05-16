@@ -2,7 +2,7 @@
   "name": "@ponder/ui",
   "version": "0.1.0",
   "description": "UI component library",
-  "main": "src/index.js",
+  "main": "src/index.tsx",
   "repository": "http://github.com/PsychoLlama/ponder",
   "author": "Jesse Gibson <JesseTheGibson@gmail.com>",
   "license": "MIT",
