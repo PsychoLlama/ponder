@@ -3,6 +3,7 @@
   "include": ["src"],
   "compilerOptions": {
     "baseUrl": "src/",
+    "jsx": "preserve",
     "noEmit": true
   }
 }
