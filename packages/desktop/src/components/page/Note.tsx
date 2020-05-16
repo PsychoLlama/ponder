@@ -5,7 +5,7 @@ import assert from 'minimalistic-assert';
 import { connect } from 'react-redux';
 import React from 'react';
 
-import type { ReduxState } from '../../types/redux-store';
+import { ReduxState } from '../../types/redux-store';
 import { translate } from '../../utils/translation';
 import * as actions from '../../actions/notebook';
 import Section from './Section';
@@ -16,12 +16,12 @@ const Container = styled.article`
   flex-direction: column;
 `;
 
-type Props = {
-  renameNote: typeof actions.renameNote,
-  noteId: string,
-  title: string,
-  sections: Array<string>,
-};
+interface Props {
+  renameNote: typeof actions.renameNote;
+  noteId: string;
+  title: string;
+  sections: Array<string>;
+}
 
 export class Note extends React.Component<Props> {
   render() {
@@ -62,7 +62,7 @@ export class Note extends React.Component<Props> {
 }
 
 export const mapStateToProps = ({ notes, navigation }: ReduxState) => {
-  const note = notes[(navigation.note: any)];
+  const note = notes[navigation.note as string];
   assert(note, 'No note has been selected.');
 
   return {

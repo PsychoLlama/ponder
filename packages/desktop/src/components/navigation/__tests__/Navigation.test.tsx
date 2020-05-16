@@ -1,5 +1,5 @@
 // @flow
-import { NOTEBOOK_ROOT } from '@ponder/sdk';
+import { NOTEBOOK_ROOT, EntityType } from '@ponder/sdk';
 import { renderer } from '@ponder/test-utils';
 
 import { Nav, Navigation, mapStateToProps } from '../Navigation';
@@ -12,14 +12,14 @@ describe('Navigation', () => {
       closeNote: jest.fn(),
       editNote: jest.fn(),
       entries: [
-        { id: 'notebook-1', type: 'notebook' },
-        { id: 'notebook-2', type: 'notebook' },
-        { id: 'notebook-3', type: 'notebook' },
-        { id: 'note-1', type: 'note' },
-        { id: 'note-2', type: 'note' },
-        { id: 'note-3', type: 'note' },
-        { id: 'note-4', type: 'note' },
-        { id: 'note-5', type: 'note' },
+        { id: 'notebook-1', type: EntityType.Notebook },
+        { id: 'notebook-2', type: EntityType.Notebook },
+        { id: 'notebook-3', type: EntityType.Notebook },
+        { id: 'note-1', type: EntityType.Note },
+        { id: 'note-2', type: EntityType.Note },
+        { id: 'note-3', type: EntityType.Note },
+        { id: 'note-4', type: EntityType.Note },
+        { id: 'note-5', type: EntityType.Note },
       ],
     }),
 
@@ -33,8 +33,8 @@ describe('Navigation', () => {
 
       return {
         mockNavRef,
-        filterByType: (type) => {
-          return props.entries.filter((entry) => entry.type === type);
+        filterByType: type => {
+          return props.entries.filter(entry => entry.type === type);
         },
         createClickEvent: (target = mockNavRef) => ({
           target,
@@ -87,7 +87,7 @@ describe('Navigation', () => {
     const select = selector(mapStateToProps, {});
 
     it('pulls the selected note ID', () => {
-      const { props, state } = select((state) => {
+      const { props, state } = select(state => {
         state.notebooks[NOTEBOOK_ROOT] = { title: '', contents: [] };
       });
 
@@ -97,7 +97,7 @@ describe('Navigation', () => {
     it('pulls the list of notebook entries', () => {
       const notebook = { type: 'notebook', id: '2' };
       const note = { type: 'note', id: '1' };
-      const { props, state } = select((state) => {
+      const { props, state } = select(state => {
         state.navigation.path = [];
         state.notebooks[NOTEBOOK_ROOT] = {
           title: '',

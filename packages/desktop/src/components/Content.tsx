@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import React from 'react';
 
 import { getNotebookId } from '../selectors/notebooks';
-import type { ReduxState } from '../types/redux-store';
+import { ReduxState } from '../types/redux-store';
 import { translate } from '../utils/translation';
 import * as actions from '../actions/notebook';
 import colors from '../config/colors';
@@ -63,9 +63,9 @@ export const CreateNote = styled.button`
 `;
 
 type Props = {
-  createNote: typeof actions.createNote,
-  selectedNotebook: string,
-  isEditingNote: boolean,
+  createNote: typeof actions.createNote;
+  selectedNotebook: string;
+  isEditingNote: boolean;
 };
 
 export class Content extends React.Component<Props> {

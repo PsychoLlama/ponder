@@ -2,8 +2,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import { EntityType } from '@ponder/sdk';
 
-import type { ReduxState } from '../../types/redux-store';
+import { ReduxState } from '../../types/redux-store';
 import colors from '../../config/colors';
 import { translate } from '../../utils/translation';
 import * as actions from '../../actions/notebook';
@@ -32,27 +33,27 @@ export const Notebook = styled(Link)`
 `;
 
 export const Note = styled(Link)`
-  color: ${(props) => (props.selected ? colors.primary : colors.mutedText)};
+  color: ${props => (props.selected ? colors.primary : colors.mutedText)};
 `;
 
 type OwnProps = {
-  id: string,
-  type: 'note' | 'notebook',
+  id: string;
+  type: EntityType;
 };
 
 type Props = OwnProps & {
-  title: string,
-  selected: boolean,
-  editNote: typeof actions.editNote,
+  title: string;
+  selected: boolean;
+  editNote: typeof actions.editNote;
 };
 
 export class NavItem extends React.Component<Props> {
   render() {
     const { type, title, selected } = this.props;
-    const Item = type === 'note' ? Note : Notebook;
+    const Item = type === EntityType.Note ? Note : Notebook;
 
     const defaultTitle =
-      type === 'note'
+      type === EntityType.Note
         ? translate('Untitled Note')
         : translate('Untitled Notebook');
 
@@ -76,7 +77,7 @@ export const mapStateToProps = (
   { navigation, notes, notebooks }: ReduxState,
   { id, type }: OwnProps
 ) => {
-  const collection = type === 'note' ? notes : notebooks;
+  const collection = type === EntityType.Note ? notes : notebooks;
   const { title } = collection[id];
 
   return {

@@ -5,7 +5,9 @@ import React from 'react';
 import { StatusBar } from '../StatusBar';
 
 describe('StatusBar', () => {
-  const setup = renderer(StatusBar, {});
+  const setup = renderer(StatusBar, {
+    getDefaultProps: () => ({}),
+  });
 
   it('renders', () => {
     setup();

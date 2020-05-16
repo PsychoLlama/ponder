@@ -1,4 +1,5 @@
 // @flow
+import { SectionType } from '@ponder/sdk';
 import { renderer } from '@ponder/test-utils';
 import { MarkdownEditor } from '@ponder/ui';
 
@@ -8,7 +9,7 @@ import { Section, mapStateToProps } from '../Section';
 describe('Section', () => {
   const setup = renderer(Section, {
     getDefaultProps: () => ({
-      type: 'markdown',
+      type: SectionType.Markdown,
       content: '# Title',
       sectionIndex: 1,
       id: '<section-uuid>',
@@ -40,12 +41,16 @@ describe('Section', () => {
 
   describe('mapStateToProps', () => {
     const select = selector(mapStateToProps, {
-      defaultProps: { id: 'section-id', sectionIndex: 1 },
+      defaultProps: {
+        noteId: 'note-id',
+        id: 'section-id',
+        sectionIndex: 1,
+      },
     });
 
     it('grabs the section type and content', () => {
-      const section = { type: 'markdown', content: '# Content' };
-      const { props } = select((state) => {
+      const section = { type: SectionType.Markdown, content: '# Content' };
+      const { props } = select(state => {
         state.sections['section-id'] = section;
       });
 

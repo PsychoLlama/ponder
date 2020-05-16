@@ -3,19 +3,19 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { MarkdownEditor } from '@ponder/ui';
 
-import type { ReduxState } from '../../types/redux-store';
+import { ReduxState } from '../../types/redux-store';
 import * as actions from '../../actions/notebook';
 
 type OwnProps = {
-  sectionIndex: number,
-  noteId: string,
-  id: string,
+  sectionIndex: number;
+  noteId: string;
+  id: string;
 };
 
 type Props = OwnProps & {
-  content: string,
-  type: 'markdown',
-  updateNoteSection: typeof actions.updateNoteSection,
+  content: string;
+  type: 'markdown';
+  updateNoteSection: typeof actions.updateNoteSection;
 };
 
 export class Section extends React.Component<Props> {

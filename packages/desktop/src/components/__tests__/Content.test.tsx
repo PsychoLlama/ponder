@@ -13,10 +13,6 @@ describe('Content', () => {
     }),
   });
 
-  it('renders', () => {
-    setup();
-  });
-
   it('shows a create note button when no note is selected', () => {
     const { output: withSelectedNote } = setup({ isEditingNote: true });
     const { output: noSelectedNote } = setup();
@@ -35,10 +31,12 @@ describe('Content', () => {
   });
 
   describe('mapStateToProps', () => {
-    const select = selector(mapStateToProps, {});
+    const select = selector(mapStateToProps, {
+      defaultProps: {},
+    });
 
     it('indicates if a note has been selected', () => {
-      const { props } = select((state) => {
+      const { props } = select(state => {
         state.navigation.note = 'note-id';
       });
 
@@ -46,7 +44,7 @@ describe('Content', () => {
     });
 
     it('shows the currently selected notebook', () => {
-      const { props } = select((state) => {
+      const { props } = select(state => {
         state.navigation.path = ['first', 'second', 'third'];
       });
 

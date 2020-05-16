@@ -2,9 +2,10 @@
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import React from 'react';
+import { EntityType, Note, Notebook } from '@ponder/sdk';
 
 import { getNotebookId } from '../../selectors/notebooks';
-import type { ReduxState } from '../../types/redux-store';
+import { ReduxState } from '../../types/redux-store';
 import * as actions from '../../actions/notebook';
 import StatusBar from '../StatusBar';
 import NavItem from './NavItem';
@@ -27,20 +28,17 @@ const List = styled.ol`
   padding: 0;
 `;
 
-type NotebookEntry = {
-  type: 'note' | 'notebook',
-  id: string,
-};
+type NotebookEntry = Note | Notebook;
 
-type Props = {
-  closeNote: typeof actions.closeNote,
-  editNote: typeof actions.editNote,
-  entries: Array<NotebookEntry>,
-  selectedNoteId: string | null,
-};
+interface Props {
+  closeNote: typeof actions.closeNote;
+  editNote: typeof actions.editNote;
+  entries: Array<NotebookEntry>;
+  selectedNoteId: string | null;
+}
 
 export class Navigation extends React.Component<Props> {
-  nav: HTMLElement | null;
+  nav: HTMLElement | null = null;
 
   static defaultProps = {
     entries: [],
@@ -48,8 +46,13 @@ export class Navigation extends React.Component<Props> {
 
   render() {
     const { entries } = this.props;
-    const notebooks = entries.filter((entry) => entry.type === 'notebook');
-    const notes = entries.filter((entry) => entry.type === 'note');
+    const notes = entries.filter(
+      (entry: NotebookEntry) => entry.type === EntityType.Note
+    );
+
+    const notebooks = entries.filter(
+      (entry: NotebookEntry) => entry.type === EntityType.Notebook
+    );
 
     return (
       <Sidebar>
@@ -70,17 +73,19 @@ export class Navigation extends React.Component<Props> {
   };
 
   // Clicking on an empty part of the navbar should dismiss the note.
-  closeNote = (event: SyntheticMouseEvent<HTMLElement>) => {
+  closeNote = (event: React.SyntheticEvent<HTMLElement>) => {
     if (event.target !== this.nav) return;
     this.props.closeNote();
   };
 
   renderNotebook = (notebook: NotebookEntry) => {
-    return <NavItem type="notebook" id={notebook.id} key={notebook.id} />;
+    return (
+      <NavItem type={EntityType.Notebook} id={notebook.id} key={notebook.id} />
+    );
   };
 
   renderNote = (note: NotebookEntry) => {
-    return <NavItem type="note" key={note.id} id={note.id} />;
+    return <NavItem type={EntityType.Note} key={note.id} id={note.id} />;
   };
 }
 

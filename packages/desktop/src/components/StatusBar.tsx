@@ -1,5 +1,5 @@
 // @flow
-import React, { type Node as ReactNode } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import colors from '../config/colors';
@@ -13,7 +13,7 @@ const Container = styled.div`
 `;
 
 type Props = {
-  children?: ReactNode,
+  children?: React.ReactNode;
 };
 
 export class StatusBar extends React.Component<Props> {
