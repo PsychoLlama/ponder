@@ -1,5 +1,5 @@
 // @flow
-import fs from 'fs-extra';
+import * as fs from 'fs-extra';
 
 import { serialize } from '../../utils';
 import createNote from '../create';
@@ -10,7 +10,7 @@ describe('Create note', () => {
   beforeEach(() => {
     jest.clearAllMocks();
 
-    fs.readFile.mockImplementation((path) => {
+    (fs as any).readFile.mockImplementation((path: string) => {
       if (!/index/.test(path)) {
         throw new Error('Mock: no such notebook');
       }

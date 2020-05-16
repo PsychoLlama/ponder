@@ -8,7 +8,7 @@ jest.mock('../../fs');
 describe('Note update', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    (updateAsJson: Function).mockImplementation((_, fn) => {
+    (updateAsJson as any).mockImplementation((_: any, fn: Function) => {
       fn({ note: true });
       return Promise.resolve();
     });

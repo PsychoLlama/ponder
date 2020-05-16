@@ -1,5 +1,5 @@
 // @flow
-import fs from 'fs-extra';
+import * as fs from 'fs-extra';
 
 import readNote from '../read';
 

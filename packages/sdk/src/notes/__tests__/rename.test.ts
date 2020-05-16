@@ -1,5 +1,5 @@
 // @flow
-import fs from 'fs-extra';
+import * as fs from 'fs-extra';
 
 import { serialize } from '../../utils';
 import renameNote from '../rename';
@@ -9,7 +9,7 @@ jest.mock('fs-extra');
 describe('Note rename', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    fs.readFile.mockResolvedValue(
+    (fs as any).readFile.mockResolvedValue(
       serialize({
         title: 'Old title',
       })
