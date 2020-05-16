@@ -11,7 +11,7 @@ describe('Sections reducer', () => {
   });
 
   describe('editNote', () => {
-    const createAction = (patch) => ({
+    const createAction = <T,>(patch?: T) => ({
       type: String(actions.editNote),
       payload: {
         id: 'mock-note-id',
@@ -39,7 +39,7 @@ describe('Sections reducer', () => {
   });
 
   describe('createNote', () => {
-    const createAction = (patch) => ({
+    const createAction = <T,>(patch?: T) => ({
       type: String(actions.createNote),
       payload: {
         id: 'mock-note-id',

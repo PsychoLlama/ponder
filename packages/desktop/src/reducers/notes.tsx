@@ -1,46 +1,30 @@
 // @flow
-import { handleActions, type ActionType } from 'redux-actions';
-import { produce } from 'immer';
+import { createReducer } from 'retreon';
 
 import * as actions from '../actions/notebook';
-import { notes, type Notes } from './state';
+import { notes } from './state';
 
-export default handleActions<Notes, *>(
-  {
-    [String(actions.createNote)]: produce(
-      (state: Notes, action: ActionType<typeof actions.createNote>) => {
-        const { id, title } = action.payload;
+export default createReducer(notes, handleAction => [
+  handleAction(actions.createNote, (state, { id, title }) => {
+    state[id] = { title, sections: [] };
+  }),
 
-        state[id] = { title, sections: [] };
-      }
-    ),
+  handleAction(actions.renameNote, (state, { id, title }) => {
+    state[id].title = title;
+  }),
 
-    [String(actions.renameNote)]: produce(
-      (state: Notes, action: ActionType<typeof actions.renameNote>) => {
-        const { id, title } = action.payload;
-        state[id].title = title;
-      }
-    ),
+  handleAction(actions.openRootNotebook, (state, entries) => {
+    const notes = entries.filter(entry => entry.type === 'note');
 
-    [String(actions.openRootNotebook)]: produce(
-      (state: Notes, action: ActionType<typeof actions.openRootNotebook>) => {
-        const notes = action.payload.filter((entry) => entry.type === 'note');
+    notes.forEach(({ id, title }) => {
+      state[id] = {
+        sections: [],
+        title,
+      };
+    });
+  }),
 
-        notes.forEach(({ id, title }) => {
-          state[id] = {
-            sections: [],
-            title,
-          };
-        });
-      }
-    ),
-
-    [String(actions.editNote)]: produce(
-      (state: Notes, action: ActionType<typeof actions.editNote>) => {
-        const { id, sections } = action.payload;
-        state[id].sections = sections.map((section) => section.id);
-      }
-    ),
-  },
-  notes
-);
+  handleAction(actions.editNote, (state, { id, sections }) => {
+    state[id].sections = sections.map(section => section.id);
+  }),
+]);

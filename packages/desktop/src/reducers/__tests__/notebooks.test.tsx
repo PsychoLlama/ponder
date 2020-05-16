@@ -33,7 +33,7 @@ describe('Notebooks reducer', () => {
   });
 
   describe('createNote', () => {
-    const createAction = (patch) => ({
+    const createAction = <T,>(patch?: T) => ({
       type: String(actions.createNote),
       payload: {
         title: 'New note',
@@ -45,7 +45,10 @@ describe('Notebooks reducer', () => {
 
     it('adds the note to the corresponding notebook', () => {
       const withNotebook = {
-        steve: { contents: [] },
+        steve: {
+          contents: [],
+          title: '',
+        },
       };
 
       const action = createAction({ notebook: 'steve' });

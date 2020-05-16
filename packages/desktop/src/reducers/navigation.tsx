@@ -1,31 +1,23 @@
 // @flow
-import { handleActions, type ActionType } from 'redux-actions';
-import produce from 'immer';
+import { createReducer } from 'retreon';
 
 import * as actions from '../actions/notebook';
-import { navigation, type Navigation } from './state';
+import { navigation } from './state';
 
-export default handleActions<Navigation, *>(
-  {
-    [String(actions.openRootNotebook)]: produce((state: Navigation) => {
-      state.path = [];
-    }),
+export default createReducer(navigation, handleAction => [
+  handleAction(actions.openRootNotebook, state => {
+    state.path = [];
+  }),
 
-    [String(actions.createNote)]: produce(
-      (state: Navigation, action: ActionType<typeof actions.createNote>) => {
-        state.note = action.payload.id;
-      }
-    ),
+  handleAction(actions.createNote, (state, { id }) => {
+    state.note = id;
+  }),
 
-    [String(actions.editNote)]: produce(
-      (state: Navigation, action: ActionType<typeof actions.editNote>) => {
-        state.note = action.payload.id;
-      }
-    ),
+  handleAction(actions.editNote, (state, { id }) => {
+    state.note = id;
+  }),
 
-    [String(actions.closeNote)]: produce((state: Navigation) => {
-      state.note = null;
-    }),
-  },
-  navigation
-);
+  handleAction(actions.closeNote, state => {
+    state.note = null;
+  }),
+]);

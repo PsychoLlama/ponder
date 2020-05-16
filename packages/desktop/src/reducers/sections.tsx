@@ -1,30 +1,20 @@
 // @flow
-import { handleActions, type ActionType } from 'redux-actions';
 import { produce } from 'immer';
+import { createReducer } from 'retreon';
 
-import { sections as initialState, type Sections } from './state';
+import { sections as initialState } from './state';
 import * as actions from '../actions/notebook';
 
-const addSectionsFromAction = produce(
-  (
-    state: Sections,
-    action:
-      | ActionType<typeof actions.editNote>
-      | ActionType<typeof actions.createNote>
-  ) => {
-    action.payload.sections.forEach((section) => {
-      state[section.id] = {
-        type: section.type,
-        content: section.content,
-      };
-    });
-  }
-);
+const addSectionsFromAction = produce((state, { sections }) => {
+  sections.forEach(section => {
+    state[section.id] = {
+      type: section.type,
+      content: section.content,
+    };
+  });
+});
 
-export default handleActions<Sections, *>(
-  {
-    [String(actions.editNote)]: addSectionsFromAction,
-    [String(actions.createNote)]: addSectionsFromAction,
-  },
-  initialState
-);
+export default createReducer(initialState, handleAction => [
+  handleAction(actions.editNote, addSectionsFromAction),
+  handleAction(actions.createNote, addSectionsFromAction),
+]);
