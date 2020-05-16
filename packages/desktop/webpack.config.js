@@ -4,14 +4,6 @@ const path = require('path');
 const isProduction = process.env.NODE_ENV === 'production';
 const mode = isProduction ? 'production' : 'development';
 
-const typescriptLoader = {
-  test: /\.tsx?/,
-  exclude: /node_modules/,
-  use: {
-    loader: 'ts-loader',
-  },
-};
-
 const babelLoader = {
   test: /\.js$/,
   exclude: /node_modules/,
@@ -23,9 +15,19 @@ const babelLoader = {
   },
 };
 
+const typescriptLoader = {
+  test: /\.tsx?$/,
+  exclude: /node_modules/,
+  use: [{ loader: 'ts-loader' }],
+};
+
 const cssLoader = {
   test: /\.css$/,
   use: ['style-loader', 'css-loader'],
+};
+
+const resolveOptions = {
+  extensions: ['.ts', '.tsx', '.js'],
 };
 
 module.exports = [
@@ -41,6 +43,7 @@ module.exports = [
     module: {
       rules: [typescriptLoader, babelLoader, cssLoader],
     },
+    resolve: resolveOptions,
   },
 
   {
@@ -58,5 +61,6 @@ module.exports = [
     module: {
       rules: [typescriptLoader, babelLoader],
     },
+    resolve: resolveOptions,
   },
 ];

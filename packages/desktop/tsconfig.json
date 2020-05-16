@@ -4,6 +4,7 @@
   "compilerOptions": {
     "baseUrl": "src/",
     "jsx": "preserve",
-    "noEmit": true
+    "declaration": false,
+    "declarationMap": false
   }
 }
