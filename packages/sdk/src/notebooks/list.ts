@@ -4,47 +4,36 @@ import fs from 'fs-extra';
 
 import { toNotePath, toNotebookPath } from '../utils';
 import { readAsJson } from '../fs';
-
-type Notebook = {
-  type: 'notebook',
-  title: string,
-  id: string,
-};
-
-type Note = {
-  type: 'note',
-  title: string,
-  id: string,
-};
+import { Notebook, Note } from '../types';
 
 export type NotebookContents = Array<Note | Notebook>;
 
-export const TYPES = Object.freeze({
-  NOTEBOOK: 'notebook',
-  NOTE: 'note',
-});
+export enum Types {
+  Notebook = 'notebook',
+  Note = 'note',
+}
 
-const getTitle = async (filePath) => {
+const getTitle = async (filePath: string) => {
   const { title } = await readAsJson(filePath);
 
   return title;
 };
 
-const formatAsNotebook = async (id): Promise<Notebook> => ({
+const formatAsNotebook = async (id: string): Promise<Notebook> => ({
   title: await getTitle(toNotebookPath(id)),
-  type: TYPES.NOTEBOOK,
+  type: Types.Notebook,
   id,
 });
 
-const formatAsNote = async (id): Promise<Note> => ({
+const formatAsNote = async (id: string): Promise<Note> => ({
   title: await getTitle(toNotePath(id)),
-  type: TYPES.NOTE,
+  type: Types.Note,
   id,
 });
 
 const listNotebook = async (id: string): Promise<NotebookContents> => {
   const dirPath = toNotebookPath(id);
-  assert(await fs.exists(dirPath), `Notebook "${id}" doesn't exist.`);
+  assert(await fs.pathExists(dirPath), `Notebook "${id}" doesn't exist.`);
 
   const { notebooks, notes } = await readAsJson(dirPath);
 

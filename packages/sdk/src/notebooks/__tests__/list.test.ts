@@ -1,15 +1,15 @@
 // @flow
-import fs from 'fs-extra';
-import path from 'path';
+import * as fs from 'fs-extra';
+import { basename } from 'path';
 
-import list, { TYPES } from '../list';
+import list, { Types } from '../list';
 
 jest.mock('fs-extra');
 
 describe('Notebook listing', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    fs.exists.mockResolvedValue(true);
+    fs.pathExists.mockResolvedValue(true);
 
     const dirs = {
       'index.json': {
@@ -39,8 +39,8 @@ describe('Notebook listing', () => {
       },
     };
 
-    fs.readFile.mockImplementation(async (filePath) => {
-      const filename = path.basename(filePath);
+    fs.readFile.mockImplementation(async filePath => {
+      const filename = basename(filePath);
 
       const map = /notes/.test(filePath) ? notes : dirs;
       if (!map.hasOwnProperty(filename)) {
@@ -52,7 +52,7 @@ describe('Notebook listing', () => {
   });
 
   it('fails if the notebook does not exist', async () => {
-    fs.exists.mockResolvedValue(false);
+    fs.pathExists.mockResolvedValue(false);
     const id = 'non-existent-file';
 
     await expect(list(id)).rejects.toMatchObject({
@@ -65,7 +65,7 @@ describe('Notebook listing', () => {
 
     expect(results).toEqual([
       {
-        type: TYPES.NOTEBOOK,
+        type: Types.Notebook,
         title: 'First',
         id: 'dir1',
       },
@@ -83,7 +83,7 @@ describe('Notebook listing', () => {
         title: 'Third',
       }),
       {
-        type: TYPES.NOTE,
+        type: Types.Note,
         title: 'Note',
         id: 'note1',
       },
