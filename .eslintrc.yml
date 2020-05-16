@@ -1,4 +1,15 @@
-extends: freighter-repo
+extends:
+  - freighter-repo
+  - plugin:@typescript-eslint/recommended
+  - prettier/@typescript-eslint
+
+overrides:
+  - files: '**/__tests__/*.ts{x,}'
+    rules:
+      '@typescript-eslint/no-explicit-any': off
+
+parser: '@typescript-eslint/parser'
+
 globals:
   SyntheticMouseEvent: readonly
   SyntheticInputEvent: readonly
