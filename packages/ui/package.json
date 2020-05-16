@@ -7,6 +7,11 @@
   "author": "Jesse Gibson <JesseTheGibson@gmail.com>",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "build": "tsc",
+    "storybook": "start-storybook -p 3000",
+    "build-storybook": "build-storybook"
+  },
   "dependencies": {
     "@storybook/addon-knobs": "^5.3.18",
     "@storybook/theming": "^5.3.18",
@@ -23,10 +28,7 @@
     "@storybook/addons": "^5.3.18",
     "@storybook/react": "^5.3.18",
     "babel-loader": "^8.1.0",
-    "eslint-plugin-react": "^7.20.0"
-  },
-  "scripts": {
-    "storybook": "start-storybook -p 3000",
-    "build-storybook": "build-storybook"
+    "eslint-plugin-react": "^7.20.0",
+    "typescript": "^3.9.2"
   }
 }
