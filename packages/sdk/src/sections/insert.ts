@@ -1,16 +1,13 @@
 // @flow
 import updateNote from '../notes/update';
-
-interface Section {
-  type: string;
-}
+import { Section, Note } from '../types';
 
 const insertSection = async (
   noteId: string,
   sectionIndex: number,
   section: Section
 ) => {
-  return updateNote(noteId, (note) => {
+  return updateNote(noteId, (note: Note) => {
     note.sections.splice(sectionIndex, 0, section);
   });
 };

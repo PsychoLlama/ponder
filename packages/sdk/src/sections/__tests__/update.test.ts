@@ -1,18 +1,19 @@
 // @flow
 import updateNote from '../../notes/update';
 import updateSection from '../update';
+import { Section } from '../../types';
 
 jest.mock('../../notes/update');
 
 describe('Section update', () => {
   beforeEach(() => {
-    (updateNote: Function).mockImplementation((_, fn) => {
+    (updateNote as any).mockImplementation((_, fn) => {
       return Promise.resolve(fn({ sections: [{ section: true }] }));
     });
   });
 
   it('tries to update the note', async () => {
-    await updateSection('note', 0, (section) => {
+    await updateSection('note', 0, (section: Section) => {
       section.body = 'enabled';
     });
 

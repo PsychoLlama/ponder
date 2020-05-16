@@ -3,8 +3,9 @@ import type { nothing } from 'immer';
 
 import { toNotePath } from '../utils';
 import { updateAsJson } from '../fs';
+import { Note } from '../types';
 
-const updateNote = <Update extends (state: unknown) => void | typeof nothing>(
+const updateNote = <Update extends (state: Note) => void | typeof nothing>(
   id: string,
   fn: Update
 ) => {
