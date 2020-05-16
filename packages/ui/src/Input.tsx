@@ -13,15 +13,15 @@ export const InputNode = styled.input`
 `;
 
 type Props = {
-  processInput: (input: string) => string,
-  onChange: (input: string) => mixed,
-  placeholder?: string,
-  value?: string,
+  processInput: (input: string) => string;
+  onChange: (input: string) => unknown;
+  placeholder?: string;
+  value?: string;
 };
 
 type State = {
-  isEditing: boolean,
-  value: string,
+  isEditing: boolean;
+  value: string;
 };
 
 // Supports features of a controlled inputs while remaining performant.
@@ -34,7 +34,7 @@ export default class Input extends React.Component<Props, State> {
   };
 
   state = { value: '', isEditing: false };
-  inputRef: HTMLInputElement | null;
+  inputRef: HTMLInputElement | null = null;
 
   render() {
     const { placeholder } = this.props;
@@ -56,7 +56,7 @@ export default class Input extends React.Component<Props, State> {
   };
 
   enterEditMode = () => {
-    const inputRef: HTMLInputElement = (this.inputRef: any);
+    const inputRef = this.inputRef as HTMLInputElement;
     inputRef.select();
 
     this.setState({
@@ -75,8 +75,8 @@ export default class Input extends React.Component<Props, State> {
     }
   };
 
-  updateValue = (event: SyntheticInputEvent<HTMLInputElement>) => {
-    const value = this.props.processInput(event.target.value);
+  updateValue = (event: React.SyntheticEvent<HTMLInputElement>) => {
+    const value = this.props.processInput(event.currentTarget.value);
 
     if (value !== this.state.value) {
       this.setState({ value });

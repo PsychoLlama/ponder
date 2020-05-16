@@ -30,14 +30,14 @@ const editorOptions = {
   theme: 'idea',
 };
 
-type Props = {
-  initialValue: string,
-  onChange: (string) => mixed,
-};
+interface Props {
+  initialValue: string;
+  onChange: (content: string) => unknown;
+}
 
-type State = {
-  value: string,
-};
+interface State {
+  value: string;
+}
 
 export default class MarkdownEditor extends React.Component<Props, State> {
   static defaultProps = {
@@ -56,7 +56,7 @@ export default class MarkdownEditor extends React.Component<Props, State> {
     );
   }
 
-  updateText = (editor: *, data: *, value: string) => {
+  updateText = <Editor, Data>(_editor: Editor, _data: Data, value: string) => {
     this.setState({ value });
     this.props.onChange(value);
   };

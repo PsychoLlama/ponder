@@ -26,11 +26,11 @@ export const renderer = <Props, CustomTools>(
   config: Config<EnzymeWrapper<Props>, Props, CustomTools>
 ) => {
   return (
-    overrides: Partial<Props>
+    overrides?: Partial<MockedProps<Props>>
   ): typeof config['configure'] extends Function
     ? RenderContext<EnzymeWrapper<Props>, Props, CustomTools>
     : RenderContext<EnzymeWrapper<Props>, Props, {}> => {
-    const props: Props = {
+    const props: MockedProps<Props> = {
       ...config.getDefaultProps(),
       ...overrides,
     };
@@ -53,13 +53,19 @@ export const renderer = <Props, CustomTools>(
 };
 
 interface Config<Output, Props, CustomTools> {
-  getDefaultProps: () => Props;
+  getDefaultProps: () => MockedProps<Props>;
   configure?: (ctx: RenderContext<Output, Props, {}>) => CustomTools;
 }
 
 type RenderContext<Output, Props, CustomTools> = CustomTools & {
   output: Output;
-  props: Props;
+  props: MockedProps<Props>;
 };
 
 type EnzymeWrapper<Props> = ShallowWrapper<React.ComponentType<Props>>;
+
+type MockedProps<Props> = {
+  [prop in keyof Props]: Props[prop] extends (...args: any[]) => any
+    ? jest.MockedFunction<Props[prop]>
+    : Props[prop];
+};

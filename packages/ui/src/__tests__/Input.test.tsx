@@ -6,7 +6,7 @@ import Input, { InputNode } from '../Input';
 describe('Input', () => {
   const setup = renderer(Input, {
     getDefaultProps: () => ({
-      processInput: jest.fn((input) => input),
+      processInput: jest.fn((input: string) => input),
       placeholder: 'Lorem Ipsum',
       value: 'Input value',
       onChange: jest.fn(),
@@ -14,7 +14,7 @@ describe('Input', () => {
 
     configure({ output }) {
       const input = output.find(InputNode);
-      const { ref } = input.getElement();
+      const { ref } = input.getElement() as any;
       const mockInputRef = { select: jest.fn() };
 
       if (ref) {
@@ -25,8 +25,8 @@ describe('Input', () => {
     },
   });
 
-  const createInputEvent = (text) => ({
-    target: { value: text },
+  const createInputEvent = (text: string) => ({
+    currentTarget: { value: text },
   });
 
   it('renders', () => {
