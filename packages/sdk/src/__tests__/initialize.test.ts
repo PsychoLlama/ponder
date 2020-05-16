@@ -1,5 +1,5 @@
 // @flow
-import fs from 'fs-extra';
+import * as fs from 'fs-extra';
 
 import { HOME, CONFIG_FILE } from '../vars';
 import initialize from '../initialize';
@@ -9,7 +9,7 @@ jest.mock('fs-extra');
 describe('SDK initializer', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    fs.exists.mockResolvedValue(false);
+    fs.pathExists.mockResolvedValue(false);
   });
 
   it('returns a promise', async () => {
@@ -20,10 +20,10 @@ describe('SDK initializer', () => {
   });
 
   it('looks for the ponder directory', async () => {
-    fs.exists.mockResolvedValue(true);
+    fs.pathExists.mockResolvedValue(true);
     await initialize();
 
-    expect(fs.exists).toHaveBeenCalledWith(HOME);
+    expect(fs.pathExists).toHaveBeenCalledWith(HOME);
     expect(fs.mkdir).not.toHaveBeenCalled();
   });
 

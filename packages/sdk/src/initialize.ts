@@ -6,7 +6,7 @@ import { toNotebookPath } from './utils';
 import { writeAsJson } from './fs';
 
 export default async () => {
-  if (await fs.exists(HOME)) return;
+  if (await fs.pathExists(HOME)) return;
 
   await fs.mkdir(HOME);
   await fs.mkdir(NOTEBOOKS);
