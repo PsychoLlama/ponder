@@ -3,17 +3,19 @@ import { compose } from 'redux';
 import { NOTEBOOK_ROOT } from '@ponder/sdk';
 
 import createStore, { DEVTOOLS_KEY } from '../redux-store';
-import { readNotebook } from '@ponder/sdk';
+import * as sdkModule from '@ponder/sdk';
 
 jest.mock('@ponder/sdk');
+
+const sdk = sdkModule as jest.Mocked<typeof sdkModule>;
 
 describe('Redux store', () => {
   beforeEach(() => {
     delete window[DEVTOOLS_KEY];
-    (readNotebook: Function).mockResolvedValue([
+    sdk.readNotebook.mockResolvedValue([
       {
         title: 'Note title',
-        type: 'note',
+        type: sdk.EntityType.Notebook,
         id: 'id',
       },
     ]);
@@ -30,7 +32,7 @@ describe('Redux store', () => {
   });
 
   it('uses the global compose hook if defined', async () => {
-    window[DEVTOOLS_KEY] = jest.fn((compose: any));
+    (window as any)[DEVTOOLS_KEY] = jest.fn(compose);
     await createStore();
 
     expect(window[DEVTOOLS_KEY]).toHaveBeenCalled();

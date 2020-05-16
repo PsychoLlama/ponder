@@ -1,25 +1,24 @@
 // @flow
 import reduxPromise from 'redux-promise';
-import {
-  compose,
-  type Store,
-  createStore,
-  applyMiddleware,
-  combineReducers,
-} from 'redux';
+import { compose, createStore, applyMiddleware, combineReducers } from 'redux';
 
 import { openRootNotebook } from '../actions/notebook';
 
-import type { ReduxState } from '../types/redux-store';
 import * as reducers from '../reducers';
 
 export const DEVTOOLS_KEY = '__REDUX_DEVTOOLS_EXTENSION_COMPOSE__';
 
-export default async () => {
-  const composeEnhancers =
-    typeof window[DEVTOOLS_KEY] === 'function' ? window[DEVTOOLS_KEY] : compose;
+declare global {
+  interface Window {
+    // eslint-disable-next-line no-undef
+    [DEVTOOLS_KEY]?: typeof compose;
+  }
+}
 
-  const store: Store<ReduxState, *, *> = createStore(
+export default async () => {
+  const composeEnhancers = window[DEVTOOLS_KEY] || compose;
+
+  const store = createStore(
     combineReducers(reducers),
     composeEnhancers(applyMiddleware(reduxPromise))
   );

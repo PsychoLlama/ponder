@@ -7,9 +7,7 @@ import type { ReduxState } from '../types/redux-store';
 
 const noop = () => {};
 
-export const createReduxState = (
-  update?: ImmerProducer = () => {}
-): ReduxState =>
+export const createReduxState = (update: ImmerProducer = noop): ReduxState =>
   produce(
     {
       notebooks,
@@ -33,17 +31,17 @@ type ImmerProducer = (state: ReduxState) => void;
 // })
 //
 // const { props, state } = select()
-export const selector = <OwnProps: Object, Selection: Object>(
-  mapStateToProps: (ReduxState, props?: OwnProps) => Selection,
-  config: { defaultProps?: OwnProps }
-) => (producer: ImmerProducer = noop, mergeProps?: OwnProps) => {
+export const selector = <OwnProps extends {}, Selection>(
+  mapStateToProps: (state: ReduxState, props: OwnProps) => Selection,
+  config: { defaultProps: OwnProps }
+) => (producer: ImmerProducer = noop, mergeProps?: Partial<OwnProps>) => {
   const defaultState = createReduxState();
   const state = produce(defaultState, producer);
 
-  const ownProps = { ...config.defaultProps, ...mergeProps };
+  const ownProps: OwnProps = { ...config.defaultProps, ...mergeProps };
   const props = mapStateToProps(state, ownProps);
 
-  expect(props).toEqual(expect.any(Object));
+  expect(props).toBeInstanceOf(Object);
 
   return { ownProps, props, state };
 };

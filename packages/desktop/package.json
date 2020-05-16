@@ -18,6 +18,7 @@
     "@ponder/ui": "*",
     "@types/react": "^16.9.35",
     "@types/redux-actions": "^2.6.1",
+    "@types/redux-promise": "^0.5.29",
     "@types/uuid": "^7.0.3",
     "babel-loader": "^8.1.0",
     "css-loader": "^3.5.3",
