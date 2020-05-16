@@ -13,7 +13,7 @@ export default createReducer(navigation, handleAction => [
     state.note = id;
   }),
 
-  handleAction(actions.editNote, (state, { id }) => {
+  handleAction(actions.editNote, (state, { id }: any) => {
     state.note = id;
   }),
 

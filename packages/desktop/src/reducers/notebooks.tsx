@@ -1,15 +1,15 @@
 // @flow
-import { NOTEBOOK_ROOT } from '@ponder/sdk';
+import { NOTEBOOK_ROOT, Note, Notebook } from '@ponder/sdk';
 import { createReducer } from 'retreon';
 
 import * as actions from '../actions/notebook';
 import { notebooks } from './state';
 
 export default createReducer(notebooks, handleAction => [
-  handleAction(actions.openRootNotebook, (state, action) => {
+  handleAction(actions.openRootNotebook, (state, entries: any) => {
     state[NOTEBOOK_ROOT] = {
       title: '',
-      contents: action.map(item => ({
+      contents: entries.map((item: Note | Notebook) => ({
         type: item.type,
         id: item.id,
       })),

@@ -1,4 +1,6 @@
 // @flow
+import { EntityType, SectionType } from '@ponder/sdk';
+
 import reducer from '../notes';
 import * as actions from '../../actions/notebook';
 import { notes } from '../state';
@@ -62,9 +64,9 @@ describe('Notes reducer', () => {
     const createAction = <T,>(patch?: T) => ({
       type: String(actions.openRootNotebook),
       payload: patch || [
-        { type: 'note', id: 1, title: 'Note #1' },
-        { type: 'note', id: 2, title: 'Note #2' },
-        { type: 'note', id: 3, title: 'Note #3' },
+        { type: EntityType.Note, id: 1, title: 'Note #1' },
+        { type: EntityType.Note, id: 2, title: 'Note #2' },
+        { type: EntityType.Note, id: 3, title: 'Note #3' },
       ],
     });
 
@@ -101,7 +103,12 @@ describe('Notes reducer', () => {
     });
 
     it('loads the note sections', () => {
-      const section = { id: '1', type: 'markdown', content: '# Title' };
+      const section = {
+        id: '1',
+        type: SectionType.Markdown,
+        content: '# Title',
+      };
+
       const action = createAction({ sections: [section] });
       const withNote = {
         [action.payload.id]: { title: 'title', sections: [] },

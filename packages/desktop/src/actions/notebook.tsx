@@ -1,9 +1,9 @@
 // @flow
 import * as sdk from '@ponder/sdk';
-import { createAction } from 'redux-actions';
+import { createAction } from 'retreon';
 import { v4 as uuid } from 'uuid';
 
-export const openRootNotebook = createAction(
+export const openRootNotebook = createAction.async(
   'notebook/open-root-notebook',
   () => sdk.readNotebook(sdk.NOTEBOOK_ROOT)
 );
@@ -50,6 +50,7 @@ export const renameNote = createAction(
   }
 );
 
+// TODO: Migrate to createAction.async
 export const editNote = createAction(
   'notebook/edit-note',
   async (id: string) => {
@@ -61,6 +62,7 @@ export const editNote = createAction(
 
 export const closeNote = createAction('notebook/close-note', () => undefined);
 
+// TODO: Migrate to createAction.async
 export const updateNoteSection = createAction(
   'notebook/update-section',
   async (config: { noteId: string; sectionIndex: number; content: string }) => {

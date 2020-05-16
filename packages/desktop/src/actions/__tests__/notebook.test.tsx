@@ -78,15 +78,21 @@ describe('Notebook actions', () => {
         {
           title: 'Recipes',
           type: sdk.EntityType.Note,
+          sections: [],
           id: 'note1',
         },
       ]);
     });
 
     it('returns the notebook listing', async () => {
-      const { payload } = actions.openRootNotebook();
+      const iterator = actions.openRootNotebook();
 
-      await expect(payload).resolves.toHaveLength(2);
+      await iterator.next();
+      const { value: action } = await iterator.next();
+
+      expect(action).toMatchObject({
+        payload: expect.any(Array),
+      });
     });
   });
 
