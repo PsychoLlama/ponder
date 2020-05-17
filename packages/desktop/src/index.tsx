@@ -5,10 +5,11 @@ import React from 'react';
 
 import createStore from './utils/redux-store';
 import App from './components/App';
+import colors from './config/colors';
 
 const GlobalStyle = createGlobalStyle`
   body {
-    background-color: white;
+    background-color: ${colors.background};
     margin: 0;
   }
 `;

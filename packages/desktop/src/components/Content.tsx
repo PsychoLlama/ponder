@@ -15,6 +15,9 @@ const Container = styled.section`
   display: flex;
   flex-direction: column;
   flex-basis: 0;
+  background-color: white;
+  margin-right: 24px;
+  box-shadow: 0 2px 4px ${colors.shadow};
 `;
 
 const Center = styled.div`

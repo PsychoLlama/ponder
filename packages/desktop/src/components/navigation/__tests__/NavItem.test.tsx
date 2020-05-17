@@ -82,7 +82,7 @@ describe('NavItem', () => {
       const { output: notSelected } = setup({ selected: false });
 
       expect(selected).toHaveStyleRule('color', colors.primary);
-      expect(notSelected).toHaveStyleRule('color', colors.mutedText);
+      expect(notSelected).toHaveStyleRule('color', colors.text);
     });
   });
 

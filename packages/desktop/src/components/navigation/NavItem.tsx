@@ -11,7 +11,7 @@ import * as actions from '../../actions/notebook';
 const Link = styled.a.attrs({ href: '#' })`
   padding: 8px 24px;
   display: block;
-  transition-property: padding-left, padding-right;
+  transition-property: padding-left, padding-right, color;
   transition-duration: 250ms;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -20,7 +20,7 @@ const Link = styled.a.attrs({ href: '#' })`
   cursor: default;
   user-select: none;
   color: ${(props: { selected: boolean }) =>
-    props.selected ? colors.primary : colors.mutedText};
+    props.selected ? colors.primary : colors.text};
 
   :hover {
     padding-left: 32px;
