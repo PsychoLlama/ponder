@@ -142,4 +142,14 @@ describe('Notebook actions', () => {
       );
     });
   });
+
+  describe('deleteNote', () => {
+    it('deletes the note from disk', async () => {
+      const params = { noteId: 'note', notebookId: 'notebook' };
+      const action = actions.deleteNote(params);
+
+      expect(sdk.deleteNote).toHaveBeenCalledWith(params);
+      expect(action.payload).toBe(params);
+    });
+  });
 });

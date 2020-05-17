@@ -119,4 +119,25 @@ describe('Notes reducer', () => {
       });
     });
   });
+
+  describe('deleteNote', () => {
+    const createAction = () => ({
+      type: String(actions.deleteNote),
+      payload: {
+        noteId: 'note-id',
+        notebookId: 'notebook-id',
+      },
+    });
+
+    it('removes the corresponding note', () => {
+      const action = createAction();
+      const withNote = {
+        [action.payload.noteId]: { title: 'title', sections: [] },
+      };
+
+      const state = reducer(withNote, action);
+
+      expect(state).toEqual({});
+    });
+  });
 });

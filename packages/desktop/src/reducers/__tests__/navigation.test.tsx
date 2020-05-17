@@ -67,4 +67,38 @@ describe('Notebooks reducer', () => {
       expect(state.note).toBeNull();
     });
   });
+
+  describe('deleteNote', () => {
+    const createAction = () => ({
+      type: String(actions.deleteNote),
+      payload: {
+        noteId: 'note-id',
+        notebookId: 'notebook-id',
+      },
+    });
+
+    it('closes the note', () => {
+      const action = createAction();
+      const withNavigation = {
+        ...navigation,
+        note: action.payload.noteId,
+      };
+
+      const state = reducer(withNavigation, action);
+
+      expect(state.note).toBeNull();
+    });
+
+    it('only closes the note if that note was deleted', () => {
+      const action = createAction();
+      const withNavigation = {
+        ...navigation,
+        note: 'unrelated-note',
+      };
+
+      const state = reducer(withNavigation, action);
+
+      expect(state.note).not.toBeNull();
+    });
+  });
 });

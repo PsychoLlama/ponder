@@ -18,4 +18,12 @@ export default createReducer(notebooks, (handleAction) => [
   handleAction(actions.createNote, (state, { notebook, id }) => {
     state[notebook].contents.push({ type: EntityType.Note, id });
   }),
+
+  handleAction(actions.deleteNote, (state, { notebookId, noteId }) => {
+    const notebook = state[notebookId];
+
+    notebook.contents = notebook.contents.filter(
+      (entry) => entry.id !== noteId
+    );
+  }),
 ]);

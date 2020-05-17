@@ -76,3 +76,13 @@ export const updateNoteSection = createAction(
     return config;
   }
 );
+
+export const deleteNote = createAction(
+  'notebook/delete-note',
+  (vars: { noteId: string; notebookId: string }) => {
+    // Optimistic only. Drop the promise.
+    sdk.deleteNote(vars);
+
+    return vars;
+  }
+);

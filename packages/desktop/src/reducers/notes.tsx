@@ -29,4 +29,8 @@ export default createReducer(notes, (handleAction) => [
   handleAction(actions.editNote, (state, { id, sections }: any) => {
     state[id].sections = sections.map((section: Section) => section.id);
   }),
+
+  handleAction(actions.deleteNote, (state, { noteId }) => {
+    delete state[noteId];
+  }),
 ]);

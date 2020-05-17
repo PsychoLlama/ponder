@@ -1,4 +1,4 @@
-import { NOTEBOOK_ROOT } from '@ponder/sdk';
+import { NOTEBOOK_ROOT, EntityType } from '@ponder/sdk';
 
 import reducer from '../notebooks';
 import * as actions from '../../actions/notebook';
@@ -12,8 +12,8 @@ describe('Notebooks reducer', () => {
 
     it('adds note & notebook information to the map', () => {
       const items = [
-        { type: 'notebook', title: 'Notebook title', id: 1 },
-        { type: 'note', title: 'Note title', id: 2 },
+        { type: EntityType.Notebook, title: 'Notebook title', id: 1 },
+        { type: EntityType.Note, title: 'Note title', id: 2 },
       ];
 
       const action = createAction(items);
@@ -23,8 +23,8 @@ describe('Notebooks reducer', () => {
         [NOTEBOOK_ROOT]: {
           title: '',
           contents: [
-            { type: 'notebook', id: 1 },
-            { type: 'note', id: 2 },
+            { type: EntityType.Notebook, id: 1 },
+            { type: EntityType.Note, id: 2 },
           ],
         },
       });
@@ -54,8 +54,33 @@ describe('Notebooks reducer', () => {
       const state = reducer(withNotebook, action);
 
       expect(state.steve.contents).toEqual([
-        { type: 'note', id: action.payload.id },
+        { type: EntityType.Note, id: action.payload.id },
       ]);
+    });
+  });
+
+  describe('deleteNote', () => {
+    const createAction = () => ({
+      type: String(actions.deleteNote),
+      payload: {
+        noteId: 'note-id',
+        notebookId: 'notebook-id',
+      },
+    });
+
+    it('removes the note from the notebook list', () => {
+      const action = createAction();
+      const { notebookId, noteId } = action.payload;
+      const withNotebook = {
+        [notebookId]: {
+          title: '',
+          contents: [{ type: EntityType.Note, id: noteId }],
+        },
+      };
+
+      const state = reducer(withNotebook, action);
+
+      expect(state[notebookId].contents).toEqual([]);
     });
   });
 });

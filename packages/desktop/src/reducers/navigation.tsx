@@ -19,4 +19,10 @@ export default createReducer(navigation, (handleAction) => [
   handleAction(actions.closeNote, (state) => {
     state.note = null;
   }),
+
+  handleAction(actions.deleteNote, (state, { noteId }) => {
+    if (state.note === noteId) {
+      state.note = null;
+    }
+  }),
 ]);
