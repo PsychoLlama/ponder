@@ -15,4 +15,5 @@ export { default as createNote } from './notes/create';
 export { default as renameNote } from './notes/rename';
 export { default as initialize } from './initialize';
 export { default as readNote } from './notes/read';
+export { default as deleteNote } from './notes/delete';
 export { NOTEBOOK_ROOT } from './vars';
