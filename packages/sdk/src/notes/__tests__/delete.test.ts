@@ -2,7 +2,7 @@ import * as fsModule from 'fs-extra';
 
 import * as fsUtilsModule from '../../fs';
 import deleteNote from '../delete';
-import { toNotePath, toNotebookPath } from '../../utils';
+import { toNotePath } from '../../utils';
 
 jest.mock('fs-extra');
 jest.mock('../../fs');
