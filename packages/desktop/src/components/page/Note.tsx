@@ -11,6 +11,7 @@ import * as actions from '../../actions/notebook';
 import Section from './Section';
 import colors from '../../config/colors';
 import StatusBar from '../StatusBar';
+import { getNotebookId } from '../../selectors/notebooks';
 
 const Container = styled.div`
   flex-grow: 1;
@@ -34,7 +35,7 @@ const PageContainer = styled.article`
   flex-grow: 1;
 `;
 
-const DeleteNote = styled.button`
+export const DeleteNote = styled.button`
   color: ${colors.mutedText};
   appearance: none;
   border: none;
@@ -55,7 +56,9 @@ const PageStatus = styled(StatusBar)`
 
 interface Props {
   renameNote: typeof actions.renameNote;
+  deleteNote: typeof actions.deleteNote;
   noteId: string;
+  notebookId: string;
   title: string;
   sections: Array<string>;
 }
@@ -73,7 +76,7 @@ export class Note extends React.Component<Props> {
             value={title}
           />
 
-          <DeleteNote>
+          <DeleteNote onClick={this.deleteNote}>
             <FaTrashAlt />
           </DeleteNote>
         </NoteControls>
@@ -98,6 +101,12 @@ export class Note extends React.Component<Props> {
     );
   };
 
+  deleteNote = () => {
+    const { noteId, notebookId } = this.props;
+
+    this.props.deleteNote({ noteId, notebookId });
+  };
+
   renameNote = (newTitle: string) => {
     this.props.renameNote({
       id: this.props.noteId,
@@ -106,14 +115,16 @@ export class Note extends React.Component<Props> {
   };
 }
 
-export const mapStateToProps = ({ notes, navigation }: ReduxState) => {
-  const noteId = navigation.note as string;
+export const mapStateToProps = (state: ReduxState) => {
+  const notebookId = getNotebookId(state);
+  const noteId = state.navigation.note as string;
 
-  const note = notes[noteId];
+  const note = state.notes[noteId];
   assert(note, 'No note has been selected.');
 
   return {
     noteId,
+    notebookId,
     title: note.title,
     sections: note.sections,
   };
@@ -121,6 +132,7 @@ export const mapStateToProps = ({ notes, navigation }: ReduxState) => {
 
 const mapDispatchToProps = {
   renameNote: actions.renameNote,
+  deleteNote: actions.deleteNote,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Note);

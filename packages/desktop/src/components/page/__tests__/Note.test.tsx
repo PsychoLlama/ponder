@@ -1,7 +1,7 @@
 import { renderer } from '@ponder/test-utils';
 import { Input } from '@ponder/ui';
 
-import { Note, mapStateToProps } from '../Note';
+import { Note, DeleteNote, mapStateToProps } from '../Note';
 import { selector } from '../../../utils/testing';
 import Section from '../Section';
 
@@ -9,8 +9,10 @@ describe('Note', () => {
   const setup = renderer(Note, {
     getDefaultProps: () => ({
       renameNote: jest.fn(),
+      deleteNote: jest.fn(),
       title: 'Note title',
       noteId: 'note-id',
+      notebookId: 'notebook-id',
       sections: ['section-1', 'section-2'],
     }),
   });
@@ -50,6 +52,17 @@ describe('Note', () => {
     const sections = output.find(Section);
 
     expect(sections.length).toBe(props.sections.length);
+  });
+
+  it('deletes the note when you click the delete button', () => {
+    const { output, props } = setup();
+
+    output.find(DeleteNote).simulate('click');
+
+    expect(props.deleteNote).toHaveBeenCalledWith({
+      noteId: props.noteId,
+      notebookId: props.notebookId,
+    });
   });
 
   describe('mapStateToProps', () => {
@@ -103,6 +116,19 @@ describe('Note', () => {
       });
 
       expect(props.sections).toBe(sections);
+    });
+
+    it('grabs the notebook ID', () => {
+      const { props } = select((state) => {
+        state.navigation.path = ['a', 'b', 'c'];
+        state.navigation.note = 'id';
+        state.notes.id = {
+          title: 'Title',
+          sections: [],
+        };
+      });
+
+      expect(props.notebookId).toBe('c');
     });
   });
 });
