@@ -9,7 +9,7 @@ import colors from '../../config/colors';
 import { translate } from '../../utils/translation';
 import * as actions from '../../actions/notebook';
 
-const Link = styled.a.attrs({ href: '#' })`
+const Link = styled.a.attrs({ href: '#', selected: false })`
   padding: 8px 24px;
   display: block;
   transition-property: padding-left, padding-right;
@@ -33,7 +33,8 @@ export const Notebook = styled(Link)`
 `;
 
 export const Note = styled(Link)`
-  color: ${props => (props.selected ? colors.primary : colors.mutedText)};
+  color: ${(props: { selected: boolean }) =>
+    props.selected ? colors.primary : colors.mutedText};
 `;
 
 type OwnProps = {

@@ -62,11 +62,13 @@ export class Note extends React.Component<Props> {
 }
 
 export const mapStateToProps = ({ notes, navigation }: ReduxState) => {
-  const note = notes[navigation.note as string];
+  const noteId = navigation.note as string;
+
+  const note = notes[noteId];
   assert(note, 'No note has been selected.');
 
   return {
-    noteId: navigation.note,
+    noteId,
     title: note.title,
     sections: note.sections,
   };

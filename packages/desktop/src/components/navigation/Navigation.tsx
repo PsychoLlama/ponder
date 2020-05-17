@@ -28,21 +28,19 @@ const List = styled.ol`
   padding: 0;
 `;
 
-type NotebookEntry = Note | Notebook;
+interface NotebookEntry {
+  type: EntityType;
+  id: string;
+}
 
 interface Props {
   closeNote: typeof actions.closeNote;
-  editNote: typeof actions.editNote;
   entries: Array<NotebookEntry>;
   selectedNoteId: string | null;
 }
 
 export class Navigation extends React.Component<Props> {
   nav: HTMLElement | null = null;
-
-  static defaultProps = {
-    entries: [],
-  };
 
   render() {
     const { entries } = this.props;
@@ -89,10 +87,12 @@ export class Navigation extends React.Component<Props> {
   };
 }
 
+const DEFAULT_ENTRIES: Array<NotebookEntry> = [];
+
 export const mapStateToProps = (state: ReduxState) => {
   const notebookId = getNotebookId(state);
   const notebook = state.notebooks[notebookId];
-  const entries = notebook ? notebook.contents : undefined;
+  const entries = notebook ? notebook.contents : DEFAULT_ENTRIES;
 
   return {
     selectedNoteId: state.navigation.note,
@@ -102,7 +102,6 @@ export const mapStateToProps = (state: ReduxState) => {
 
 const mapDispatchToProps = {
   closeNote: actions.closeNote,
-  editNote: actions.editNote,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navigation);

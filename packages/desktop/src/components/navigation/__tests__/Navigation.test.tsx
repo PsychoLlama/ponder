@@ -33,8 +33,8 @@ describe('Navigation', () => {
 
       return {
         mockNavRef,
-        filterByType: type => {
-          return props.entries.filter(entry => entry.type === type);
+        filterByType: (type) => {
+          return props.entries.filter((entry) => entry.type === type);
         },
         createClickEvent: (target = mockNavRef) => ({
           target,
@@ -43,8 +43,10 @@ describe('Navigation', () => {
     },
   });
 
-  it('renders', () => {
-    setup();
+  it('renders nothing while the notebook is loading', () => {
+    const pass = () => setup();
+
+    expect(pass).not.toThrow();
   });
 
   it('shows all the notebooks', () => {
@@ -84,10 +86,12 @@ describe('Navigation', () => {
   });
 
   describe('mapStateToProps', () => {
-    const select = selector(mapStateToProps, {});
+    const select = selector(mapStateToProps, {
+      defaultProps: {},
+    });
 
     it('pulls the selected note ID', () => {
-      const { props, state } = select(state => {
+      const { props, state } = select((state) => {
         state.notebooks[NOTEBOOK_ROOT] = { title: '', contents: [] };
       });
 
@@ -95,9 +99,9 @@ describe('Navigation', () => {
     });
 
     it('pulls the list of notebook entries', () => {
-      const notebook = { type: 'notebook', id: '2' };
-      const note = { type: 'note', id: '1' };
-      const { props, state } = select(state => {
+      const notebook = { type: EntityType.Notebook, id: '2' };
+      const note = { type: EntityType.Note, id: '1' };
+      const { props, state } = select((state) => {
         state.navigation.path = [];
         state.notebooks[NOTEBOOK_ROOT] = {
           title: '',
@@ -111,7 +115,7 @@ describe('Navigation', () => {
     it('survives if the notebook has not been loaded yet', () => {
       const { props } = select();
 
-      expect(props.entries).toBeUndefined();
+      expect(props.entries).toEqual([]);
     });
   });
 });

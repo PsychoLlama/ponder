@@ -1,6 +1,8 @@
 // @flow
-type Notebook = { type: 'notebook'; id: string };
-type Note = { type: 'note'; id: string };
+import { EntityType } from '@ponder/sdk';
+
+type Notebook = { type: EntityType.Notebook; id: string };
+type Note = { type: EntityType.Note; id: string };
 
 export type Navigation = {
   path: string[];
