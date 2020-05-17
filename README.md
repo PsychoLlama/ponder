@@ -23,7 +23,7 @@ current notes app (Boostnote):
 - [x] Ability to create notes
 - [x] Ability to rename notes
 - [ ] Ability to delete notes
-- [ ] Markdown rendering (partial support)
+- [x] Rich text editing
 - [ ] Fuzzy search by note title
 - [ ] Syntax-highlighted code snippets
 - [ ] Pre-built app distributions
