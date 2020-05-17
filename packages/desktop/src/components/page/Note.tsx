@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import assert from 'minimalistic-assert';
 import { connect } from 'react-redux';
 import React from 'react';
+import { FaTrashAlt } from 'react-icons/fa';
 
 import { ReduxState } from '../../types/redux-store';
 import { translate } from '../../utils/translation';
@@ -18,6 +19,12 @@ const Container = styled.div`
   max-width: 52rem;
 `;
 
+const NoteControls = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 const PageContainer = styled.article`
   background-color: white;
   box-shadow: 0 2px 4px ${colors.shadow};
@@ -25,6 +32,21 @@ const PageContainer = styled.article`
   flex-direction: column;
   border-radius: 2px 2px 0 0;
   flex-grow: 1;
+`;
+
+const DeleteNote = styled.button`
+  color: ${colors.mutedText};
+  appearance: none;
+  border: none;
+  padding: 0 8px;
+  background-color: transparent;
+  font-size: 16px;
+
+  :hover,
+  :focus {
+    color: ${colors.primary};
+    outline: none;
+  }
 `;
 
 const PageStatus = styled(StatusBar)`
@@ -44,11 +66,17 @@ export class Note extends React.Component<Props> {
 
     return (
       <Container>
-        <Input
-          placeholder={translate('Untitled Note')}
-          onChange={this.renameNote}
-          value={title}
-        />
+        <NoteControls>
+          <Input
+            placeholder={translate('Untitled Note')}
+            onChange={this.renameNote}
+            value={title}
+          />
+
+          <DeleteNote>
+            <FaTrashAlt />
+          </DeleteNote>
+        </NoteControls>
 
         <PageContainer>{sections.map(this.renderSection)}</PageContainer>
 
