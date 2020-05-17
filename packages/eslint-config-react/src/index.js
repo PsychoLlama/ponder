@@ -1,5 +1,3 @@
-// @flow
-const { version: flowVersion } = require('flow-bin/package');
 const { version: reactVersion } = require('react/package');
 
 module.exports = {
@@ -22,7 +20,6 @@ module.exports = {
   settings: {
     react: {
       version: reactVersion,
-      flowVersion,
     },
   },
 };

@@ -7,9 +7,15 @@
   "author": "Jesse Gibson <JesseTheGibson@gmail.com>",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "build": "tsc"
+  },
   "dependencies": {
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "jest-styled-components": "^7.0.2"
+  },
+  "devDependencies": {
+    "typescript": "^3.9.2"
   }
 }

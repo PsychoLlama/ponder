@@ -1,4 +1,3 @@
-// @flow
 import Adapter from 'enzyme-adapter-react-16';
 import enzyme from 'enzyme';
 
