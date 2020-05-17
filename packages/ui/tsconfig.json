@@ -3,7 +3,8 @@
   "include": ["src"],
   "compilerOptions": {
     "baseUrl": "src/",
-    "jsx": "preserve",
-    "noEmit": true
+    "jsx": "react",
+    "declaration": false,
+    "declarationMap": false
   }
 }
