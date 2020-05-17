@@ -1,4 +1,3 @@
-// @flow
 const lightGray = '#ccc';
 const darkGray = '#555';
 const blue = '#318af2';

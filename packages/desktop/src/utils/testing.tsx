@@ -1,5 +1,4 @@
 /* eslint-env jest */
-// @flow
 import produce from 'immer';
 
 import { notebooks, navigation, notes, sections } from '../reducers/state';

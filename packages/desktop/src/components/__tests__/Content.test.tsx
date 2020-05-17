@@ -1,4 +1,3 @@
-// @flow
 import { renderer } from '@ponder/test-utils';
 
 import { Content, CreateNote, mapStateToProps } from '../Content';

@@ -1,4 +1,3 @@
-// @flow
 import { createGlobalStyle } from 'styled-components';
 import { Provider } from 'react-redux';
 import DOM from 'react-dom';

@@ -1,4 +1,3 @@
-// @flow
 import * as sdk from '@ponder/sdk';
 import { createAction } from 'retreon';
 import { v4 as uuid } from 'uuid';

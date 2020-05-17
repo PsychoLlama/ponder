@@ -1,4 +1,3 @@
-// @flow
 import reducer from '../sections';
 import { sections as initialState } from '../state';
 import * as actions from '../../actions/notebook';

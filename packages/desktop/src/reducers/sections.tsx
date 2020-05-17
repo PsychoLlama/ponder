@@ -1,4 +1,3 @@
-// @flow
 import { produce } from 'immer';
 import { createReducer } from 'retreon';
 import { Section } from '@ponder/sdk';

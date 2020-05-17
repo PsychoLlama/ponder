@@ -1,4 +1,3 @@
-// @flow
 import * as fs from 'fs-extra';
 import { basename } from 'path';
 

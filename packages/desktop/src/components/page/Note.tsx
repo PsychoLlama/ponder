@@ -1,4 +1,3 @@
-// @flow
 import { Input } from '@ponder/ui';
 import styled from 'styled-components';
 import assert from 'minimalistic-assert';

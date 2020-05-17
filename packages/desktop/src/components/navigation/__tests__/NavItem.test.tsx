@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import { mount } from 'enzyme';
 import { renderer } from '@ponder/test-utils';

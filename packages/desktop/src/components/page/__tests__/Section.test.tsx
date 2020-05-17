@@ -1,4 +1,3 @@
-// @flow
 import { SectionType } from '@ponder/sdk';
 import { renderer } from '@ponder/test-utils';
 import { MarkdownEditor } from '@ponder/ui';

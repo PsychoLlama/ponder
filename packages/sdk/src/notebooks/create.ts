@@ -1,4 +1,3 @@
-// @flow
 import { updateAsJson, writeAsJson } from '../fs';
 import { toNotebookPath } from '../utils';
 import { Notebook } from '../types';

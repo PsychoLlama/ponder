@@ -1,4 +1,3 @@
-// @flow
 import { createReducer } from 'retreon';
 
 import * as actions from '../actions/notebook';

@@ -1,4 +1,3 @@
-// @flow
 import { compose } from 'redux';
 import { NOTEBOOK_ROOT, EntityType } from '@ponder/sdk';
 

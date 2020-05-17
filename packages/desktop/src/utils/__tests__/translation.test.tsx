@@ -1,4 +1,3 @@
-// @flow
 import { translate, translateWithCount } from '../translation';
 
 describe('Translation utils', () => {

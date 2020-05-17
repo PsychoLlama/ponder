@@ -1,4 +1,3 @@
-// @flow
 import { compose, createStore, applyMiddleware, combineReducers } from 'redux';
 import reduxPromise from 'redux-promise';
 import { middleware } from 'retreon';

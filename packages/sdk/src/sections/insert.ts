@@ -1,4 +1,3 @@
-// @flow
 import updateNote from '../notes/update';
 import { Section, Note } from '../types';
 

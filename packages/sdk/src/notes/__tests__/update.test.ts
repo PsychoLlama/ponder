@@ -1,4 +1,3 @@
-// @flow
 import { toNotePath } from '../../utils';
 import { updateAsJson } from '../../fs';
 import updateNote from '../update';

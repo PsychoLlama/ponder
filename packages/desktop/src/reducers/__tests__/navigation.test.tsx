@@ -1,4 +1,3 @@
-// @flow
 import reducer from '../navigation';
 import * as actions from '../../actions/notebook';
 import { navigation } from '../state';

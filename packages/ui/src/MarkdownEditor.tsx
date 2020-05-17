@@ -1,4 +1,3 @@
-// @flow
 import { Controlled } from 'react-codemirror2';
 import styled from 'styled-components';
 import React from 'react';

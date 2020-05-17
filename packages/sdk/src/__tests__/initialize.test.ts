@@ -1,4 +1,3 @@
-// @flow
 import * as fs from 'fs-extra';
 
 import { HOME, CONFIG_FILE } from '../vars';

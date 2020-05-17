@@ -1,4 +1,3 @@
-// @flow
 import { renderer } from '@ponder/test-utils';
 
 import Input, { InputNode } from '../Input';

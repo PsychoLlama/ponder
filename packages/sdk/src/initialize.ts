@@ -1,4 +1,3 @@
-// @flow
 import fs from 'fs-extra';
 
 import { HOME, NOTEBOOKS, CONFIG_FILE, NOTES, NOTEBOOK_ROOT } from './vars';

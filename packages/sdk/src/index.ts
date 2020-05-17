@@ -1,4 +1,3 @@
-// @flow
 export type { NotebookContents } from './notebooks/list';
 
 export {

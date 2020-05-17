@@ -1,4 +1,3 @@
-// @flow
 import { NOTEBOOK_ROOT, EntityType } from '@ponder/sdk';
 import { renderer } from '@ponder/test-utils';
 

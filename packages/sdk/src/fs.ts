@@ -1,4 +1,3 @@
-// @flow
 import produce, { nothing } from 'immer';
 import fs from 'fs-extra';
 

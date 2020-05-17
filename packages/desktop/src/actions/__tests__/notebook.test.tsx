@@ -1,4 +1,3 @@
-// @flow
 import * as mockedSdk from '@ponder/sdk';
 import * as actions from '../notebook';
 

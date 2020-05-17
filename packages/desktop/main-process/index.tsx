@@ -1,4 +1,3 @@
-// @flow
 import { app, BrowserWindow } from 'electron';
 import { initialize } from '@ponder/sdk';
 import * as path from 'path';

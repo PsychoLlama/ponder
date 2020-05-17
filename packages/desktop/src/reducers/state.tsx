@@ -1,4 +1,3 @@
-// @flow
 import { EntityType } from '@ponder/sdk';
 
 type Notebook = { type: EntityType.Notebook; id: string };

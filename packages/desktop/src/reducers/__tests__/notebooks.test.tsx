@@ -1,4 +1,3 @@
-// @flow
 import { NOTEBOOK_ROOT } from '@ponder/sdk';
 
 import reducer from '../notebooks';

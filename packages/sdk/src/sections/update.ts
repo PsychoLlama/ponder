@@ -1,4 +1,3 @@
-// @flow
 import type { nothing } from 'immer';
 import { Note, Section } from '../types';
 

@@ -1,4 +1,3 @@
-// @flow
 import { EntityType, SectionType } from '@ponder/sdk';
 
 import reducer from '../notes';

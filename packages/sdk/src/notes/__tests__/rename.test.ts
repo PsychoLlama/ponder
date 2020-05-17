@@ -1,4 +1,3 @@
-// @flow
 import * as fsModule from 'fs-extra';
 
 import { serialize } from '../../utils';

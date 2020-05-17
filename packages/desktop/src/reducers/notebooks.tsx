@@ -1,4 +1,3 @@
-// @flow
 import { NOTEBOOK_ROOT, Note, Notebook, EntityType } from '@ponder/sdk';
 import { createReducer } from 'retreon';
 

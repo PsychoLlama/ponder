@@ -1,4 +1,3 @@
-// @flow
 import { toNotePath } from '../utils';
 import { readAsJson } from '../fs';
 import { Note } from '../public-types';

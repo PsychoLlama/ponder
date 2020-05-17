@@ -1,5 +1,3 @@
-// @flow
-
 // Okay, Ponder doesn't actually support other languages... yet. Although these
 // functions don't really do anything, they explicitly mark what text needs to
 // be translated and makes the prospect of running a codemod much less
