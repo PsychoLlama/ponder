@@ -1,6 +1,9 @@
 import { renderer } from '@ponder/test-utils';
+import Quill from 'react-quill';
 
-import RichTextEditor, { Editor } from '../RichTextEditor';
+import RichTextEditor from '../RichTextEditor';
+
+jest.useFakeTimers();
 
 describe('RichTextEditor', () => {
   const setup = renderer(RichTextEditor, {
@@ -10,27 +13,20 @@ describe('RichTextEditor', () => {
     }),
   });
 
-  it('syncs the value ', () => {
-    const { output } = setup();
-
-    output.find(Editor).simulate('beforeChange', null, null, 'value');
-
-    expect(output.find(Editor).prop('value')).toBe('value');
-  });
-
-  it('uses the initial value', () => {
+  it('provides a starting value', () => {
     const { output, props } = setup();
-    const editor = output.find(Editor);
 
-    expect(editor.prop('value')).toBe(props.initialValue);
+    expect(output.find(Quill).prop('defaultValue')).toBe(props.initialValue);
   });
 
-  it('passes the text value every time the content changes', () => {
+  it('emits a change event after the user stops typing', () => {
     const { output, props } = setup();
 
     const value = 'new content';
-    output.find(Editor).simulate('beforeChange', null, null, value);
+    output.find(Quill).simulate('change', value);
 
+    expect(props.onChange).not.toHaveBeenCalled();
+    jest.runOnlyPendingTimers();
     expect(props.onChange).toHaveBeenCalledWith(value);
   });
 });

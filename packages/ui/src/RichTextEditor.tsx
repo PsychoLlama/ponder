@@ -1,62 +1,42 @@
-import { Controlled } from 'react-codemirror2';
 import styled from 'styled-components';
 import React from 'react';
+import Quill from 'react-quill';
+import 'react-quill/dist/quill.bubble.css';
 
-import 'codemirror/mode/markdown/markdown';
-import 'codemirror/lib/codemirror.css';
-import 'codemirror/theme/idea.css';
+import debounce from './utils/debounce';
 
-export const Editor = styled(Controlled)`
-  overflow-y: auto;
+const Container = styled.div`
   display: flex;
   flex-grow: 1;
 
-  .CodeMirror {
-    height: auto;
-    font-size: 16px;
-    font-family: inherit;
-    line-height: 20px;
+  .quill {
     flex-grow: 1;
-
-    // TODO: extract to a theme.
-    color: #555;
   }
 `;
-
-const editorOptions = {
-  lineWrapping: true,
-  mode: 'markdown',
-  theme: 'idea',
-};
 
 interface Props {
   initialValue: string;
   onChange: (content: string) => unknown;
 }
 
-interface State {
-  value: string;
-}
-
-export default class RichTextEditor extends React.Component<Props, State> {
+export default class RichTextEditor extends React.Component<Props> {
   static defaultProps = {
     initialValue: '',
   };
 
-  state = { value: this.props.initialValue };
-
   render() {
     return (
-      <Editor
-        options={editorOptions}
-        value={this.state.value}
-        onBeforeChange={this.updateText}
-      />
+      <Container>
+        <Quill
+          defaultValue={this.props.initialValue}
+          onChange={this.emitChangeAfterUserStopsTyping}
+          theme="bubble"
+        />
+      </Container>
     );
   }
 
-  updateText = <Editor, Data>(_editor: Editor, _data: Data, value: string) => {
-    this.setState({ value });
-    this.props.onChange(value);
-  };
+  emitChangeAfterUserStopsTyping = debounce(1000, (content: string) => {
+    this.props.onChange(content);
+  });
 }
