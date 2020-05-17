@@ -2,7 +2,7 @@
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import React from 'react';
-import { EntityType, Note, Notebook } from '@ponder/sdk';
+import { EntityType } from '@ponder/sdk';
 
 import { getNotebookId } from '../../selectors/notebooks';
 import { ReduxState } from '../../types/redux-store';
