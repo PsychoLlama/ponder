@@ -23,7 +23,7 @@ describe('Notebook actions', () => {
       await Promise.resolve();
 
       expect(sdk.insertSection).toHaveBeenCalledWith(expect.any(String), 0, {
-        type: 'markdown',
+        type: sdk.SectionType.RichText,
         content: '',
         id: expect.any(String),
       });
@@ -38,7 +38,7 @@ describe('Notebook actions', () => {
         title: '',
         sections: [
           {
-            type: 'markdown',
+            type: sdk.SectionType.RichText,
             content: '',
             id: expect.any(String),
           },

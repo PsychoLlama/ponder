@@ -13,7 +13,7 @@ export const createNote = createAction(
     const id = uuid();
     const title = '';
     const section: sdk.Section = {
-      type: sdk.SectionType.Markdown,
+      type: sdk.SectionType.RichText,
       content: '',
       id: uuid(),
     };

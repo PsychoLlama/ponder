@@ -7,7 +7,7 @@ jest.mock('../../notes/update');
 describe('Section insert', () => {
   it('inserts a section at an index', async () => {
     const section = {
-      type: SectionType.Markdown,
+      type: SectionType.RichText,
       content: 'content',
       id: 'id',
     };
@@ -18,7 +18,7 @@ describe('Section insert', () => {
 
   it('inserts a new section', async () => {
     const createSection = <T>(merge?: T) => ({
-      type: SectionType.Markdown,
+      type: SectionType.RichText,
       content: 'first',
       id: 'section-id',
       ...merge,

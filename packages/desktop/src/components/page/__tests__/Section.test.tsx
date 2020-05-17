@@ -8,7 +8,7 @@ import { Section, mapStateToProps } from '../Section';
 describe('Section', () => {
   const setup = renderer(Section, {
     getDefaultProps: () => ({
-      type: SectionType.Markdown,
+      type: SectionType.RichText,
       content: '# Title',
       sectionIndex: 1,
       id: '<section-uuid>',
@@ -17,7 +17,7 @@ describe('Section', () => {
     }),
   });
 
-  it('passes the initial markdown content', () => {
+  it('revives the section content', () => {
     const { output, props } = setup();
 
     const editor = output.find(RichTextEditor);
@@ -25,7 +25,7 @@ describe('Section', () => {
     expect(editor.prop('initialValue')).toBe(props.content);
   });
 
-  it('saves the markdown content after a time of debounce', () => {
+  it('saves the content when it changes', () => {
     const { output, props } = setup();
 
     const content = '# Title\n-----';
@@ -48,7 +48,7 @@ describe('Section', () => {
     });
 
     it('grabs the section type and content', () => {
-      const section = { type: SectionType.Markdown, content: '# Content' };
+      const section = { type: SectionType.RichText, content: '# Content' };
       const { props } = select((state) => {
         state.sections['section-id'] = section;
       });

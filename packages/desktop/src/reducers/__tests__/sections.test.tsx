@@ -1,3 +1,5 @@
+import { SectionType } from '@ponder/sdk';
+
 import reducer from '../sections';
 import { sections as initialState } from '../state';
 import * as actions from '../../actions/notebook';
@@ -23,7 +25,7 @@ describe('Sections reducer', () => {
     it('adds sections', () => {
       const section = {
         id: 'mock-section-id',
-        type: 'markdown',
+        type: SectionType.RichText,
         content: '# Title',
       };
 
@@ -51,7 +53,7 @@ describe('Sections reducer', () => {
     it('adds sections', () => {
       const section = {
         id: 'mock-section-id',
-        type: 'markdown',
+        type: SectionType.RichText,
         content: '',
       };
 

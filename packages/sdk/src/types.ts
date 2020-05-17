@@ -20,5 +20,5 @@ export interface Section {
 }
 
 export enum SectionType {
-  Markdown = 'markdown',
+  RichText = 'rich-text',
 }

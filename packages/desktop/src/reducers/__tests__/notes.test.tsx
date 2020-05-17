@@ -104,7 +104,7 @@ describe('Notes reducer', () => {
     it('loads the note sections', () => {
       const section = {
         id: '1',
-        type: SectionType.Markdown,
+        type: SectionType.RichText,
         content: '# Title',
       };
 

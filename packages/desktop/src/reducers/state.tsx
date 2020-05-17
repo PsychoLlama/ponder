@@ -1,4 +1,4 @@
-import { EntityType } from '@ponder/sdk';
+import { EntityType, SectionType } from '@ponder/sdk';
 
 type Notebook = { type: EntityType.Notebook; id: string };
 type Note = { type: EntityType.Note; id: string };
@@ -24,7 +24,7 @@ export type Notes = {
 
 export type Sections = {
   [sectionId: string]: {
-    type: 'markdown';
+    type: SectionType.RichText;
     content: string;
   };
 };

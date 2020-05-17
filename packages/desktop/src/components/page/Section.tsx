@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { RichTextEditor } from '@ponder/ui';
+import { SectionType } from '@ponder/sdk';
 
 import { ReduxState } from '../../types/redux-store';
 import * as actions from '../../actions/notebook';
@@ -13,7 +14,7 @@ type OwnProps = {
 
 type Props = OwnProps & {
   content: string;
-  type: 'markdown';
+  type: SectionType.RichText;
   updateNoteSection: typeof actions.updateNoteSection;
 };
 
@@ -23,18 +24,18 @@ export class Section extends React.Component<Props> {
     return (
       <RichTextEditor
         initialValue={content}
-        onChange={this.updateMarkdownContents}
+        onChange={this.updateSectionContents}
       />
     );
   }
 
-  updateMarkdownContents = (markdown: string) => {
+  updateSectionContents = (content: string) => {
     const { noteId, sectionIndex } = this.props;
 
     this.props.updateNoteSection({
       noteId,
       sectionIndex,
-      content: markdown,
+      content,
     });
   };
 }
