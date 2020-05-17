@@ -4,8 +4,8 @@ import { createReducer } from 'retreon';
 import * as actions from '../actions/notebook';
 import { navigation } from './state';
 
-export default createReducer(navigation, handleAction => [
-  handleAction(actions.openRootNotebook, state => {
+export default createReducer(navigation, (handleAction) => [
+  handleAction(actions.openRootNotebook, (state) => {
     state.path = [];
   }),
 
@@ -17,7 +17,7 @@ export default createReducer(navigation, handleAction => [
     state.note = id;
   }),
 
-  handleAction(actions.closeNote, state => {
+  handleAction(actions.closeNote, (state) => {
     state.note = null;
   }),
 ]);

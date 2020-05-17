@@ -55,7 +55,7 @@ describe('Notebooks reducer', () => {
   });
 
   describe('closeNote', () => {
-    const createEditNoteAction = id => ({
+    const createEditNoteAction = (id) => ({
       type: String(actions.closeNote),
       payload: id,
     });

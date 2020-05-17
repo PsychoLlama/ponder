@@ -50,7 +50,7 @@ describe('Section', () => {
 
     it('grabs the section type and content', () => {
       const section = { type: SectionType.Markdown, content: '# Content' };
-      const { props } = select(state => {
+      const { props } = select((state) => {
         state.sections['section-id'] = section;
       });
 

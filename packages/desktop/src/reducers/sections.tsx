@@ -15,7 +15,7 @@ const addSectionsFromAction = produce((state, { sections }) => {
   });
 });
 
-export default createReducer(initialState, handleAction => [
+export default createReducer(initialState, (handleAction) => [
   handleAction(actions.editNote, addSectionsFromAction),
   handleAction(actions.createNote, addSectionsFromAction),
 ]);

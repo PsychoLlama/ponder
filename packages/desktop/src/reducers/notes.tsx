@@ -5,7 +5,7 @@ import { Section, Note, Notebook, EntityType } from '@ponder/sdk';
 import * as actions from '../actions/notebook';
 import { notes } from './state';
 
-export default createReducer(notes, handleAction => [
+export default createReducer(notes, (handleAction) => [
   handleAction(actions.createNote, (state, { id, title }) => {
     state[id] = { title, sections: [] };
   }),
