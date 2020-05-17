@@ -38,7 +38,7 @@ interface State {
   value: string;
 }
 
-export default class MarkdownEditor extends React.Component<Props, State> {
+export default class RichTextEditor extends React.Component<Props, State> {
   static defaultProps = {
     initialValue: '',
   };

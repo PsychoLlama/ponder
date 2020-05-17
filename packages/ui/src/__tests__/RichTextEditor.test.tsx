@@ -1,9 +1,9 @@
 import { renderer } from '@ponder/test-utils';
 
-import MarkdownEditor, { Editor } from '../MarkdownEditor';
+import RichTextEditor, { Editor } from '../RichTextEditor';
 
-describe('MarkdownEditor', () => {
-  const setup = renderer(MarkdownEditor, {
+describe('RichTextEditor', () => {
+  const setup = renderer(RichTextEditor, {
     getDefaultProps: () => ({
       initialValue: '# Title',
       onChange: jest.fn(),

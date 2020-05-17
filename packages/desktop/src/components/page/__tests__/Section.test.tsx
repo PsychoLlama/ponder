@@ -1,6 +1,6 @@
 import { SectionType } from '@ponder/sdk';
 import { renderer } from '@ponder/test-utils';
-import { MarkdownEditor } from '@ponder/ui';
+import { RichTextEditor } from '@ponder/ui';
 
 import { selector } from '../../../utils/testing';
 import { Section, mapStateToProps } from '../Section';
@@ -20,7 +20,7 @@ describe('Section', () => {
   it('passes the initial markdown content', () => {
     const { output, props } = setup();
 
-    const editor = output.find(MarkdownEditor);
+    const editor = output.find(RichTextEditor);
 
     expect(editor.prop('initialValue')).toBe(props.content);
   });
@@ -29,7 +29,7 @@ describe('Section', () => {
     const { output, props } = setup();
 
     const content = '# Title\n-----';
-    output.find(MarkdownEditor).simulate('change', content);
+    output.find(RichTextEditor).simulate('change', content);
 
     expect(props.updateNoteSection).toHaveBeenCalledWith({
       noteId: props.noteId,

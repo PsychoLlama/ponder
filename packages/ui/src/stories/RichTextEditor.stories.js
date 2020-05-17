@@ -2,16 +2,18 @@
 import { storiesOf } from '@storybook/react';
 import React from 'react';
 
-import MarkdownEditor from '../MarkdownEditor';
+import RichTextEditor from '../RichTextEditor';
 
-const stories = storiesOf('MarkdownEditor', module);
+const stories = storiesOf('RichTextEditor', module);
 
 const initialValue = `
+TODO: Fix the demo.
+
 # Title
 --------
 
 The [markdown](#) characters aren't hidden, just _styled_.
-\`<MarkdownEditor>\` should work with all markdown features.
+\`<RichTextEditor>\` should work with all markdown features.
 
 This component isn't designed for programming languages. Those
 will be embedded in another, more specialized editor. Instead,
@@ -24,5 +26,5 @@ It's interactive, so go ahead and try typing something here.
   .join('\n');
 
 stories.add('Interactive', () => {
-  return <MarkdownEditor initialValue={initialValue} />;
+  return <RichTextEditor initialValue={initialValue} />;
 });

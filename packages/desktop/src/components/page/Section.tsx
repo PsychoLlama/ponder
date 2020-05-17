@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { MarkdownEditor } from '@ponder/ui';
+import { RichTextEditor } from '@ponder/ui';
 
 import { ReduxState } from '../../types/redux-store';
 import * as actions from '../../actions/notebook';
@@ -21,7 +21,7 @@ export class Section extends React.Component<Props> {
   render() {
     const { content } = this.props;
     return (
-      <MarkdownEditor
+      <RichTextEditor
         initialValue={content}
         onChange={this.updateMarkdownContents}
       />
