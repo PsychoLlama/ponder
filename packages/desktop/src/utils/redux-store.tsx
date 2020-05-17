@@ -1,5 +1,6 @@
 // @flow
 import { compose, createStore, applyMiddleware, combineReducers } from 'redux';
+import reduxPromise from 'redux-promise';
 import { middleware } from 'retreon';
 
 import { openRootNotebook } from '../actions/notebook';
@@ -20,7 +21,7 @@ export default async () => {
 
   const store = createStore(
     combineReducers(reducers),
-    composeEnhancers(applyMiddleware(middleware))
+    composeEnhancers(applyMiddleware(middleware, reduxPromise))
   );
 
   await store.dispatch(openRootNotebook());
