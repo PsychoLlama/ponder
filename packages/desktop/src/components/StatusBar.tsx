@@ -13,11 +13,14 @@ const Container = styled.div`
 
 type Props = {
   children?: React.ReactNode;
+  className?: string;
 };
 
 export class StatusBar extends React.Component<Props> {
   render() {
-    return <Container>{this.props.children}</Container>;
+    const { className, children } = this.props;
+
+    return <Container className={className}>{children}</Container>;
   }
 }
 

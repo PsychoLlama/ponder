@@ -8,11 +8,27 @@ import { ReduxState } from '../../types/redux-store';
 import { translate } from '../../utils/translation';
 import * as actions from '../../actions/notebook';
 import Section from './Section';
+import colors from '../../config/colors';
+import StatusBar from '../StatusBar';
 
-const Container = styled.article`
+const Container = styled.div`
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+  max-width: 52rem;
+`;
+
+const PageContainer = styled.article`
+  background-color: white;
+  box-shadow: 0 2px 4px ${colors.shadow};
+  display: flex;
+  flex-direction: column;
+  border-radius: 2px 2px 0 0;
+  flex-grow: 1;
+`;
+
+const PageStatus = styled(StatusBar)`
+  background-color: white;
 `;
 
 interface Props {
@@ -34,7 +50,9 @@ export class Note extends React.Component<Props> {
           value={title}
         />
 
-        {sections.map(this.renderSection)}
+        <PageContainer>{sections.map(this.renderSection)}</PageContainer>
+
+        <PageStatus />
       </Container>
     );
   }

@@ -7,7 +7,6 @@ import { ReduxState } from '../types/redux-store';
 import { translate } from '../utils/translation';
 import * as actions from '../actions/notebook';
 import colors from '../config/colors';
-import StatusBar from './StatusBar';
 import Note from './page/Note';
 
 const Container = styled.section`
@@ -15,9 +14,7 @@ const Container = styled.section`
   display: flex;
   flex-direction: column;
   flex-basis: 0;
-  background-color: white;
   margin-right: 24px;
-  box-shadow: 0 2px 4px ${colors.shadow};
 `;
 
 const Center = styled.div`
@@ -26,6 +23,7 @@ const Center = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  background-color: white;
 `;
 
 const Title = styled.h1`
@@ -77,8 +75,6 @@ export class Content extends React.Component<Props> {
     return (
       <Container>
         {isEditingNote ? <Note /> : this.renderCreateNotePrompt()}
-
-        <StatusBar />
       </Container>
     );
   }

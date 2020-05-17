@@ -11,6 +11,11 @@ const Container = styled.div`
 
   .quill {
     flex-grow: 1;
+
+    .ql-editor {
+      padding: 16px;
+      font-size: 0.9rem;
+    }
   }
 `;
 

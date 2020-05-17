@@ -6,6 +6,7 @@ export const InputNode = styled.input`
   border: none;
   outline: none;
   font-size: 16px;
+  background-color: transparent;
 
   // TODO: extract to theme.
   color: #555;
