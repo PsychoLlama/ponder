@@ -22,7 +22,7 @@ These features have to be implemented before Ponder can feasibly replace my
 current notes app (Boostnote):
 - [x] Ability to create notes
 - [x] Ability to rename notes
-- [ ] Ability to delete notes
+- [x] Ability to delete notes
 - [x] Rich text editing
 - [ ] Fuzzy search by note title
 - [ ] Syntax-highlighted code snippets
