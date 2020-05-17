@@ -5,6 +5,7 @@ import { renderer } from '@ponder/test-utils';
 
 import { selector } from '../../../utils/testing';
 import { NavItem, Note, Notebook, mapStateToProps } from '../NavItem';
+import colors from '../../../config/colors';
 
 describe('NavItem', () => {
   const setup = renderer(NavItem, {
@@ -61,7 +62,7 @@ describe('NavItem', () => {
   });
 
   describe('Note', () => {
-    const setup = (merge) => {
+    const setup = <T,>(merge?: T) => {
       const props = {
         selected: false,
         ...merge,
@@ -78,11 +79,11 @@ describe('NavItem', () => {
     });
 
     it('shows a different color while selected', () => {
-      setup({ selected: true });
-      setup();
+      const { output: selected } = setup({ selected: true });
+      const { output: notSelected } = setup({ selected: false });
 
-      // TODO: investigate why jest-styled-components can't find CSS rules on
-      // mounted components.
+      expect(selected).toHaveStyleRule('color', colors.primary);
+      expect(notSelected).toHaveStyleRule('color', colors.mutedText);
     });
   });
 

@@ -9,7 +9,7 @@ import colors from '../../config/colors';
 import { translate } from '../../utils/translation';
 import * as actions from '../../actions/notebook';
 
-const Link = styled.a.attrs({ href: '#', selected: false })`
+const Link = styled.a.attrs({ href: '#' })`
   padding: 8px 24px;
   display: block;
   transition-property: padding-left, padding-right;
@@ -17,10 +17,11 @@ const Link = styled.a.attrs({ href: '#', selected: false })`
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow-x: hidden;
-  color: inherit;
   text-decoration: none;
   cursor: default;
   user-select: none;
+  color: ${(props: { selected: boolean }) =>
+    props.selected ? colors.primary : colors.mutedText};
 
   :hover {
     padding-left: 32px;
@@ -30,12 +31,10 @@ const Link = styled.a.attrs({ href: '#', selected: false })`
 
 export const Notebook = styled(Link)`
   font-size: 16px;
+  color: inherit;
 `;
 
-export const Note = styled(Link)`
-  color: ${(props: { selected: boolean }) =>
-    props.selected ? colors.primary : colors.mutedText};
-`;
+export const Note = styled(Link)``;
 
 type OwnProps = {
   id: string;

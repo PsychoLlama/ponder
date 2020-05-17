@@ -1,6 +1,6 @@
 // @flow
 import { compose } from 'redux';
-import { NOTEBOOK_ROOT } from '@ponder/sdk';
+import { NOTEBOOK_ROOT, EntityType } from '@ponder/sdk';
 
 import createStore, { DEVTOOLS_KEY } from '../redux-store';
 import * as sdkModule from '@ponder/sdk';
@@ -44,7 +44,7 @@ describe('Redux store', () => {
 
     expect(notebooks).toEqual({
       [NOTEBOOK_ROOT]: {
-        contents: [{ type: 'note', id: 'id' }],
+        contents: [{ type: EntityType.Notebook, id: 'id' }],
         title: '',
       },
     });
