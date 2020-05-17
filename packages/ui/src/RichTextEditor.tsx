@@ -19,9 +19,17 @@ interface Props {
   onChange: (content: string) => unknown;
 }
 
-export default class RichTextEditor extends React.Component<Props> {
+interface State {
+  lastKnownContent: string;
+}
+
+export default class RichTextEditor extends React.Component<Props, State> {
   static defaultProps = {
     initialValue: '',
+  };
+
+  state = {
+    lastKnownContent: this.props.initialValue,
   };
 
   render() {
@@ -37,6 +45,11 @@ export default class RichTextEditor extends React.Component<Props> {
   }
 
   emitChangeAfterUserStopsTyping = debounce(1000, (content: string) => {
+    if (content === this.state.lastKnownContent) {
+      return;
+    }
+
+    this.setState({ lastKnownContent: content });
     this.props.onChange(content);
   });
 }

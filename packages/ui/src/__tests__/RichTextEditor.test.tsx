@@ -29,4 +29,17 @@ describe('RichTextEditor', () => {
     jest.runOnlyPendingTimers();
     expect(props.onChange).toHaveBeenCalledWith(value);
   });
+
+  it('ignores change events with the same content', () => {
+    const { output, props } = setup();
+
+    output.find(Quill).simulate('change', 'value');
+    jest.runOnlyPendingTimers();
+    output.find(Quill).simulate('change', 'value');
+    jest.runOnlyPendingTimers();
+    output.find(Quill).simulate('change', 'value');
+    jest.runOnlyPendingTimers();
+
+    expect(props.onChange).toHaveBeenCalledTimes(1);
+  });
 });
