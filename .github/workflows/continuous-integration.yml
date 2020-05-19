@@ -21,3 +21,7 @@ jobs:
         run: yarn install --color
       - name: Run tests
         run: yarn ci
+      - name: Compile app
+        run: |
+          cd packages/desktop
+          yarn build
