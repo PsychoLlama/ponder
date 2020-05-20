@@ -43,7 +43,7 @@
     "@types/redux-actions": "^2.6.1",
     "@types/redux-promise": "^0.5.29",
     "@types/styled-components": "^5.1.0",
-    "@types/uuid": "^7.0.3",
+    "@types/uuid": "^8.0.0",
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "@typescript-eslint/parser": "^2.33.0",
     "babel-plugin-styled-components": "^1.10.7",
