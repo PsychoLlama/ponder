@@ -23,5 +23,5 @@ jobs:
         run: yarn ci
       - name: Compile app
         run: |
-          cd packages/desktop
+          cd packages/ponder-desktop
           yarn build
