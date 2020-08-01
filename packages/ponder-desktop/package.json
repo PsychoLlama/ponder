@@ -17,7 +17,7 @@
     "@ponder/test-utils": "*",
     "@ponder/ui": "*",
     "babel-loader": "^8.1.0",
-    "css-loader": "^3.5.3",
+    "css-loader": "^4.2.0",
     "electron-devtools-installer": "^3.0.0",
     "style-loader": "^1.2.1",
     "ts-loader": "^8.0.0",
