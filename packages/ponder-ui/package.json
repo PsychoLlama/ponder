@@ -24,7 +24,7 @@
     "@ponder/test-utils": "*",
     "@storybook/addon-actions": "^5.3.18",
     "@storybook/addon-centered": "^5.3.18",
-    "@storybook/addons": "^5.3.18",
+    "@storybook/addons": "^6.0.2",
     "@storybook/react": "^5.3.18",
     "babel-loader": "^8.1.0",
     "eslint-plugin-react": "^7.20.0",
