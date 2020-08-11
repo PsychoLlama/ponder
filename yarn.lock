@@ -3139,9 +3139,9 @@
   integrity sha512-7+2BITlgjgDhH0vvwZU/HZJVyk+2XUlvxXe8dFMedNX/aMkaOq++rMAFXc0tM7ij15QaWlbdQASBR9dihi+bDQ==
 
 "@types/minimalistic-assert@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@types/minimalistic-assert/-/minimalistic-assert-1.0.0.tgz#325564ffdd6d9c18fe107bf3368f375bc545106b"
-  integrity sha512-Z7szANgSqTSklzQnRjf+oVo5Y0dvC2Tfj+05zSSny7fohCMlfnKsXAgGRd0YS2yv1g7KseVRoCHufYEoBYhPMw==
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@types/minimalistic-assert/-/minimalistic-assert-1.0.1.tgz#b10f03bf534b806a1e38970075a08d29f14624d0"
+  integrity sha512-LjFxDeQtgj+MYOOFuV+BILc/w9ryfxd2eNLF0oJdOBud+xCj80ZAEkAwt6y0qx81QMZ632yAaWdvIMjEK2HcmA==
 
 "@types/minimatch@*":
   version "3.0.3"
