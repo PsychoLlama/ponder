@@ -22,7 +22,7 @@
     "@babel/core": "^7.9.6",
     "@ponder/eslint-config-react": "*",
     "@ponder/test-utils": "*",
-    "@storybook/addon-actions": "^5.3.18",
+    "@storybook/addon-actions": "^6.0.5",
     "@storybook/addon-centered": "^5.3.18",
     "@storybook/addons": "^5.3.18",
     "@storybook/react": "^6.0.5",
