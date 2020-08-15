@@ -27,9 +27,9 @@ export const renderer = <Props, CustomTools>(
 ) => {
   return (
     overrides?: Partial<MockedProps<Props>>
-  ): typeof config['configure'] extends Function
+  ): typeof config['configure'] extends (...args: any) => any
     ? RenderContext<EnzymeWrapper<Props>, Props, CustomTools>
-    : RenderContext<EnzymeWrapper<Props>, Props, {}> => {
+    : RenderContext<EnzymeWrapper<Props>, Props, Record<string, unknown>> => {
     const props: MockedProps<Props> = {
       ...config.getDefaultProps(),
       ...overrides,
@@ -54,7 +54,9 @@ export const renderer = <Props, CustomTools>(
 
 interface Config<Output, Props, CustomTools> {
   getDefaultProps: () => MockedProps<Props>;
-  configure?: (ctx: RenderContext<Output, Props, {}>) => CustomTools;
+  configure?: (
+    ctx: RenderContext<Output, Props, Record<string, unknown>>
+  ) => CustomTools;
 }
 
 type RenderContext<Output, Props, CustomTools> = CustomTools & {

@@ -30,7 +30,7 @@ type ImmerProducer = (state: ReduxState) => void;
 // })
 //
 // const { props, state } = select()
-export const selector = <OwnProps extends {}, Selection>(
+export const selector = <OwnProps extends Record<string, unknown>, Selection>(
   mapStateToProps: (state: ReduxState, props: OwnProps) => Selection,
   config: { defaultProps: OwnProps }
 ) => (producer: ImmerProducer = noop, mergeProps?: Partial<OwnProps>) => {

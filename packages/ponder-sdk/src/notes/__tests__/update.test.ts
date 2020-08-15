@@ -7,10 +7,12 @@ jest.mock('../../fs');
 describe('Note update', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    (updateAsJson as any).mockImplementation((_: any, fn: Function) => {
-      fn({ note: true });
-      return Promise.resolve();
-    });
+    (updateAsJson as any).mockImplementation(
+      (_: any, fn: (...args: any) => any) => {
+        fn({ note: true });
+        return Promise.resolve();
+      }
+    );
   });
 
   it('writes the new result', async () => {
