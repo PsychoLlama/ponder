@@ -119,7 +119,7 @@ describe('Notebook actions', () => {
   describe('updateNoteSection', () => {
     beforeEach(() => {
       sdk.updateSection.mockImplementation(
-        <Update extends Function>(
+        <Update extends (...args: any) => any>(
           _note: string,
           _index: number,
           update: Update
