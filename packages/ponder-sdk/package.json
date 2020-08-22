@@ -16,6 +16,6 @@
     "minimalistic-assert": "^1.0.1"
   },
   "devDependencies": {
-    "typescript": "^3.9.2"
+    "typescript": "^4.0.2"
   }
 }
