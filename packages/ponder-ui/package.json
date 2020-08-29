@@ -13,8 +13,6 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
-    "@storybook/addon-knobs": "^6.0.5",
-    "@storybook/theming": "^6.0.5",
     "react-quill": "^2.0.0-beta.2",
     "styled-components": "^5.1.0"
   },
@@ -22,10 +20,12 @@
     "@babel/core": "^7.9.6",
     "@ponder/eslint-config-react": "*",
     "@ponder/test-utils": "*",
-    "@storybook/addon-actions": "^6.0.5",
+    "@storybook/addon-actions": "^6.0.20",
     "@storybook/addon-centered": "^5.3.18",
-    "@storybook/addons": "^6.0.5",
-    "@storybook/react": "^6.0.5",
+    "@storybook/addon-knobs": "^6.0.20",
+    "@storybook/addons": "^6.0.20",
+    "@storybook/react": "^6.0.20",
+    "@storybook/theming": "^6.0.5",
     "babel-loader": "^8.1.0",
     "eslint-plugin-react": "^7.20.0",
     "ts-loader": "^8.0.0",
