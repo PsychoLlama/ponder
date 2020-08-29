@@ -8,9 +8,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "tsc",
-    "storybook": "start-storybook -p 3000",
-    "build-storybook": "build-storybook"
+    "start": "start-storybook -p 3000",
+    "build": "build-storybook"
   },
   "dependencies": {
     "react-quill": "^2.0.0-beta.2",
