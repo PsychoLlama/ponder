@@ -19,7 +19,7 @@
     "babel-loader": "^8.1.0",
     "css-loader": "^4.2.0",
     "electron-devtools-installer": "^3.0.0",
-    "style-loader": "^1.2.1",
+    "style-loader": "^2.0.0",
     "ts-loader": "^8.0.0",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11"
