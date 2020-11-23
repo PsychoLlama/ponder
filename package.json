@@ -37,7 +37,7 @@
     "@types/fs-extra": "^9.0.0",
     "@types/jest": "^26.0.10",
     "@types/minimalistic-assert": "^1.0.0",
-    "@types/react": "^16.9.35",
+    "@types/react": "^17.0.0",
     "@types/react-dom": "^16.9.8",
     "@types/react-redux": "^7.1.8",
     "@types/redux-actions": "^2.6.1",
