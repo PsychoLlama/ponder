@@ -12,7 +12,7 @@ export default createReducer(navigation, (handleAction) => [
     state.note = id;
   }),
 
-  handleAction(actions.editNote, (state, { id }: any) => {
+  handleAction(actions.editNote, (state, { id }) => {
     state.note = id;
   }),
 
@@ -20,7 +20,7 @@ export default createReducer(navigation, (handleAction) => [
     state.note = null;
   }),
 
-  handleAction(actions.deleteNote, (state, { noteId }) => {
+  handleAction.optimistic(actions.deleteNote, (state, { noteId }) => {
     if (state.note === noteId) {
       state.note = null;
     }

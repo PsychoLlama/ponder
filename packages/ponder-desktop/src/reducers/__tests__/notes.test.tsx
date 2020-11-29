@@ -1,34 +1,39 @@
-import { EntityType, SectionType } from '@ponder/sdk';
+import { EntityType, SectionType, NOTEBOOK_ROOT } from '@ponder/sdk';
+import { v4 as uuid } from 'uuid';
 
-import reducer from '../notes';
 import * as actions from '../../actions/notebook';
-import { notes } from '../state';
+import initializeStore from '../../utils/redux-store';
+import * as mockedEffects from '../../effects/notebook';
+
+jest.mock('../../effects/notebook');
+
+const effects = mockedEffects as jest.Mocked<typeof mockedEffects>;
 
 describe('Notes reducer', () => {
-  it('returns state for unknown actions', () => {
-    const state = reducer(undefined, { type: '@@init' });
-
-    expect(state).toBe(notes);
+  beforeEach(() => {
+    effects.openRootNotebook.mockResolvedValue([]);
+    effects.createNote.mockImplementation(async () => ({
+      id: uuid(),
+      title: 'Untitled',
+      sections: [],
+      notebook: NOTEBOOK_ROOT,
+    }));
+    effects.editNote.mockImplementation(async (noteId) => ({
+      id: noteId,
+      sections: [],
+    }));
   });
 
   describe('createNote', () => {
-    const createAction = <T,>(patch?: T) => ({
-      type: String(actions.createNote),
-      payload: {
-        title: 'New note',
-        notebook: '<notebook-id>',
-        id: '<random-id>',
-        ...patch,
-      },
-    });
+    it('adds the note', async () => {
+      const store = await initializeStore();
+      const note = await store.dispatch(
+        actions.createNote({ notebook: NOTEBOOK_ROOT })
+      );
 
-    it('adds the note', () => {
-      const action = createAction();
-      const state = reducer(undefined, action);
-
-      expect(state).toEqual({
-        [action.payload.id]: {
-          title: action.payload.title,
+      expect(store.getState().notes).toEqual({
+        [note.id]: {
+          title: note.title,
           sections: [],
         },
       });
@@ -36,108 +41,81 @@ describe('Notes reducer', () => {
   });
 
   describe('renameNote', () => {
-    const createAction = <T,>(patch?: T) => ({
-      type: String(actions.renameNote),
-      payload: {
-        id: 'note-id',
-        title: 'New title',
-        ...patch,
-      },
-    });
+    it('renames the note', async () => {
+      const store = await initializeStore();
+      const { id } = await store.dispatch(
+        actions.createNote({ notebook: NOTEBOOK_ROOT })
+      );
 
-    it('renames the note', () => {
-      const action = createAction();
-      const withNote = {
-        [action.payload.id]: { title: 'Old title', sections: [] },
-      };
+      const title = 'New Title';
+      await store.dispatch(actions.renameNote({ id, title }));
 
-      const state = reducer(withNote, action);
-
-      expect(state[action.payload.id]).toMatchObject({
-        title: action.payload.title,
-      });
+      expect(store.getState().notes[id]).toHaveProperty('title', title);
     });
   });
 
   describe('openRootNotebook', () => {
-    const createAction = <T,>(patch?: T) => ({
-      type: String(actions.openRootNotebook),
-      payload: patch || [
-        { type: EntityType.Note, id: 1, title: 'Note #1' },
-        { type: EntityType.Note, id: 2, title: 'Note #2' },
-        { type: EntityType.Note, id: 3, title: 'Note #3' },
-      ],
-    });
+    it('indexes all the notes', async () => {
+      effects.openRootNotebook.mockResolvedValue([
+        { type: EntityType.Note, id: '1', title: 'Note #1', sections: [] },
+        { type: EntityType.Note, id: '2', title: 'Note #2', sections: [] },
+        { type: EntityType.Note, id: '3', title: 'Note #3', sections: [] },
+      ]);
 
-    it('indexes all the notes', () => {
-      const action = createAction();
-      const state = reducer(undefined, action);
+      const store = await initializeStore();
+      await store.dispatch(actions.openRootNotebook());
 
-      expect(state).toEqual({
+      expect(store.getState().notes).toEqual({
         [1]: { title: 'Note #1', sections: [] },
         [2]: { title: 'Note #2', sections: [] },
         [3]: { title: 'Note #3', sections: [] },
       });
     });
 
-    it('ignores notebooks', () => {
-      const action = createAction([
-        { type: 'notebook', id: 1, title: 'Notebook' },
+    it('ignores notebooks', async () => {
+      effects.openRootNotebook.mockResolvedValue([
+        { type: EntityType.Notebook, id: '1', title: 'Notebook' },
       ]);
 
-      const state = reducer(undefined, action);
+      const store = await initializeStore();
+      await store.dispatch(actions.openRootNotebook());
 
-      expect(state).toEqual({});
+      expect(store.getState().notes).toEqual({});
     });
   });
 
   describe('editNote', () => {
-    const createAction = <T,>(patch?: T) => ({
-      type: String(actions.editNote),
-      payload: {
-        sections: [],
-        id: 'mock-note-id',
-        ...patch,
-      },
-    });
+    it('loads the note sections', async () => {
+      const section = { id: '1', type: SectionType.RichText, content: '# Hi' };
+      const noteId = 'mock-note-id';
 
-    it('loads the note sections', () => {
-      const section = {
-        id: '1',
-        type: SectionType.RichText,
-        content: '# Title',
-      };
+      effects.editNote.mockResolvedValue({ id: noteId, sections: [section] });
+      effects.openRootNotebook.mockResolvedValue([
+        { type: EntityType.Note, id: noteId, title: 'Note #1', sections: [] },
+      ]);
 
-      const action = createAction({ sections: [section] });
-      const withNote = {
-        [action.payload.id]: { title: 'title', sections: [] },
-      };
-      const state = reducer(withNote, action);
+      const store = await initializeStore();
+      await store.dispatch(actions.editNote(noteId));
 
-      expect(state[action.payload.id]).toMatchObject({
+      expect(store.getState().notes[noteId]).toMatchObject({
         sections: [section.id],
       });
     });
   });
 
   describe('deleteNote', () => {
-    const createAction = () => ({
-      type: String(actions.deleteNote),
-      payload: {
-        noteId: 'note-id',
-        notebookId: 'notebook-id',
-      },
-    });
+    it('removes the corresponding note', async () => {
+      const store = await initializeStore();
 
-    it('removes the corresponding note', () => {
-      const action = createAction();
-      const withNote = {
-        [action.payload.noteId]: { title: 'title', sections: [] },
-      };
+      const { id } = await store.dispatch(
+        actions.createNote({ notebook: NOTEBOOK_ROOT })
+      );
 
-      const state = reducer(withNote, action);
+      await store.dispatch(
+        actions.deleteNote({ noteId: id, notebookId: NOTEBOOK_ROOT })
+      );
 
-      expect(state).toEqual({});
+      expect(store.getState().notes).toEqual({});
     });
   });
 });

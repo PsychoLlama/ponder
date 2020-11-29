@@ -1,104 +1,96 @@
-import reducer from '../navigation';
-import * as actions from '../../actions/notebook';
-import { navigation } from '../state';
+import { NOTEBOOK_ROOT } from '@ponder/sdk';
+import { v4 as uuid } from 'uuid';
 
-jest.mock('@ponder/sdk');
+import * as actions from '../../actions/notebook';
+import * as mockedEffects from '../../effects/notebook';
+import initializeStore from '../../utils/redux-store';
+
+jest.mock('../../effects/notebook');
+
+const effects = mockedEffects as jest.Mocked<typeof mockedEffects>;
 
 describe('Notebooks reducer', () => {
-  it('returns state for unknown actions', () => {
-    const state = reducer(undefined, { type: '@@init' });
+  beforeEach(() => {
+    effects.openRootNotebook.mockResolvedValue([]);
+    effects.createNote.mockImplementation(async () => ({
+      id: uuid(),
+      title: 'Untitled',
+      sections: [],
+      notebook: NOTEBOOK_ROOT,
+    }));
 
-    expect(state).toBe(navigation);
-  });
-
-  describe('openRootNotebook', () => {
-    const createAction = (payload = []) => ({
-      type: String(actions.openRootNotebook),
-      payload,
-    });
-
-    it('sets the path back to the root', () => {
-      const stateWithNavigation = {
-        ...navigation,
-        path: ['notebook1'],
-      };
-
-      const state = reducer(stateWithNavigation, createAction());
-
-      expect(state.path).toEqual([]);
-    });
+    effects.editNote.mockImplementation(async (noteId) => ({
+      id: noteId,
+      sections: [],
+    }));
   });
 
   describe('createNote', () => {
-    it('sets the active note ID', () => {
-      const action = actions.createNote({ notebook: 'a' });
-      const state = reducer(undefined, action);
+    it('sets the active note ID', async () => {
+      const store = await initializeStore();
 
-      expect(state.note).toEqual(action.payload.id);
-    });
-  });
+      const { id } = await store.dispatch(
+        actions.createNote({ notebook: NOTEBOOK_ROOT })
+      );
 
-  describe('editNote', () => {
-    const createAction = (id: string) => ({
-      type: String(actions.editNote),
-      payload: { id, sections: [] },
-    });
-
-    it('sets the selected note ID', () => {
-      const noteId = 'note-uuid';
-      const action = createAction(noteId);
-      const state = reducer(undefined, action);
-
-      expect(state.note).toBe(noteId);
+      expect(store.getState().navigation.note).toEqual(id);
     });
   });
 
   describe('closeNote', () => {
-    const createEditNoteAction = (id) => ({
-      type: String(actions.closeNote),
-      payload: id,
+    it('unsets the selected note ID', async () => {
+      const store = await initializeStore();
+
+      await store.dispatch(actions.createNote({ notebook: NOTEBOOK_ROOT }));
+      store.dispatch(actions.closeNote());
+
+      expect(store.getState().navigation.note).toBeNull();
     });
+  });
 
-    it('unsets the selected note ID', () => {
-      const open = createEditNoteAction('note-uuid');
-      const close = actions.closeNote();
-      const state = reducer(reducer(undefined, open), close);
+  describe('editNote', () => {
+    it('sets the selected note ID', async () => {
+      const store = await initializeStore();
+      const { id } = await store.dispatch(
+        actions.createNote({ notebook: NOTEBOOK_ROOT })
+      );
 
-      expect(state.note).toBeNull();
+      store.dispatch(actions.closeNote());
+      await store.dispatch(actions.editNote(id));
+
+      expect(store.getState().navigation.note).toBe(id);
     });
   });
 
   describe('deleteNote', () => {
-    const createAction = () => ({
-      type: String(actions.deleteNote),
-      payload: {
-        noteId: 'note-id',
-        notebookId: 'notebook-id',
-      },
+    it('closes the note', async () => {
+      const store = await initializeStore();
+      const { id } = await store.dispatch(
+        actions.createNote({ notebook: NOTEBOOK_ROOT })
+      );
+
+      await store.dispatch(
+        actions.deleteNote({ noteId: id, notebookId: NOTEBOOK_ROOT })
+      );
+
+      expect(store.getState().navigation.note).toBeNull();
     });
 
-    it('closes the note', () => {
-      const action = createAction();
-      const withNavigation = {
-        ...navigation,
-        note: action.payload.noteId,
-      };
+    it('only closes the note if that note was deleted', async () => {
+      const store = await initializeStore();
+      const { id: note1 } = await store.dispatch(
+        actions.createNote({ notebook: NOTEBOOK_ROOT })
+      );
 
-      const state = reducer(withNavigation, action);
+      const { id: note2 } = await store.dispatch(
+        actions.createNote({ notebook: NOTEBOOK_ROOT })
+      );
 
-      expect(state.note).toBeNull();
-    });
+      await store.dispatch(
+        actions.deleteNote({ noteId: note1, notebookId: NOTEBOOK_ROOT })
+      );
 
-    it('only closes the note if that note was deleted', () => {
-      const action = createAction();
-      const withNavigation = {
-        ...navigation,
-        note: 'unrelated-note',
-      };
-
-      const state = reducer(withNavigation, action);
-
-      expect(state.note).not.toBeNull();
+      expect(store.getState().navigation.note).toBe(note2);
     });
   });
 });

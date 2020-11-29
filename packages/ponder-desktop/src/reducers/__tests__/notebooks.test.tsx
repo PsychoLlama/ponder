@@ -1,30 +1,41 @@
 import { NOTEBOOK_ROOT, EntityType } from '@ponder/sdk';
+import { v4 as uuid } from 'uuid';
 
-import reducer from '../notebooks';
 import * as actions from '../../actions/notebook';
+import initializeStore from '../../utils/redux-store';
+import * as mockedEffects from '../../effects/notebook';
+
+jest.mock('../../effects/notebook');
+
+const effects = mockedEffects as jest.Mocked<typeof mockedEffects>;
 
 describe('Notebooks reducer', () => {
+  beforeEach(() => {
+    effects.openRootNotebook.mockResolvedValue([]);
+    effects.createNote.mockImplementation(async () => ({
+      id: uuid(),
+      title: 'Untitled',
+      sections: [],
+      notebook: NOTEBOOK_ROOT,
+    }));
+  });
+
   describe('openRootNotebook', () => {
-    const createAction = (payload = []) => ({
-      type: String(actions.openRootNotebook),
-      payload,
-    });
+    it('adds note & notebook information to the map', async () => {
+      effects.openRootNotebook.mockResolvedValue([
+        { type: EntityType.Notebook, title: 'Notebook title', id: '1' },
+        { type: EntityType.Note, title: 'Note title', id: '2', sections: [] },
+      ]);
 
-    it('adds note & notebook information to the map', () => {
-      const items = [
-        { type: EntityType.Notebook, title: 'Notebook title', id: 1 },
-        { type: EntityType.Note, title: 'Note title', id: 2 },
-      ];
+      const store = await initializeStore();
+      await store.dispatch(actions.openRootNotebook());
 
-      const action = createAction(items);
-      const state = reducer(undefined, action);
-
-      expect(state).toEqual({
+      expect(store.getState().notebooks).toEqual({
         [NOTEBOOK_ROOT]: {
           title: '',
           contents: [
-            { type: EntityType.Notebook, id: 1 },
-            { type: EntityType.Note, id: 2 },
+            { type: EntityType.Notebook, id: '1' },
+            { type: EntityType.Note, id: '2' },
           ],
         },
       });
@@ -32,55 +43,31 @@ describe('Notebooks reducer', () => {
   });
 
   describe('createNote', () => {
-    const createAction = <T,>(patch?: T) => ({
-      type: String(actions.createNote),
-      payload: {
-        title: 'New note',
-        notebook: NOTEBOOK_ROOT,
-        id: '<note-id>',
-        ...patch,
-      },
-    });
+    it('adds the note to the corresponding notebook', async () => {
+      const store = await initializeStore();
+      const { id } = await store.dispatch(
+        actions.createNote({ notebook: NOTEBOOK_ROOT })
+      );
 
-    it('adds the note to the corresponding notebook', () => {
-      const withNotebook = {
-        steve: {
-          contents: [],
-          title: '',
-        },
-      };
-
-      const action = createAction({ notebook: 'steve' });
-      const state = reducer(withNotebook, action);
-
-      expect(state.steve.contents).toEqual([
-        { type: EntityType.Note, id: action.payload.id },
+      expect(store.getState().notebooks[NOTEBOOK_ROOT].contents).toEqual([
+        { type: EntityType.Note, id },
       ]);
     });
   });
 
   describe('deleteNote', () => {
-    const createAction = () => ({
-      type: String(actions.deleteNote),
-      payload: {
-        noteId: 'note-id',
-        notebookId: 'notebook-id',
-      },
-    });
+    it('removes the note from the notebook list', async () => {
+      const store = await initializeStore();
 
-    it('removes the note from the notebook list', () => {
-      const action = createAction();
-      const { notebookId, noteId } = action.payload;
-      const withNotebook = {
-        [notebookId]: {
-          title: '',
-          contents: [{ type: EntityType.Note, id: noteId }],
-        },
-      };
+      const { id } = await store.dispatch(
+        actions.createNote({ notebook: NOTEBOOK_ROOT })
+      );
 
-      const state = reducer(withNotebook, action);
+      await store.dispatch(
+        actions.deleteNote({ noteId: id, notebookId: NOTEBOOK_ROOT })
+      );
 
-      expect(state[notebookId].contents).toEqual([]);
+      expect(store.getState().notebooks[NOTEBOOK_ROOT].contents).toEqual([]);
     });
   });
 });

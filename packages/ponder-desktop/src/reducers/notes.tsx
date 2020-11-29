@@ -9,11 +9,11 @@ export default createReducer(notes, (handleAction) => [
     state[id] = { title, sections: [] };
   }),
 
-  handleAction(actions.renameNote, (state, { id, title }) => {
+  handleAction.optimistic(actions.renameNote, (state, { id, title }) => {
     state[id].title = title;
   }),
 
-  handleAction(actions.openRootNotebook, (state, entries: any) => {
+  handleAction(actions.openRootNotebook, (state, entries) => {
     const notes = entries.filter(
       (entry: Note | Notebook) => entry.type === EntityType.Note
     );
@@ -26,11 +26,11 @@ export default createReducer(notes, (handleAction) => [
     });
   }),
 
-  handleAction(actions.editNote, (state, { id, sections }: any) => {
+  handleAction(actions.editNote, (state, { id, sections }) => {
     state[id].sections = sections.map((section: Section) => section.id);
   }),
 
-  handleAction(actions.deleteNote, (state, { noteId }) => {
+  handleAction.optimistic(actions.deleteNote, (state, { noteId }) => {
     delete state[noteId];
   }),
 ]);

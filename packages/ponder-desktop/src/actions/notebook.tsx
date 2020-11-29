@@ -1,88 +1,35 @@
-import * as sdk from '@ponder/sdk';
 import { createAction } from 'retreon';
-import { v4 as uuid } from 'uuid';
+
+import * as effects from '../effects/notebook';
 
 export const openRootNotebook = createAction.async(
   'notebook/open-root-notebook',
-  () => sdk.readNotebook(sdk.NOTEBOOK_ROOT)
+  effects.openRootNotebook
 );
 
-export const createNote = createAction(
+export const createNote = createAction.async(
   'notebook/create-note',
-  ({ notebook }: { notebook: string }) => {
-    const id = uuid();
-    const title = '';
-    const section: sdk.Section = {
-      type: sdk.SectionType.RichText,
-      content: '',
-      id: uuid(),
-    };
-
-    // TODO: add support for richer action dispatching. This action is
-    // optimistic only, which requires dropping the promise reference.
-    (async () => {
-      await sdk.createNote({
-        title,
-        notebook,
-        id,
-      });
-
-      await sdk.insertSection(id, 0, section);
-    })();
-
-    return {
-      title,
-      notebook,
-      id,
-      sections: [section],
-    };
-  }
+  effects.createNote
 );
 
-export const renameNote = createAction(
+export const renameNote = createAction.async(
   'notebook/rename-note',
-  (update: { id: string; title: string }) => {
-    // Optimistic only. Drop the promise.
-    sdk.renameNote(update);
-
-    return update;
-  }
+  effects.renameNote
 );
 
-// TODO: Migrate to createAction.async
-export const editNote = createAction(
+export const editNote = createAction.async(
   'notebook/edit-note',
-  async (id: string) => {
-    const { sections } = await sdk.readNote(id);
-
-    return { id, sections };
-  }
+  effects.editNote
 );
 
-export const closeNote = createAction('notebook/close-note', () => undefined);
+export const closeNote = createAction('notebook/close-note');
 
-// TODO: Migrate to createAction.async
-export const updateNoteSection = createAction(
+export const updateNoteSection = createAction.async(
   'notebook/update-section',
-  async (config: { noteId: string; sectionIndex: number; content: string }) => {
-    await sdk.updateSection(
-      config.noteId,
-      config.sectionIndex,
-      (section: sdk.Section) => {
-        section.content = config.content;
-      }
-    );
-
-    return config;
-  }
+  effects.updateNoteSection
 );
 
-export const deleteNote = createAction(
+export const deleteNote = createAction.async(
   'notebook/delete-note',
-  (vars: { noteId: string; notebookId: string }) => {
-    // Optimistic only. Drop the promise.
-    sdk.deleteNote(vars);
-
-    return vars;
-  }
+  effects.deleteNote
 );

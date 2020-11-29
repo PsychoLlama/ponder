@@ -1,66 +1,70 @@
-import { SectionType } from '@ponder/sdk';
+import { SectionType, EntityType, NOTEBOOK_ROOT } from '@ponder/sdk';
+import { v4 as uuid } from 'uuid';
 
-import reducer from '../sections';
-import { sections as initialState } from '../state';
 import * as actions from '../../actions/notebook';
+import initializeStore from '../../utils/redux-store';
+import * as mockedEffects from '../../effects/notebook';
+
+jest.mock('../../effects/notebook');
+
+const effects = mockedEffects as jest.Mocked<typeof mockedEffects>;
 
 describe('Sections reducer', () => {
-  it('returns state for unknown actions', () => {
-    const state = reducer(undefined, { type: '@@init' });
-
-    expect(state).toBe(initialState);
+  beforeEach(() => {
+    effects.openRootNotebook.mockResolvedValue([]);
+    effects.createNote.mockImplementation(async () => ({
+      id: uuid(),
+      title: 'Untitled',
+      sections: [],
+      notebook: NOTEBOOK_ROOT,
+    }));
+    effects.editNote.mockImplementation(async (noteId) => ({
+      id: noteId,
+      sections: [],
+    }));
   });
 
   describe('editNote', () => {
-    const createAction = <T,>(patch?: T) => ({
-      type: String(actions.editNote),
-      payload: {
-        id: 'mock-note-id',
-        sections: [],
-        title: '',
-        ...patch,
-      },
-    });
-
-    it('adds sections', () => {
+    it('loads sections', async () => {
+      const noteId = 'mock-note-id';
       const section = {
-        id: 'mock-section-id',
+        id: 'sid',
         type: SectionType.RichText,
-        content: '# Title',
+        content: '# Loaded',
       };
 
-      const action = createAction({ sections: [section] });
-      const state = reducer(undefined, action);
+      effects.openRootNotebook.mockResolvedValue([
+        { type: EntityType.Note, id: noteId, title: 'Note #1', sections: [] },
+      ]);
 
-      const { type, content } = section;
-      expect(state).toEqual({
-        [section.id]: { type, content },
+      effects.editNote.mockImplementation(async (noteId) => ({
+        id: noteId,
+        sections: [section],
+      }));
+
+      const store = await initializeStore();
+      await store.dispatch(actions.editNote(noteId));
+
+      expect(store.getState().sections).toEqual({
+        [section.id]: { type: section.type, content: section.content },
       });
     });
   });
 
   describe('createNote', () => {
-    const createAction = <T,>(patch?: T) => ({
-      type: String(actions.createNote),
-      payload: {
-        id: 'mock-note-id',
-        title: '',
-        sections: [],
-        ...patch,
-      },
-    });
+    it('adds sections', async () => {
+      const section = { id: 'sid', type: SectionType.RichText, content: '' };
+      effects.createNote.mockImplementation(async () => ({
+        id: uuid(),
+        title: 'Untitled',
+        sections: [section],
+        notebook: NOTEBOOK_ROOT,
+      }));
 
-    it('adds sections', () => {
-      const section = {
-        id: 'mock-section-id',
-        type: SectionType.RichText,
-        content: '',
-      };
+      const store = await initializeStore();
+      await store.dispatch(actions.createNote({ notebook: NOTEBOOK_ROOT }));
 
-      const action = createAction({ sections: [section] });
-      const state = reducer(undefined, action);
-
-      expect(state).toEqual({
+      expect(store.getState().sections).toEqual({
         [section.id]: {
           type: section.type,
           content: section.content,

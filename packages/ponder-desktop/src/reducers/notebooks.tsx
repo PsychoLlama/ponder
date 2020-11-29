@@ -5,7 +5,7 @@ import * as actions from '../actions/notebook';
 import { notebooks } from './state';
 
 export default createReducer(notebooks, (handleAction) => [
-  handleAction(actions.openRootNotebook, (state, entries: any) => {
+  handleAction(actions.openRootNotebook, (state, entries) => {
     state[NOTEBOOK_ROOT] = {
       title: '',
       contents: entries.map((item: Note | Notebook) => ({
@@ -19,11 +19,14 @@ export default createReducer(notebooks, (handleAction) => [
     state[notebook].contents.push({ type: EntityType.Note, id });
   }),
 
-  handleAction(actions.deleteNote, (state, { notebookId, noteId }) => {
-    const notebook = state[notebookId];
+  handleAction.optimistic(
+    actions.deleteNote,
+    (state, { notebookId, noteId }) => {
+      const notebook = state[notebookId];
 
-    notebook.contents = notebook.contents.filter(
-      (entry) => entry.id !== noteId
-    );
-  }),
+      notebook.contents = notebook.contents.filter(
+        (entry) => entry.id !== noteId
+      );
+    }
+  ),
 ]);
