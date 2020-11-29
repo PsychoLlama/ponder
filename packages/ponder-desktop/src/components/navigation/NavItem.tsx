@@ -19,8 +19,11 @@ const Link = styled.a.attrs({ href: '#' })`
   text-decoration: none;
   cursor: default;
   user-select: none;
-  color: ${(props: { selected: boolean }) =>
-    props.selected ? colors.primary : colors.text};
+  color: ${colors.text};
+
+  &[data-selected='true'] {
+    color: ${colors.primary};
+  }
 
   :hover {
     padding-left: 32px;
@@ -57,7 +60,7 @@ export class NavItem extends React.Component<Props> {
         : translate('Untitled Notebook');
 
     return (
-      <Item onClick={this.editNote} selected={selected}>
+      <Item onClick={this.editNote} data-selected={selected}>
         {title || defaultTitle}
       </Item>
     );

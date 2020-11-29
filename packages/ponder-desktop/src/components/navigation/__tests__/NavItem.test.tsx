@@ -1,15 +1,13 @@
-import React from 'react';
-import { mount } from 'enzyme';
 import { renderer } from '@ponder/test-utils';
+import { EntityType } from '@ponder/sdk';
 
 import { selector } from '../../../utils/testing';
 import { NavItem, Note, Notebook, mapStateToProps } from '../NavItem';
-import colors from '../../../config/colors';
 
 describe('NavItem', () => {
   const setup = renderer(NavItem, {
     getDefaultProps: () => ({
-      type: 'note',
+      type: EntityType.Note,
       id: 'mock-id',
       title: 'Note title',
       editNote: jest.fn(),
@@ -18,8 +16,8 @@ describe('NavItem', () => {
   });
 
   it('renders the correct type', () => {
-    const { output: notebook } = setup({ type: 'notebook' });
-    const { output: note } = setup({ type: 'note' });
+    const { output: notebook } = setup({ type: EntityType.Notebook });
+    const { output: note } = setup({ type: EntityType.Note });
 
     expect(notebook.find(Notebook).exists()).toBe(true);
     expect(notebook.find(Note).exists()).toBe(false);
@@ -29,7 +27,7 @@ describe('NavItem', () => {
   });
 
   it('shows the title', () => {
-    const { output, props } = setup({ type: 'note' });
+    const { output, props } = setup({ type: EntityType.Note });
 
     const note = output.find(Note);
 
@@ -37,11 +35,14 @@ describe('NavItem', () => {
   });
 
   it('provides default titles', () => {
-    const { output: notebook } = setup({ type: 'notebook', title: '' });
-    const { output: note } = setup({ type: 'note', title: '' });
+    const { output: note } = setup({ type: EntityType.Note, title: '' });
+    const { output: notebook } = setup({
+      type: EntityType.Notebook,
+      title: '',
+    });
 
-    expect(notebook.text()).toMatch(/untitled notebook$/i);
     expect(note.text()).toMatch(/untitled note$/i);
+    expect(notebook.text()).toMatch(/untitled notebook$/i);
   });
 
   it('selects the note when clicked', () => {
@@ -60,37 +61,11 @@ describe('NavItem', () => {
     expect(props.editNote).not.toHaveBeenCalled();
   });
 
-  describe('Note', () => {
-    const setup = <T,>(merge?: T) => {
-      const props = {
-        selected: false,
-        ...merge,
-      };
-
-      return {
-        output: mount(<Note {...props} />),
-        props,
-      };
-    };
-
-    it('renders', () => {
-      expect(setup).not.toThrow();
-    });
-
-    it('shows a different color while selected', () => {
-      const { output: selected } = setup({ selected: true });
-      const { output: notSelected } = setup({ selected: false });
-
-      expect(selected).toHaveStyleRule('color', colors.primary);
-      expect(notSelected).toHaveStyleRule('color', colors.text);
-    });
-  });
-
   describe('mapStateToProps', () => {
     const select = selector(mapStateToProps, {
       defaultProps: {
         id: 'mock-id',
-        type: 'note',
+        type: EntityType.Note,
       },
     });
 
@@ -109,7 +84,7 @@ describe('NavItem', () => {
         (state) => {
           state.notebooks['mock-id'] = { title, contents: [] };
         },
-        { type: 'notebook' }
+        { type: EntityType.Notebook }
       );
 
       expect(props.title).toBe(title);
@@ -122,7 +97,7 @@ describe('NavItem', () => {
           state.notes[noteId] = { title: '', sections: [] };
           state.navigation.note = noteId;
         },
-        { type: 'note', id: noteId }
+        { type: EntityType.Note, id: noteId }
       );
 
       expect(props.selected).toBe(true);
