@@ -4,10 +4,12 @@ _A notes app for programmers_
 ---
 
 ## Project Status
-:warning: Experimental
+:no_entry: UNMAINTAINED
 
-I have a habit of creating and immediately abandoning side projects. Time will
-tell if this one sticks.
+It was fun. I learned a lot about building Electron apps, but after migrating
+to plain markdown files for notes, I just lost interest.
+
+---
 
 ## Mission
 Provide a feature-rich notes app that syncs peer-to-peer between all your devices.
